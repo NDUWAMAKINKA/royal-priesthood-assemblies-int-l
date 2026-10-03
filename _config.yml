@@ -1,0 +1,5 @@
+theme: jekyll-theme-minimal
+title: ROYAL PRIESTHOOD ASSEMBLIES INTERNATIONAL
+description: Bookmark this to keep an eye on our project updates!
+exclude:
+	- .vscode
