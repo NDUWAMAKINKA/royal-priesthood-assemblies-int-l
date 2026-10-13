@@ -1,0 +1,23 @@
+Rename map: old filename -> new filename
+Generated during the site cleanup. To reverse, swap each pair back and
+replace the new name with the old one in every html/css file.
+
+FINAL LOGO.png  ->  logo-rpai.png
+WhatsApp Image 2026-09-27 at 16.32.29.jpeg  ->  hero-church.jpeg
+WhatsApp Image 2026-09-27 at 16.38.13.jpeg  ->  pastor-preaching.jpeg
+WhatsApp Image 2026-09-27 at 18.03.42.jpeg  ->  apostle-mighty-zunga.jpeg
+WhatsApp Image 2026-10-02 at 06.42.38.jpeg  ->  congregation-worship.jpeg
+WhatsApp Image 2026-10-02 at 06.42.39.jpeg  ->  worshipper-raised-hands.jpeg
+WhatsApp Image 2026-10-02 at 06.42.40.jpeg  ->  cross-mountain-sunset.jpeg
+WhatsApp Image 2026-10-02 at 06.42.41.jpeg  ->  volunteers-community-meal.jpeg
+XXXXXXXXXXXXXXXXXXX.jpg  ->  rpai-congregation.jpg
+ZZZZZZZZZZ.jpg  ->  prayer-hands-outdoors.jpg
+ZZZZZZZZZZZL53212.jpg  ->  open-bible-contact.jpg
+ZZZZZZZZZZZZXXXXVVV.jpg  ->  worshippers-hands-crosses.jpg
+ZZZZZZZZZZZZZZXXXXXXXXXXXXXXXXXXXZZZZZZZZZZZZZZZZZZ.jpg  ->  rpai-congregation-worship.jpg
+ZZZZZZZZZZZZZZZNNM22.jpg  ->  candle-pastors-message.jpg
+ZZZZZZZZZZZZZZZZ111.jpg  ->  cross-ministry-2026.jpg
+ZZZZZZZZZZZZZZZZZ44444444444.jpg  ->  live-service-camera.jpg
+ZZZZZZZZZZZZZZZZZXXXXXXX.jpg  ->  supporting-in-prayer.jpg
+ZZZZZZZZZZZZZZZZZZZZZ68689798099999999.jpg  ->  open-bible-colossians.jpg
+ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ.jpg  ->  open-bible-wooden-stand.jpg

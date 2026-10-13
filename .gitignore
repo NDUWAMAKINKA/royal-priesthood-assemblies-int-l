@@ -1,0 +1,27 @@
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Operating system clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor and temporary files
+*.tmp
+*.bak
+*.orig
+*.swp
+~$*
+
+# Saved copies of external pages and their assets
+Facebook.html
+Facebook_files/
+
+# Node backend for the giving API
+server/node_modules/
+server/.env
+server/package-lock.json

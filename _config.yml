@@ -1,0 +1,10 @@
+theme: jekyll-theme-minimal
+title: ROYAL PRIESTHOOD ASSEMBLIES INTERNATIONAL
+description: A place of love where everyone counts. Royal Priesthood Assemblies International, Lusaka, Zambia.
+exclude:
+  - .vscode
+  - server
+  - .venv
+  - check_html.py
+  - README.md
+  - SITEMAP.md
