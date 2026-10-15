@@ -54,5 +54,12 @@
     "marker": "daily",
     "command": "daily",
     "before": "<p>The full trhksvdjdvsisvdjd</p>"
+  },
+  {
+    "at": "2026-10-15T21:49:27.013Z",
+    "file": "daily-devotional.html",
+    "marker": "daily",
+    "command": "daily",
+    "before": "<p>God has not forgotten you. His mercies are new every morning.</p>"
   }
 ]
