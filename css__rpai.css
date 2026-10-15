@@ -785,6 +785,15 @@ h6 {
   height: 2.75rem;
 }
 
+.rpai-audio-download {
+  display: inline-block;
+  margin-top: 0.55rem;
+  color: #1c4479;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
 .rpai-audio-intro {
   margin: 0;
   color: #59636e;
