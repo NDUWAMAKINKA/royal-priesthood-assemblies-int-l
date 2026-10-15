@@ -5,5 +5,12 @@
     "marker": "daily",
     "command": "daily",
     "before": "<p>God has not forgotten you. His mercies are new every morning.</p>"
+  },
+  {
+    "at": "2026-10-15T14:42:40.240Z",
+    "file": "daily-devotional.html",
+    "marker": "devotional",
+    "command": "devotion",
+    "before": "<p>cool to love.</p>"
   }
 ]
