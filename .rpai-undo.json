@@ -19,5 +19,12 @@
     "marker": "podcast",
     "command": "podcast",
     "before": "<p>A short message from Apostle Dr. Mighty Zunga for your morning.</p>"
+  },
+  {
+    "at": "2026-10-15T15:27:40.269Z",
+    "file": "daily-devotional.html",
+    "marker": "podcast",
+    "command": "podcast",
+    "before": "<p>FIRST CLOUD TEST - safe to ignore</p>"
   }
 ]
