@@ -868,27 +868,34 @@ h6 {
 }
 
 /* --- Message card ----------------------------------------------------------
-   A place for a short message the church writes, with the Apostle's name
-   beneath it in the script font already used for signatures. Used twice: the
-   daily message on the announcements page, and today's podcast in the Listen
-   section. Both carry the same markers so the admin bot can fill them in. */
-.rpai-message-card {
-  width: min(100%, 34rem);
-  margin: 0 auto 2rem;
-  padding: 1.6rem 1.75rem 1.4rem;
+   One big box on the devotional page holding the daily message and today's
+   podcast, each with the Apostle's name beneath it in the script font already
+   used for signatures. Both areas carry markers, so the admin bot can fill
+   them in from the phone. */
+.rpai-daily-box {
+  width: min(100%, 44rem);
+  margin: 0 auto 2.75rem;
+  padding: 2rem 2.25rem;
   background: #fffdf7;
   border: 1px solid var(--rpai-line);
-  border-top: 3px solid var(--rpai-gold);
-  border-radius: 4px;
-  box-shadow: 0 20px 45px -30px rgba(11, 34, 64, 0.5);
+  border-top: 4px solid var(--rpai-gold);
+  border-radius: 6px;
+  box-shadow: 0 26px 55px -32px rgba(11, 34, 64, 0.55);
   text-align: center;
+}
+
+/* The daily message and today's podcast, stacked inside the one box. */
+.rpai-daily-block + .rpai-daily-block {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rpai-line);
 }
 
 .rpai-message-label {
   display: block;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.7rem;
   color: var(--rpai-gold-label);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -897,12 +904,12 @@ h6 {
 .rpai-message-text {
   margin: 0;
   color: var(--rpai-ink);
-  font-size: 1.12rem;
-  line-height: 1.75;
+  font-size: 1.15rem;
+  line-height: 1.8;
 }
 
 .rpai-message-text p {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.8rem;
 }
 
 .rpai-message-text p:last-child {
@@ -911,10 +918,10 @@ h6 {
 
 /* The Apostle's name, in the same script face used for signatures. */
 .rpai-message-signature {
-  margin: 1.1rem 0 0;
+  margin: 1.2rem 0 0;
   color: var(--rpai-ink);
   font-family: 'Allura', 'Segoe Script', cursive;
-  font-size: 2.1rem;
+  font-size: 2.4rem;
   font-style: italic;
   font-weight: 600;
   line-height: 1.2;
@@ -923,25 +930,36 @@ h6 {
 /* The gold rule that sits between the message and the name. */
 .rpai-message-signature::before {
   display: block;
-  width: 3rem;
+  width: 3.5rem;
   height: 1px;
-  margin: 0 auto 0.9rem;
+  margin: 0 auto 0.95rem;
   background: var(--rpai-gold);
   content: '';
 }
 
+/* The Rhapsody block below the box, so the page reads in order. */
+.rpai-rhapsody-block {
+  margin-top: 0.5rem;
+}
+
 /* On a small screen the script gets out of proportion quickly. */
 @media (max-width: 30rem) {
-  .rpai-message-card {
-    padding: 1.3rem 1.15rem 1.2rem;
+  .rpai-daily-box {
+    padding: 1.4rem 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .rpai-daily-block + .rpai-daily-block {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
   }
 
   .rpai-message-text {
-    font-size: 1.02rem;
+    font-size: 1.03rem;
   }
 
   .rpai-message-signature {
-    font-size: 1.75rem;
+    font-size: 1.85rem;
   }
 }
 
@@ -950,13 +968,59 @@ h6 {
    no frame at all. It is now a card with the same gold top rule, heading and
    shadow used elsewhere, plus a fallback link because Facebook embeds are
    often blocked for visitors who are not signed in. */
+/* --- Facebook box ----------------------------------------------------------
+   Facebook shows its posts only to people signed in to Facebook. For everyone
+   else the Page Plugin renders an empty box, which looked like a broken website.
+   So the button is the main thing on show: it works for every visitor. The live
+   feed is kept underneath for anyone who is signed in. */
+.rpai-facebook-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--rpai-line);
+}
+
+.rpai-facebook-action {
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--rpai-line);
+  text-align: center;
+}
+
+.rpai-facebook-button {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  color: #fff;
+  background: #1877F2;
+  border: 1px solid #0f5bb5;
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rpai-facebook-button:hover,
+.rpai-facebook-button:focus-visible {
+  color: #fff;
+  background: #0f5bb5;
+}
+
+.rpai-facebook-note {
+  max-width: 26rem;
+  margin: 0.8rem auto 0;
+  color: var(--rpai-ink);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  opacity: 0.72;
+}
+
 .rpai-announcement-feed {
   display: flex;
   flex-direction: column;
   width: min(100%, 34rem);
-  /* Header, feed and fallback together fit one screen, so the page never
-     scrolls just to reach the box. Only the feed itself scrolls. */
-  max-height: min(90vh, 46rem);
+  /* The button and note are the part every visitor sees, so the feed below is
+     given whatever room is left rather than reserving 46rem for a box that
+     stays empty. */
+  max-height: min(90vh, 52rem);
   margin: 0 auto;
   overflow: hidden;
   background: #fff;
