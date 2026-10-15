@@ -96,9 +96,11 @@
 					speed: 700,
 					loop: false,
 					rewind: true,
-					/* The gallery is a slideshow and stays one. loop:false with
-					   rewind:true means it returns to the first page and carries on
-					   rather than stalling on the last one. */
+					/* The slideshow must never simply stop. With loop off,
+					   autoplay halts on the last page and the pictures sit still
+					   for ever. wrapAtEnd() puts it back to the first page once it
+					   reaches the end, so it keeps running. */
+					preventInteractionOnWrap: false,
 					autoplay: !prefersReducedMotion,
 					autoplayTimeout: 4000,
 					/* Hover must NOT stop the slideshow. The gallery spans the page,
@@ -119,7 +121,25 @@
 				};
 			};
 
+			/* tiny-slider stops its autoplay on the last page when loop is off,
+			   so the photographs simply sat still until someone touched a button.
+			   This sends it back to the first page once it gets there, which keeps
+			   the slideshow running without changing how the buttons behave. */
+			var wrapAtEnd = function (slider) {
+				var info = slider.getInfo();
+				var lastPage = info.slideCount - info.items;
+				if (lastPage <= 0) return;
+				slider.on('change', function (value) {
+					if (value >= lastPage) {
+						setTimeout(function () {
+							if (typeof slider.goTo === 'function') slider.goTo(0);
+						}, 120);
+					}
+				});
+			};
+
 			var gallerySlider = tns(galleryOptions());
+			wrapAtEnd(gallerySlider);
 
 			var galleryControls = document.querySelector('.rpai-gallery-controls');
 			var previousButton = galleryControls.querySelector('[data-gallery-prev]');
