@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="css__glightbox.min.css">
 	<link rel="stylesheet" href="css__aos.css">
 	<link rel="stylesheet" href="css__style.css">
-	<link rel="stylesheet" href="css__rpai.css?v=46">
+	<link rel="stylesheet" href="css__rpai.css?v=59">
 
 	<title>ROYAL PRIESTHOOD ASSEMBLIES INTERNATIONAL</title>
 </head>
@@ -29,10 +29,10 @@
 
 	<!-- This is the mobile menu. It appears on small screens when the site is being viewed on a phone. -->
 	<!-- It helps people open the menu and move around the website without crowding the page. -->
-	<div class="site-mobile-menu site-navbar-target">
+	<div id="site-mobile-menu" class="site-mobile-menu site-navbar-target">
 		<div class="site-mobile-menu-header">
 			<div class="site-mobile-menu-close">
-				<span class="icofont-close js-menu-toggle"></span>
+				<span class="icofont-close js-menu-toggle" role="button" tabindex="0" aria-label="Close menu"></span>
 			</div>
 		</div>
 		<div class="site-mobile-menu-body"></div>
@@ -47,7 +47,7 @@
 					<div class="logo m-0 float-left">
 						<img src="logo-rpai.png" alt="ROYAL PRIESTHOOD ASSEMBLIES INTERNATIONAL logo" class="site-logo">
 						<span class="visually-hidden">ROYAL PRIESTHOOD ASSEMBLIES INTERNATIONAL</span>
-						<span class="rpai-logo-tagline">Come and worship with us this Sunday</span>
+						<span class="rpai-logo-tagline">A place of love where everyone counts.</span>
 
 					</div>
 
@@ -64,7 +64,7 @@
 
 					</ul>
 
-					<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" aria-label="Open menu">
+					<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" aria-label="Open menu" aria-expanded="false" aria-controls="site-mobile-menu">
 						<span></span>
 					</a>
 
@@ -84,6 +84,10 @@
 						</div>
 						<div class="col-lg-5" data-aos="fade-up" data-aos-delay="150">
 							<aside class="rpai-service-schedule" aria-label="Weekly service schedule">
+					<!-- rpai:notice:start -->
+<p>Tested through the Worker.</p>
+<!-- rpai:notice:end -->
+
 								<span class="subheading">Join us this week</span>
 								<div class="rpai-service-item">
 									<h2>Sunday Divine Service</h2>
@@ -306,9 +310,9 @@
 	<script src="js__tiny-slider.js"></script>
 	<script src="js__glightbox.min.js"></script>
 	<script src="js__aos.js"></script>
-	<script src="js__navbar.js"></script>
+	<script src="js__navbar.js?v=2"></script>
 	<script src="js__counter.js"></script>
-	<script src="js__custom.js"></script>
+	<script src="js__custom.js?v=59"></script><script src="js__rpai.js?v=59"></script>
 
 </body>
 </html>

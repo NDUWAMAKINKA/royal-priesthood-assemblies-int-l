@@ -24,4 +24,24 @@ Facebook_files/
 # Node backend for the giving API
 server/node_modules/
 server/.env
+server/.env.example
 server/package-lock.json
+
+# Admin bot: local state and secrets never belong in the repository
+.rpai-changes.json
+.rpai-backup-*
+*.before-markers
+
+# The admin bot runs on the church computer, not on the website. Keeping
+# the folder out also keeps its .env with the GitHub token, its 53MB
+# cloudflared binary and its undo history out of a public repository.
+admin-bot/
+
+# editor settings and recovery copies, not part of the website
+.vscode/
+
+# screen recordings and videos are not website content
+*.mp4
+
+# a screenshot taken while setting up, not website content
+WhatsApp Image 2026-10-15 at 00.07.47.jpeg

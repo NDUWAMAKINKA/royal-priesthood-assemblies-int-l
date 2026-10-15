@@ -47,7 +47,6 @@
 		var propertySlider = document.querySelectorAll('.property-slider');
 		var imgPropertySlider = document.querySelectorAll('.img-property-slide');
 		var testimonialCenter = document.querySelectorAll('.testimonial-center');
-		var mediaGallery = document.querySelectorAll('.rpai-media-gallery');
 		
 
 		if ( heroSlider.length > 0 ) {
@@ -77,46 +76,115 @@
 			});
 		}
 
+		var mediaGallery = document.querySelectorAll('.rpai-media-gallery');
+
 		if ( mediaGallery.length > 0 ) {
-			/* Show smaller images in groups of three or four on wider screens. */
-			var gallerySlider = tns({
-				container: '.rpai-media-gallery',
-				mode: 'carousel',
-				items: 3,
-				slideBy: 'page',
-				gutter: 24,
-				speed: 700,
-				loop: false,
-				rewind: true,
-				autoplay: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-				autoplayTimeout: 2000,
-				autoplayHoverPause: true,
-				autoplayButtonOutput: false,
-				controls: false,
-				nav: false,
-				responsive: {
-					0: { items: 1 },
-					576: { items: 2 },
-					768: { items: 3 },
-					1200: { items: 4 }
-				}
-			});
+			/* Anyone who has asked their system to reduce motion gets a still
+			   gallery. Everyone else gets the slideshow, always running. */
+			var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			/* Options are held in a function so the slider can be rebuilt after it
+			   has been destroyed. Showing every photo tears the carousel down; going
+			   back to the slideshow builds it again. */
+			var galleryOptions = function () {
+				return {
+					container: '.rpai-media-gallery',
+					mode: 'carousel',
+					items: 4,
+					slideBy: 'page',
+					gutter: 24,
+					speed: 700,
+					loop: false,
+					rewind: true,
+					/* The gallery is a slideshow and stays one. loop:false with
+					   rewind:true means it returns to the first page and carries on
+					   rather than stalling on the last one. */
+					autoplay: !prefersReducedMotion,
+					autoplayTimeout: 4000,
+					autoplayHoverPause: true,
+					autoplayButtonOutput: false,
+					controls: false,
+					nav: false,
+					responsive: {
+						0: { items: 1 },
+						576: { items: 2 },
+						768: { items: 3 },
+						1200: { items: 4 }
+					}
+				};
+			};
+
+			var gallerySlider = tns(galleryOptions());
+
 			var galleryControls = document.querySelector('.rpai-gallery-controls');
 			var previousButton = galleryControls.querySelector('[data-gallery-prev]');
 			var nextButton = galleryControls.querySelector('[data-gallery-next]');
 			var toggleButton = galleryControls.querySelector('[data-gallery-toggle]');
-			var slideshowPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var viewButton = galleryControls.querySelector('[data-gallery-view]');
+			var optOutButton = document.querySelector('[data-gallery-optout]');
+			var carousel = document.querySelector('.rpai-gallery-carousel');
+			var slideshowPlaying = !prefersReducedMotion;
 
 			previousButton.addEventListener('click', function () { gallerySlider.goTo('prev'); });
 			nextButton.addEventListener('click', function () { gallerySlider.goTo('next'); });
-			toggleButton.textContent = slideshowPaused ? 'Play slideshow' : 'Pause slideshow';
-			toggleButton.setAttribute('aria-pressed', String(slideshowPaused));
+
+			/* The button pauses a running slideshow, so it starts as "Pause". */
+			toggleButton.textContent = slideshowPlaying ? 'Pause slideshow' : 'Play slideshow';
+			toggleButton.setAttribute('aria-pressed', String(slideshowPlaying));
 			toggleButton.addEventListener('click', function () {
-				slideshowPaused = !slideshowPaused;
-				if (slideshowPaused) gallerySlider.pause();
-				else gallerySlider.play();
-				toggleButton.textContent = slideshowPaused ? 'Play slideshow' : 'Pause slideshow';
-				toggleButton.setAttribute('aria-pressed', String(slideshowPaused));
+				slideshowPlaying = !slideshowPlaying;
+				if (slideshowPlaying) gallerySlider.play(); else gallerySlider.pause();
+				toggleButton.textContent = slideshowPlaying ? 'Pause slideshow' : 'Play slideshow';
+				toggleButton.setAttribute('aria-pressed', String(slideshowPlaying));
+			});
+
+			var showAllPictures = function (showingAll) {
+				/* Tiny Slider's destroy() replaces the container node, so any reference
+				   held across it is detached. Re-query the container each time. */
+				if (showingAll) {
+					/* Stop the movement but keep the visitor's play/pause choice, so
+					   returning to the slideshow carries on as they left it. */
+					gallerySlider.pause();
+					gallerySlider.destroy();
+					document.querySelector('.rpai-media-gallery').classList.add('rpai-all-pictures');
+				} else {
+					document.querySelector('.rpai-media-gallery').classList.remove('rpai-all-pictures');
+					gallerySlider = tns(galleryOptions());
+					if (slideshowPlaying) gallerySlider.play();
+					/* New container node: tell the page scripts to re-attach anything
+					   they had bound to the old one. */
+					document.dispatchEvent(new CustomEvent('rpai:gallery-rebuilt'));
+				}
+
+				/* Marks the carousel as showing every photo, which is what reveals
+				   the opt-out bar. */
+				carousel.classList.toggle('rpai-showing-all', showingAll);
+
+				/* The grid is far taller than the carousel was, so the visitor's
+				   scroll position can leave the exit just off screen. Bring it
+				   back into view the moment they ask to see everything. */
+				if (showingAll) optOutButton.scrollIntoView({ block: 'center' });
+
+				/* While every photo is on the page the slide buttons have nothing to
+				   act on, so they are dimmed and taken out of the tab order. */
+				[previousButton, nextButton, toggleButton].forEach(function (button) {
+					button.disabled = showingAll;
+				});
+
+				viewButton.textContent = showingAll ? 'Show slideshow' : 'Show all pictures';
+				viewButton.setAttribute('aria-pressed', String(showingAll));
+			};
+
+			viewButton.addEventListener('click', function () {
+				showAllPictures(!document.querySelector('.rpai-media-gallery')
+					.classList.contains('rpai-all-pictures'));
+			});
+
+			/* The way out of the all-pictures view: at the top of the grid and
+			   still on screen further down, so nobody has to scroll back up. */
+			optOutButton.addEventListener('click', function () {
+				showAllPictures(false);
+				viewButton.focus();
 			});
 		}
 

@@ -44,11 +44,11 @@ These appear in the header menu **and** the mobile menu on **all 9 pages**.
 | 1 | Home | `index.html` | Front page. Hero welcome, Sunday service times, live-stream link, why-us values, CTA. The only page a visitor must see. |
 | 2 | About | `about.html` | Who the church is, the founder, mission and vision, values. Builds trust for first-time visitors. |
 | 3 | Ministries | `ministry.html` | The ministry/fellowship directory (Royal Men, Virtuous Women, NextGen Youth, Home Cells). Answers "where do I fit in?". |
-| 4 | Gallery | `gallery.html` | Photos, video, worship audio and songs. Proves the church is real and active. |
+| 4 | Gallery | `gallery.html` | Photos, video, worship audio and songs. Proves the church is real and active. A **slideshow that is always running** (Pause / Play / Previous / Next). **Show all pictures** lays every photo out at once; a **Back to slideshow** button sits above the grid and sticks to the top of the screen so the way out is always in reach. No photo count is shown. |
 | 5 | Daily Devotional | `daily-devotional.html` | Daily faith reading. Brings people back daily — the main repeat-visit driver. |
 | 6 | Announcements | `announcements.html` | Live Facebook page feed. Keeps visitors current without the church editing the site. |
 | 7 | Branches & Transport | `branches-transport.html` | Branch/home-cell locations, Sunday transport, directions. Practical info people ask for most. |
-| 8 | Give | `give.html` | Giving details and how to partner financially. |
+| 8 | Give | `give.html` | Hero heading "Give". Giving details and how to partner financially. Payment details are a placeholder — no live account numbers are published. |
 | 9 | Contact | `contact.html` | Prayer request form, "I'm New Here" card, map, address, phone, email. |
 
 ---

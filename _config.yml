@@ -4,6 +4,7 @@ description: A place of love where everyone counts. Royal Priesthood Assemblies 
 exclude:
   - .vscode
   - server
+  - admin-bot
   - .venv
   - check_html.py
   - README.md

@@ -601,10 +601,6 @@ h6 {
   font-weight: 600;
 }
 
-.rpai-give-spacer {
-  min-height: min(100svh, 55rem);
-}
-
 .rpai-media-nav {
   display: flex;
   flex-wrap: wrap;
@@ -731,7 +727,8 @@ h6 {
   margin-top: 1.25rem;
 }
 
-.rpai-gallery-controls button {
+.rpai-gallery-controls button,
+.rpai-gallery-optout button {
   min-height: 2.75rem;
   padding: 0.5rem 1rem;
   color: var(--rpai-ink);
@@ -744,13 +741,115 @@ h6 {
   line-height: 1;
 }
 
-.rpai-gallery-controls button:hover {
+.rpai-gallery-controls button:hover,
+.rpai-gallery-optout button:hover {
   background: var(--rpai-gold-bright);
 }
 
-.rpai-gallery-controls button:focus-visible {
+.rpai-gallery-controls button:focus-visible,
+.rpai-gallery-optout button:focus-visible {
   outline: 3px solid var(--rpai-ink);
   outline-offset: 3px;
+}
+
+/* The all-pictures view needs a way out that is impossible to miss. The bar sits
+   above the grid and sticks to the top of the screen, so the exit stays in
+   reach however far down the photographs a visitor has scrolled. It is hidden
+   entirely while the slideshow is running. */
+/* --- Audio players -------------------------------------------------------
+   Recordings sent by the church land in the gallery audio section. */
+.rpai-audio-item {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rpai-line);
+}
+
+.rpai-audio-item:first-of-type {
+  margin-top: 1.75rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.rpai-audio-item h3 {
+  margin: 0 0 0.5rem;
+  color: var(--rpai-ink);
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.rpai-audio-player {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: 2.75rem;
+}
+
+.rpai-audio-intro {
+  margin: 0;
+  color: #59636e;
+  font-size: 0.95rem;
+}
+
+.rpai-gallery-optout {
+  display: none;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0 0 1rem;
+  padding: 0.85rem 0 1.4rem;
+  background: linear-gradient(180deg, #fff 70%, rgba(255, 255, 255, 0) 100%);
+  text-align: center;
+}
+
+.rpai-gallery-carousel.rpai-showing-all .rpai-gallery-optout {
+  display: block;
+}
+
+/* "Show all pictures" swaps the carousel for a grid that lays out every
+   photograph at once. The class is added and removed by the toggle button;
+   Tiny Slider is destroyed and rebuilt alongside it. */
+.rpai-media-gallery.rpai-all-pictures {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: 0.9rem;
+}
+
+.rpai-media-gallery.rpai-all-pictures .rpai-media-card {
+  overflow: hidden;
+  border: 1px solid var(--rpai-line);
+  border-radius: 4px;
+}
+
+.rpai-media-gallery.rpai-all-pictures .rpai-media-card img {
+  aspect-ratio: 4 / 3;
+}
+
+/* The slide buttons do nothing while every photo is showing, so they are dimmed
+   rather than left looking active. */
+.rpai-gallery-controls button[disabled] {
+  color: #8d949c;
+  background: #e7e4db;
+  border-color: #d4cfbf;
+  cursor: not-allowed;
+}
+
+.rpai-gallery-controls button[disabled]:hover {
+  background: #e7e4db;
+}
+
+@media (min-width: 768px) {
+  .rpai-media-gallery.rpai-all-pictures {
+    gap: 1.1rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .rpai-media-gallery.rpai-all-pictures {
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    gap: 0.6rem;
+  }
 }
 
 .rpai-home-message {
@@ -774,7 +873,12 @@ h6 {
    shadow used elsewhere, plus a fallback link because Facebook embeds are
    often blocked for visitors who are not signed in. */
 .rpai-announcement-feed {
+  display: flex;
+  flex-direction: column;
   width: min(100%, 34rem);
+  /* Header, feed and fallback together fit one screen, so the page never
+     scrolls just to reach the box. Only the feed itself scrolls. */
+  max-height: min(90vh, 46rem);
   margin: 0 auto;
   overflow: hidden;
   background: #fff;
@@ -785,10 +889,11 @@ h6 {
 }
 
 .rpai-announcement-head {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  padding: 1.1rem 1.5rem;
+  padding: 0.9rem 1.5rem;
   border-bottom: 1px solid var(--rpai-line);
 }
 
@@ -819,6 +924,8 @@ h6 {
 }
 
 .rpai-announcement-frame {
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 0.75rem;
   background: #f7f8f8;
 }
@@ -826,15 +933,18 @@ h6 {
 .rpai-facebook-embed {
   display: block;
   width: 100%;
-  min-height: clamp(26rem, 62vh, 42rem);
+  /* Sized to the viewport rather than a fixed tall box: the card fits on one
+     screen and the feed scrolls inside it, instead of the page scrolling too. */
+  height: clamp(17rem, 46vh, 28rem);
   background: #fff;
   border: 0;
   border-radius: 3px;
 }
 
 .rpai-announcement-fallback {
+  flex: 0 0 auto;
   margin: 0;
-  padding: 1rem 1.5rem 1.25rem;
+  padding: 0.8rem 1.5rem 1rem;
   border-top: 1px solid var(--rpai-line);
   color: #39434f;
   font-size: 0.9rem;
@@ -1078,11 +1188,6 @@ iframe {
   padding: 29rem 0 4rem;
 }
 
-.rpai-home-hero.rpai-give-spacer {
-  min-height: 29rem;
-  padding: 0;
-}
-
 .rpai-home-hero > .container,
 .hero.page-inner > .container {
   width: 100%;
@@ -1285,11 +1390,6 @@ iframe {
     min-height: min(100svh, 55rem);
     padding-top: 22rem;
     padding-bottom: 3rem;
-  }
-
-  .rpai-home-hero.rpai-give-spacer {
-    min-height: 19.25rem;
-    padding: 0;
   }
 
   .rpai-home-hero > .container > .row {
