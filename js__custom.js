@@ -126,16 +126,25 @@
 			   This sends it back to the first page once it gets there, which keeps
 			   the slideshow running without changing how the buttons behave. */
 			var wrapAtEnd = function (slider) {
-				var info = slider.getInfo();
-				var lastPage = info.slideCount - info.items;
-				if (lastPage <= 0) return;
-				slider.on('change', function (value) {
-					if (value >= lastPage) {
+				if (!slider || typeof slider.getInfo !== 'function') return;
+				if (typeof slider.goTo !== 'function') return;
+				var returning = false;
+				var check = function () {
+					if (returning) return;
+					var info = slider.getInfo();
+					if (!info || !info.slideCount) return;
+					var lastPage = info.slideCount - info.items;
+					if (lastPage <= 0) return;
+					if (info.index >= lastPage) {
+						returning = true;
 						setTimeout(function () {
-							if (typeof slider.goTo === 'function') slider.goTo(0);
-						}, 120);
+							try { slider.goTo(0); } catch (err) { /* nothing to do */ }
+							returning = false;
+						}, 150);
 					}
-				});
+				};
+				check();
+				window.setInterval(check, 400);
 			};
 
 			var gallerySlider = tns(galleryOptions());
