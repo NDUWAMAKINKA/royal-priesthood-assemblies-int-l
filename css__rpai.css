@@ -937,9 +937,33 @@ h6 {
   content: '';
 }
 
-/* The Rhapsody block below the box, so the page reads in order. */
+/* The Rhapsody block below the box, so the page reads in order. The heading
+   and button stay centred, but the devotional is a long piece of reading, so it
+   gets a narrower left-aligned column of its own. Centring a long paragraph
+   across the full width is what made it look scattered. */
 .rpai-rhapsody-block {
   margin-top: 0.5rem;
+}
+
+.rpai-rhapsody-intro {
+  text-align: center;
+}
+
+.rpai-devotional {
+  width: min(100%, 42rem);
+  margin: 2rem auto 0;
+  text-align: left;
+}
+
+.rpai-devotional p {
+  margin-bottom: 1rem;
+  color: var(--rpai-ink);
+  font-size: 1.06rem;
+  line-height: 1.8;
+}
+
+.rpai-devotional p:last-child {
+  margin-bottom: 0;
 }
 
 /* On a small screen the script gets out of proportion quickly. */
@@ -960,6 +984,77 @@ h6 {
 
   .rpai-message-signature {
     font-size: 1.85rem;
+  }
+}
+
+/* --- Latest photos box -----------------------------------------------------
+   Photographs sent from the pastor's phone go here and nowhere else, so they
+   never build up inside the main slideshow. The box holds the ten newest; when
+   an eleventh arrives the oldest is dropped, so it always shows the most
+   recent photographs without growing without end. */
+.rpai-latest {
+  width: min(100%, 64rem);
+  margin: 0 auto 2.5rem;
+  padding: 1.25rem 1.4rem 1.4rem;
+  background: #fffdf7;
+  border: 1px solid var(--rpai-line);
+  border-top: 3px solid var(--rpai-gold);
+  border-radius: 6px;
+  box-shadow: 0 22px 48px -34px rgba(11, 34, 64, 0.5);
+}
+
+.rpai-latest-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.rpai-latest-head .rpai-message-label {
+  margin-bottom: 0;
+}
+
+.rpai-latest-note {
+  color: var(--rpai-ink);
+  font-size: 0.85rem;
+  opacity: 0.65;
+}
+
+.rpai-latest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 0.75rem;
+}
+
+.rpai-latest-grid figure {
+  margin: 0;
+}
+
+.rpai-latest-grid img {
+  width: 100%;
+  height: 9rem;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--rpai-line);
+}
+
+.rpai-latest-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--rpai-ink);
+  font-size: 0.95rem;
+  opacity: 0.6;
+}
+
+@media (max-width: 30rem) {
+  .rpai-latest {
+    padding: 1rem 0.9rem 1.1rem;
+  }
+
+  .rpai-latest-grid img {
+    height: 6.5rem;
   }
 }
 
