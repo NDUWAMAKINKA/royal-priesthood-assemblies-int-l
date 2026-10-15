@@ -101,7 +101,12 @@
 					   rather than stalling on the last one. */
 					autoplay: !prefersReducedMotion,
 					autoplayTimeout: 4000,
-					autoplayHoverPause: true,
+					/* Hover must NOT stop the slideshow. The gallery spans the page,
+					   so with autoplayHoverPause on, simply resting a cursor near it
+					   froze the pictures and it looked broken. Anyone who wants to
+					   study a photo still has the Pause slideshow button, which is a
+					   deliberate choice rather than an accident of pointer position. */
+					autoplayHoverPause: false,
 					autoplayButtonOutput: false,
 					controls: false,
 					nav: false,
