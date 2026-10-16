@@ -2132,3 +2132,98 @@ body {
 .overlay .subheading {
   color: var(--rpai-gold);
 }
+
+/* --- Giving form -------------------------------------------------------
+    A short form a person can fill in on their own phone. Large touch
+    targets, clear labels, and a reply that can be read at arm's length. */
+.rpai-give-wrap {
+  max-width: 34rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rpai-give-form {
+  background: #f7f9fc;
+  border: 1px solid var(--rpai-line, #dde4ec);
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+
+.rpai-give-field { margin-bottom: 1.1rem; }
+
+.rpai-give-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--rpai-ink, #0b2240);
+}
+
+.rpai-give-field input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  min-height: 3.25rem;
+  font-size: 1.05rem;
+  border: 1px solid #b9c6d6;
+  border-radius: 10px;
+  background: #fff;
+  color: #0b2240;
+}
+
+.rpai-give-field input:focus {
+  outline: 3px solid #d4af37;
+  outline-offset: 1px;
+  border-color: #d4af37;
+}
+
+.rpai-give-help {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: #59636e;
+}
+
+.rpai-optional { font-weight: 400; color: #59636e; }
+
+#give-submit {
+  width: 100%;
+  min-height: 3.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: 0;
+  border-radius: 10px;
+  background: #d4af37;
+  color: #0b2240;
+  cursor: pointer;
+}
+
+#give-submit:disabled { opacity: 0.6; }
+
+.rpai-give-note {
+  margin: 1rem 0 0;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  background: #122f56;
+  color: #fff;
+  font-size: 0.98rem;
+  display: none;
+}
+
+.rpai-give-note.on { display: block; }
+.rpai-give-note.ok { background: #123f2c; border-left: 4px solid #35c48c; }
+.rpai-give-note.err { background: #5a1d1d; border-left: 4px solid #e26d6d; }
+.rpai-give-note.busy { background: #122f56; border-left: 4px solid #d4af37; }
+
+.rpai-give-offline {
+  background: #fffdf5;
+  border: 1px solid #e0b341;
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+
+.rpai-give-offline h3 { margin-top: 0; }
+
+.rpai-give-safe {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: #59636e;
+  text-align: center;
+}
