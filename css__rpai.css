@@ -2227,3 +2227,40 @@ body {
   color: #59636e;
   text-align: center;
 }
+
+.rpai-give-account {
+  background: #f2f8f4;
+  border: 1px solid #35c48c;
+  border-radius: 14px;
+  padding: 1.5rem;
+}
+
+.rpai-give-account h3 { margin-top: 0; }
+
+.rpai-give-where { margin-bottom: 0.25rem; }
+
+.rpai-give-number {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0 0 1rem;
+  color: #0b2240;
+  word-break: break-all;
+}
+
+.rpai-give-details { margin: 0 0 1rem; }
+.rpai-give-details div { display: flex; gap: 0.5rem; padding: 0.2rem 0; }
+.rpai-give-details dt { font-weight: 600; min-width: 8rem; margin: 0; }
+.rpai-give-details dd { margin: 0; word-break: break-word; }
+
+.rpai-give-again {
+  margin-top: 1rem;
+  background: transparent;
+  border: 1px solid #35c48c;
+  color: #1c4479;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 3rem;
+}
