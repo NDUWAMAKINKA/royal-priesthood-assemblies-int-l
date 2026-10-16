@@ -59,21 +59,12 @@
 					<div class="rpai-section-intro mb-4">
 						<span class="subheading mb-4 d-block">Give from your phone</span>
 						<h2 class="heading">Give in a minute</h2>
-						<p>Enter your mobile number and the amount. A payment prompt
-						   arrives on your phone, and you follow it there. Your money only
-						   moves when you confirm it yourself.</p>
+						<p>Enter how much you wish to give. We will then show you a private
+						   account number for exactly that amount. You pay to it from your
+						   mobile money or your bank in the usual way.</p>
 					</div>
 
 					<form class="rpai-give-form" id="give-form" novalidate>
-						<div class="rpai-give-field">
-							<label for="give-phone">Mobile number</label>
-							<input id="give-phone" name="phone" type="tel" inputmode="tel"
-							       autocomplete="tel" placeholder="0971 234 567"
-							       aria-describedby="give-phone-help" required>
-							<p class="rpai-give-help" id="give-phone-help">
-								The number you use on mobile money.</p>
-						</div>
-
 						<div class="rpai-give-field">
 							<label for="give-amount">Amount in kwacha</label>
 							<input id="give-amount" name="amount" type="text" inputmode="decimal"
@@ -85,11 +76,32 @@
 							<label for="give-name">Your name <span class="rpai-optional">(optional)</span></label>
 							<input id="give-name" name="name" type="text" autocomplete="name"
 							       placeholder="Optional">
+							<p class="rpai-give-help">Shown on the account so you can be certain
+							   you are giving to the right church.</p>
 						</div>
 
-						<button type="submit" id="give-submit">Send the prompt to my phone</button>
+						<button type="submit" id="give-submit">Show me where to pay</button>
 						<p class="rpai-give-note" id="give-note" role="status"></p>
 					</form>
+
+					<div class="rpai-give-account" id="give-account" hidden>
+						<h3>Pay ZMW <span id="give-amount-out"></span></h3>
+						<p class="rpai-give-where">Pay to this account:</p>
+						<p class="rpai-give-number" id="give-number"></p>
+						<dl class="rpai-give-details">
+							<div><dt>Bank</dt><dd id="give-bank"></dd></div>
+							<div><dt>Account name</dt><dd id="give-name-out"></dd></div>
+							<div><dt>Reference</dt><dd id="give-reference"></dd></div>
+						</dl>
+						<p class="rpai-give-help">
+							Pay this exact amount from your mobile money or bank app. If you send
+							a different amount it is turned away, so you cannot give the wrong
+							amount by mistake.
+						</p>
+						<p class="rpai-give-note ok" id="give-after"></p>
+						<button type="button" class="rpai-give-again" id="give-again">
+							Give a different amount</button>
+					</div>
 
 					<div class="rpai-give-offline" id="give-offline" hidden>
 						<h3>Online giving is being connected</h3>
@@ -141,7 +153,7 @@
 				<p class="mt-4">For verified giving details, <a href="mailto:royalpriesthoodassembliesintl@gmail.com">email the church</a> or <a href="tel:+260767716936">call +260 767 716 936</a>.</p>
 			</div>
 		</section>
-	</main>
+</main>
 
 	<footer class="site-footer bg-white">
 		<div class="container">
@@ -175,33 +187,23 @@
 	</footer>
 	<div id="overlayer"></div><div class="loader"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>
 	<script src="js__bootstrap.bundle.min.js"></script><script src="js__tiny-slider.js"></script><script src="js__glightbox.min.js"></script><script src="js__aos.js"></script><script src="js__navbar.js?v=2"></script><script src="js__counter.js"></script><script src="js__custom.js?v=59"></script><script src="js__rpai.js?v=59"></script>
-
 <script>
-/* Giving: the person types their number and the amount, and a payment prompt
-   is sent to their phone. Nothing is kept, and the form is only offered once
-   the payment service is connected. */
+/* Giving: the person types an amount, and a private account for exactly that
+   amount is shown for them to pay into. Nothing about the person is kept, and
+   the form is only offered once the payment service is connected. */
 (function () {
+  var SERVING = 'https://young-sun-4e57rpai-church.makinkanduwa.workers.dev';
   var form = document.getElementById('give-form');
   var note = document.getElementById('give-note');
+  var account = document.getElementById('give-account');
   var offline = document.getElementById('give-offline');
   var button = document.getElementById('give-submit');
+  var again = document.getElementById('give-again');
   if (!form) return;
-
-  var SERVING = 'https://young-sun-4e57rpai-church.makinkanduwa.workers.dev';
 
   function say(text, kind) {
     note.textContent = text;
     note.className = 'rpai-give-note on' + (kind ? ' ' + kind : '');
-  }
-
-  /* The number is checked here as well as on the server, so an obvious
-     mistake is caught before anything is sent. */
-  function tidy(raw) {
-    var digits = String(raw || '').replace(/[\s()-]/g, '');
-    if (digits.charAt(0) === '+') digits = digits.slice(1);
-    if (digits.indexOf('260') === 0) digits = digits.slice(3);
-    else if (digits.charAt(0) === '0') digits = digits.slice(1);
-    return digits;
   }
 
   fetch(SERVING + '/health')
@@ -216,34 +218,50 @@
       offline.hidden = false;
     });
 
+  again.addEventListener('click', function () {
+    account.hidden = true;
+    form.hidden = false;
+    note.textContent = '';
+  });
+
   form.addEventListener('submit', function (event) {
     event.preventDefault();
-    var phone = tidy(document.getElementById('give-phone').value);
-    var amount = document.getElementById('give-amount').value;
+    var raw = document.getElementById('give-amount').value;
     var name = document.getElementById('give-name').value.trim();
+    var value = Number(String(raw).replace(/[,\s]/g, ''));
 
-    if (!/^9\d{8}$/.test(phone)) {
-      say('Please enter a Zambian mobile number, for example 0971 234 567.', 'err');
-      return;
-    }
-    var value = Number(String(amount).replace(/[,\s]/g, ''));
     if (!(value >= 1)) {
       say('Please enter an amount of at least 1 kwacha.', 'err');
       return;
     }
 
     button.disabled = true;
-    say('Sending the prompt to your phone...', 'busy');
+    say('Setting up your account...', 'busy');
 
     fetch(SERVING + '/give/request', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone: phone, amount: value, name: name })
+      body: JSON.stringify({ amount: value, name: name })
     })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        say(data.reply || 'Something went wrong. Please try again.', data.ok ? 'ok' : 'err');
-        if (data.ok) form.reset();
+        if (!data.ok || !data.giving) {
+          say(data.reply || 'Something went wrong. Please try again.', 'err');
+          return;
+        }
+        document.getElementById('give-amount-out').textContent =
+          Number(data.giving.amount).toLocaleString('en-US', {
+            minimumFractionDigits: 2
+          });
+        document.getElementById('give-number').textContent = data.giving.accountNumber;
+        document.getElementById('give-bank').textContent = data.giving.bankName || '-';
+        document.getElementById('give-name-out').textContent = data.giving.accountName || '-';
+        document.getElementById('give-reference').textContent = data.giving.reference;
+        document.getElementById('give-after').textContent =
+          'When you have paid, the church is told automatically. Thank you.';
+        note.textContent = '';
+        form.hidden = true;
+        account.hidden = false;
       })
       .catch(function () {
         say('The request did not get through. Check your signal and try again.', 'err');
