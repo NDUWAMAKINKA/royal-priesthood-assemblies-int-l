@@ -72,13 +72,6 @@
 							<p class="rpai-give-help">For example 500, or 1000.</p>
 						</div>
 
-						<div class="rpai-give-field">
-							<label for="give-name">Your name <span class="rpai-optional">(optional)</span></label>
-							<input id="give-name" name="name" type="text" autocomplete="name"
-							       placeholder="Optional">
-							<p class="rpai-give-help">Shown on the account so you can be certain
-							   you are giving to the right church.</p>
-						</div>
 
 						<button type="submit" id="give-submit">Show me where to pay</button>
 						<p class="rpai-give-note" id="give-note" role="status"></p>
@@ -227,7 +220,6 @@
   form.addEventListener('submit', function (event) {
     event.preventDefault();
     var raw = document.getElementById('give-amount').value;
-    var name = document.getElementById('give-name').value.trim();
     var value = Number(String(raw).replace(/[,\s]/g, ''));
 
     if (!(value >= 1)) {
@@ -241,7 +233,7 @@
     fetch(SERVING + '/give/request', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: value, name: name })
+      body: JSON.stringify({ amount: value })
     })
       .then(function (r) { return r.json(); })
       .then(function (data) {
