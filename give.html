@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="css__glightbox.min.css">
 	<link rel="stylesheet" href="css__aos.css">
 	<link rel="stylesheet" href="css__style.css">
-	<link rel="stylesheet" href="css__rpai.css?v=61">
+	<link rel="stylesheet" href="css__rpai.css?v=62">
 	<title>Give | Royal Priesthood Assemblies International</title>
 </head>
 <body>
@@ -55,7 +55,61 @@
 
 		<section class="section bg-white pt-0">
 			<div class="container">
-				<div class="rpai-section-intro mb-5"><span class="subheading mb-4 d-block">Ways to give</span><h2 class="heading">Giving details</h2><p>We are preparing verified payment details. Please check back soon or contact the church before making a transfer.</p></div>
+				<div class="rpai-give-wrap">
+					<div class="rpai-section-intro mb-4">
+						<span class="subheading mb-4 d-block">Give from your phone</span>
+						<h2 class="heading">Give in a minute</h2>
+						<p>Enter your mobile number and the amount. A payment prompt
+						   arrives on your phone, and you follow it there. Your money only
+						   moves when you confirm it yourself.</p>
+					</div>
+
+					<form class="rpai-give-form" id="give-form" novalidate>
+						<div class="rpai-give-field">
+							<label for="give-phone">Mobile number</label>
+							<input id="give-phone" name="phone" type="tel" inputmode="tel"
+							       autocomplete="tel" placeholder="0971 234 567"
+							       aria-describedby="give-phone-help" required>
+							<p class="rpai-give-help" id="give-phone-help">
+								The number you use on mobile money.</p>
+						</div>
+
+						<div class="rpai-give-field">
+							<label for="give-amount">Amount in kwacha</label>
+							<input id="give-amount" name="amount" type="text" inputmode="decimal"
+							       autocomplete="off" placeholder="500" required>
+							<p class="rpai-give-help">For example 500, or 1000.</p>
+						</div>
+
+						<div class="rpai-give-field">
+							<label for="give-name">Your name <span class="rpai-optional">(optional)</span></label>
+							<input id="give-name" name="name" type="text" autocomplete="name"
+							       placeholder="Optional">
+						</div>
+
+						<button type="submit" id="give-submit">Send the prompt to my phone</button>
+						<p class="rpai-give-note" id="give-note" role="status"></p>
+					</form>
+
+					<div class="rpai-give-offline" id="give-offline" hidden>
+						<h3>Online giving is being connected</h3>
+						<p>Giving through this page is being set up and is not taking money
+						   just now. Nothing is lost by trying another time.</p>
+						<p>To give now, please <a href="tel:+260767716936">call +260 767 716 936</a>
+						   or <a href="mailto:royalpriesthoodassembliesintl@gmail.com">email the church</a>.</p>
+					</div>
+
+					<p class="rpai-give-safe">
+						We never ask for your card number, your banking password or your
+						mobile money PIN. If anyone does, it is not us.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section bg-white pt-0">
+			<div class="container">
+				<div class="rpai-section-intro mb-5"><span class="subheading mb-4 d-block">Ways to give</span><h2 class="heading">Giving details</h2><p>Give by mobile money or by bank transfer.</p></div>
 				<h3 class="heading mb-4">Mobile Money</h3>
 				<div class="rpai-payment-grid mb-5">
 					<div class="rpai-payment-placeholder rpai-payment-logo-card">
@@ -63,7 +117,7 @@
 						<p class="rpai-pending">Number to be confirmed</p>
 					</div>
 					<div class="rpai-payment-placeholder rpai-payment-logo-card">
-						<img class="rpai-payment-logo rpai-payment-logo-mtn" src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN Mobile Money">
+						<img class="rpai-payment-logo rpai-payment-logo-mtn" src="icon-mtn.svg?v=1" alt="MTN Mobile Money">
 						<p class="rpai-pending">Number to be confirmed</p>
 					</div>
 				</div>
@@ -121,5 +175,82 @@
 	</footer>
 	<div id="overlayer"></div><div class="loader"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>
 	<script src="js__bootstrap.bundle.min.js"></script><script src="js__tiny-slider.js"></script><script src="js__glightbox.min.js"></script><script src="js__aos.js"></script><script src="js__navbar.js?v=2"></script><script src="js__counter.js"></script><script src="js__custom.js?v=59"></script><script src="js__rpai.js?v=59"></script>
+
+<script>
+/* Giving: the person types their number and the amount, and a payment prompt
+   is sent to their phone. Nothing is kept, and the form is only offered once
+   the payment service is connected. */
+(function () {
+  var form = document.getElementById('give-form');
+  var note = document.getElementById('give-note');
+  var offline = document.getElementById('give-offline');
+  var button = document.getElementById('give-submit');
+  if (!form) return;
+
+  var SERVING = 'https://young-sun-4e57rpai-church.makinkanduwa.workers.dev';
+
+  function say(text, kind) {
+    note.textContent = text;
+    note.className = 'rpai-give-note on' + (kind ? ' ' + kind : '');
+  }
+
+  /* The number is checked here as well as on the server, so an obvious
+     mistake is caught before anything is sent. */
+  function tidy(raw) {
+    var digits = String(raw || '').replace(/[\s()-]/g, '');
+    if (digits.charAt(0) === '+') digits = digits.slice(1);
+    if (digits.indexOf('260') === 0) digits = digits.slice(3);
+    else if (digits.charAt(0) === '0') digits = digits.slice(1);
+    return digits;
+  }
+
+  fetch(SERVING + '/health')
+    .then(function (r) { return r.json(); })
+    .then(function (h) {
+      if (h.givingReady) return;
+      form.hidden = true;
+      offline.hidden = false;
+    })
+    .catch(function () {
+      form.hidden = true;
+      offline.hidden = false;
+    });
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var phone = tidy(document.getElementById('give-phone').value);
+    var amount = document.getElementById('give-amount').value;
+    var name = document.getElementById('give-name').value.trim();
+
+    if (!/^9\d{8}$/.test(phone)) {
+      say('Please enter a Zambian mobile number, for example 0971 234 567.', 'err');
+      return;
+    }
+    var value = Number(String(amount).replace(/[,\s]/g, ''));
+    if (!(value >= 1)) {
+      say('Please enter an amount of at least 1 kwacha.', 'err');
+      return;
+    }
+
+    button.disabled = true;
+    say('Sending the prompt to your phone...', 'busy');
+
+    fetch(SERVING + '/give/request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: phone, amount: value, name: name })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        say(data.reply || 'Something went wrong. Please try again.', data.ok ? 'ok' : 'err');
+        if (data.ok) form.reset();
+      })
+      .catch(function () {
+        say('The request did not get through. Check your signal and try again.', 'err');
+      })
+      .then(function () { button.disabled = false; });
+  });
+})();
+</script>
 </body>
 </html>
