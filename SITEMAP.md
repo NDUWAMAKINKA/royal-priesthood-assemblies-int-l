@@ -39,6 +39,13 @@ every page can be reached from every other page.
 
 These appear in the header menu **and** the mobile menu on **all 9 pages**.
 
+Every page also carries the same language switcher: the five major Zambian
+languages (Bemba, Nyanja, Tonga, Lozi, Tumbuka) and seven world languages
+(English, French, German, Italian, Portuguese, Russian, Spanish). The choice is
+remembered in the browser and translates the navigation plus the giving page
+prompts and buttons. Church names, bank names and account names are never
+translated.
+
 | # | Link | Page | What it is for |
 |---|------|------|----------------|
 | 1 | Home | `index.html` | Front page. Hero welcome, Sunday service times, live-stream link, why-us values, CTA. The only page a visitor must see. |
@@ -48,7 +55,7 @@ These appear in the header menu **and** the mobile menu on **all 9 pages**.
 | 5 | Daily Devotional | `daily-devotional.html` | Daily faith reading. Brings people back daily — the main repeat-visit driver. |
 | 6 | Announcements | `announcements.html` | Live Facebook page feed. Keeps visitors current without the church editing the site. |
 | 7 | Branches & Transport | `branches-transport.html` | Branch/home-cell locations, Sunday transport, directions. Practical info people ask for most. |
-| 8 | Give | `give.html` | Hero heading "Give". Giving details and how to partner financially. Payment details are a placeholder — no live account numbers are published. |
+| 8 | Give | `give.html` | Hero heading "Give". Zambian giving details: cards for Zanaco, Stanbic, Absa, FNB and Standard Chartered (account name, number and centre), plus PayPal as the only international gateway. Mobile-money and card-typing options have been removed. |
 | 9 | Contact | `contact.html` | Prayer request form, "I'm New Here" card, map, address, phone, email. |
 
 ---
@@ -138,22 +145,26 @@ These do not exist yet. Each is listed with why it is worth adding.
 | Canonical URLs (`<link rel="canonical">`) | Prevents duplicate-content confusion in search results. |
 | Open Graph tags | Without these, sharing the site on Facebook/WhatsApp shows no preview image or description. Important for a church shared heavily on WhatsApp. |
 | Real audio in `#audio` | The gallery advertises worship audio but the section is empty. |
-| Giving payment details | **Not published yet.** The Give page intentionally shows "Number to be confirmed" and "To be confirmed" rather than live account details. The payment backend is built in `server/` and can be wired up when the church is ready. |
+| Giving account numbers | **Not published yet.** The Give page lists the five Zambian banks and PayPal, but each bank card shows "To be confirmed" for the account number until the church office supplies verified details. Never guess or invent an account number. |
 
 ### Giving page (current state)
 
-The Give page deliberately publishes **no live account details**. Mobile money
-and bank cards show "Number to be confirmed" and "To be confirmed", and the
-page points people to email or phone the church for verified details.
+The Give page is fully localised to Zambia. It lists five bank cards — Zanaco,
+Stanbic, Absa, FNB and Standard Chartered — each showing the account name
+(**Dunamis International Gospel Centre**), the church centre and the account
+number. Account numbers stay as "To be confirmed" until the church office
+supplies verified details. PayPal is the only international gateway, and there
+are no mobile-money, card-typing or USSD options.
 
-A payment backend already exists in `server/` (Node + Express, Paystack Charge
-API with webhook confirmation and a bank-transfer fallback module). It is not
-connected to the page, and the Paystack secret key lives only in the server
-environment, never in HTML.
+The old Node + Express payment backend in `server/` is **not connected** to the
+page and is no longer used by it. It should be retired or reviewed separately
+before anything is deployed; its secrets remain server-side only.
 
-**Never publish the Paystack secret key** (`sk_test_` / `sk_live_`) in this
-site. Only the public key (`pk_`) or a hosted payment link may appear in a page.
-| Consistent phone numbers | Resolved. The site uses one number only: **+260 767 716 936** (also used for WhatsApp). |
+**Never publish payment secrets** (for example a Paystack `sk_test_` / `sk_live_`
+key) in this site. Only a hosted payment link may appear in a page.
+
+**Consistent phone numbers:** resolved. The site uses one number only:
+**+260 767 716 936** (also used for WhatsApp).
 
 ---
 

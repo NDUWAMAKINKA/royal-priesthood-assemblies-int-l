@@ -466,26 +466,9 @@ h6 {
   text-align: center;
 }
 
-.rpai-payment-logo {
-  display: block;
-  width: min(100%, 15rem);
-  height: 6rem;
-  object-fit: contain;
-}
 
-.rpai-payment-logo-airtel {
-  width: min(100%, 14rem);
-}
 
-.rpai-payment-logo-mtn {
-  width: 6rem;
-  height: 6rem;
-}
 
-.rpai-payment-logo-visa {
-  width: min(100%, 10rem);
-  height: 4rem;
-}
 
 .rpai-payment-placeholder h2,
 .rpai-payment-placeholder h3 {
@@ -2263,4 +2246,298 @@ body {
   font-weight: 600;
   cursor: pointer;
   min-height: 3rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Language switcher
+   Sits in the header on every page. The pill is light so it stays legible on
+   the photographic hero; the menu is a plain white panel with the same gold
+   accent used by the giving cards.
+   --------------------------------------------------------------------------- */
+.rpai-lang-switcher {
+  position: absolute;
+  top: 0.75rem;
+  left: 0;
+  z-index: 7;
+  color: var(--rpai-ink);
+  font-family: 'Inter', sans-serif;
+}
+
+.rpai-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--rpai-line);
+  border-radius: 999px;
+  color: var(--rpai-ink);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 2px 10px rgba(11, 34, 64, 0.12);
+  cursor: pointer;
+}
+
+.rpai-lang-toggle:hover,
+.rpai-lang-toggle:focus-visible {
+  border-color: var(--rpai-gold-edge);
+  outline: 2px solid transparent;
+}
+
+.rpai-lang-toggle:focus-visible {
+  outline-color: var(--rpai-gold);
+  outline-offset: 2px;
+}
+
+.rpai-lang-globe {
+  display: inline-flex;
+}
+
+.rpai-lang-globe svg {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+}
+
+.rpai-lang-current {
+  max-width: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rpai-lang-chevron {
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-top: -0.2rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.rpai-lang-switcher.is-open .rpai-lang-chevron {
+  margin-top: 0.15rem;
+  transform: rotate(-135deg);
+}
+
+.rpai-lang-menu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  z-index: 20;
+  width: max-content;
+  min-width: 13rem;
+  max-height: min(70vh, 26rem);
+  padding: 0.4rem;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--rpai-line);
+  border-top: 3px solid var(--rpai-gold);
+  box-shadow: 0 14px 34px rgba(11, 34, 64, 0.18);
+}
+
+.rpai-lang-menu[hidden] {
+  display: none;
+}
+
+.rpai-lang-group {
+  margin: 0.55rem 0.6rem 0.25rem;
+  color: var(--rpai-gold-label);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rpai-lang-menu button {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  background: none;
+  border: 0;
+  border-radius: 0.25rem;
+  color: var(--rpai-ink);
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rpai-lang-menu button:hover,
+.rpai-lang-menu button:focus-visible {
+  background: var(--rpai-paper);
+  outline: none;
+}
+
+.rpai-lang-menu button:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--rpai-gold);
+}
+
+.rpai-lang-menu button[aria-selected='true'] {
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--rpai-gold-label);
+  font-weight: 700;
+}
+
+@media (max-width: 991.98px) {
+  .rpai-lang-switcher {
+    top: auto;
+    bottom: 0.15rem;
+  }
+
+  /* The header is short on tablets and phones, so a menu anchored to the
+     trigger would open off-screen. Pin it to the viewport and cap its height
+     instead; it remains scrollable when every language does not fit. */
+  .rpai-lang-menu {
+    position: fixed;
+    top: 4.75rem;
+    right: auto;
+    bottom: auto;
+    left: 0.75rem;
+    width: min(20rem, calc(100vw - 1.5rem));
+    max-height: calc(100vh - 6rem);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .rpai-lang-toggle {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  .rpai-lang-current {
+    max-width: 4.6rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Giving: Zambian bank cards + international PayPal gateway
+   Same white card, hairline border and gold top edge as every other card on
+   the site, so the giving page keeps the established visual language.
+   --------------------------------------------------------------------------- */
+.rpai-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+  gap: 1.5rem;
+  margin: 0 0 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+.rpai-bank-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid var(--rpai-line);
+  border-top: 3px solid var(--rpai-gold);
+}
+
+.rpai-bank-logo {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+  margin-bottom: 1rem;
+}
+
+.rpai-bank-logo svg {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 2.5rem;
+}
+
+.rpai-bank-name {
+  margin: 0 0 0.2rem;
+  color: var(--rpai-ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.rpai-bank-full-name {
+  margin: 0 0 1rem;
+  color: #59636e;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.rpai-bank-details {
+  display: grid;
+  gap: 0;
+  margin: auto 0 0;
+}
+
+.rpai-bank-details div {
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rpai-line);
+}
+
+.rpai-bank-details dt {
+  color: var(--rpai-gold-label);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.rpai-bank-details dd {
+  margin: 0.2rem 0 0;
+  color: var(--rpai-ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.rpai-bank-details dd.rpai-bank-pending {
+  color: #59636e;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.rpai-paypal-panel {
+  max-width: 34rem;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border: 1px solid var(--rpai-line);
+  border-top: 3px solid var(--rpai-gold);
+  text-align: center;
+}
+
+.rpai-paypal-word {
+  display: block;
+  margin-bottom: 1.1rem;
+  color: #003087;
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.rpai-paypal-word span {
+  color: #009cde;
+}
+
+.rpai-paypal-panel p {
+  max-width: 28rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (max-width: 575.98px) {
+  .rpai-bank-grid {
+    grid-template-columns: 1fr;
+  }
 }

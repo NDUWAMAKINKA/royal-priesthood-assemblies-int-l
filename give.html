@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="css__glightbox.min.css">
 	<link rel="stylesheet" href="css__aos.css">
 	<link rel="stylesheet" href="css__style.css">
-	<link rel="stylesheet" href="css__rpai.css?v=62">
+	<link rel="stylesheet" href="css__rpai.css?v=63">
 	<title>Give | Royal Priesthood Assemblies International</title>
 </head>
 <body>
@@ -29,15 +29,38 @@
 					<li><a href="ministry.html">Ministries</a></li><li>
 						<a href="gallery.html">Gallery</a></li><li><a href="daily-devotional.html">Daily Devotional</a></li><li><a href="announcements.html">Announcements</a></li><li><a href="branches-transport.html">Branches &amp; Transport</a></li><li class="active"><a href="give.html" aria-current="page">Give</a></li><li><a href="contact.html">Contact</a></li>
 				</ul>
-				<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" aria-label="Open menu" aria-expanded="false" aria-controls="site-mobile-menu"><span></span></a>
+								<div class="rpai-lang-switcher" data-rpai-lang-switcher>
+					<button type="button" class="rpai-lang-toggle" data-rpai-lang-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="rpai-lang-menu" aria-label="Select language">
+						<span class="rpai-lang-globe" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg></span>
+						<span class="rpai-lang-current" data-rpai-lang-current>English</span>
+						<span class="rpai-lang-chevron" aria-hidden="true"></span>
+					</button>
+					<div class="rpai-lang-menu" id="rpai-lang-menu" data-rpai-lang-menu role="listbox" aria-label="Select language" hidden>
+						<p class="rpai-lang-group" role="presentation" data-i18n="lang.zambian">Zambian languages</p>
+						<button type="button" role="option" data-lang="bem" aria-selected="false">Bemba</button>
+						<button type="button" role="option" data-lang="nya" aria-selected="false">Nyanja</button>
+						<button type="button" role="option" data-lang="toi" aria-selected="false">Tonga</button>
+						<button type="button" role="option" data-lang="loz" aria-selected="false">Lozi</button>
+						<button type="button" role="option" data-lang="tum" aria-selected="false">Tumbuka</button>
+						<p class="rpai-lang-group" role="presentation" data-i18n="lang.world">World languages</p>
+						<button type="button" role="option" data-lang="en" aria-selected="true">English</button>
+						<button type="button" role="option" data-lang="fr" aria-selected="false">Français</button>
+						<button type="button" role="option" data-lang="de" aria-selected="false">Deutsch</button>
+						<button type="button" role="option" data-lang="it" aria-selected="false">Italiano</button>
+						<button type="button" role="option" data-lang="pt" aria-selected="false">Português</button>
+						<button type="button" role="option" data-lang="ru" aria-selected="false">Русский</button>
+						<button type="button" role="option" data-lang="es" aria-selected="false">Español</button>
+					</div>
+				</div>
+<a href="#" class="burger ms-auto float-end site-menu-toggle js-menu-toggle d-inline-block d-lg-none light" aria-label="Open menu" aria-expanded="false" aria-controls="site-mobile-menu"><span></span></a>
 			</div></div>
 		</nav>
 
 			<header class="hero overlay rpai-home-hero">
 				<div class="container"><div class="row align-items-center"><div class="col-lg-8 intro-text" data-aos="fade-up">
-					<span class="subheading">Partner with us</span>
-					<h1 class="hero-heading">Give</h1>
-					<p>Your giving supports local outreach, building expansion, and the spread of the Gospel across Zambia.</p>
+					<span class="subheading" data-i18n="give.subheading">Partner with us</span>
+					<h1 class="hero-heading" data-i18n="give.title">Give</h1>
+					<p data-i18n="give.heroLead">Your giving supports local outreach, building expansion, and the spread of the Gospel across Zambia.</p>
 				</div></div></div>
 			</header>
 	</div>
@@ -55,98 +78,118 @@
 
 		<section class="section bg-white pt-0">
 			<div class="container">
-				<div class="rpai-give-wrap">
-					<div class="rpai-section-intro mb-4">
-						<span class="subheading mb-4 d-block">Give from your phone</span>
-						<h2 class="heading">Give in a minute</h2>
-						<p>Enter how much you wish to give. We will then show you a private
-						   account number for exactly that amount. You pay to it from your
-						   mobile money or your bank in the usual way.</p>
-					</div>
+				<div class="rpai-section-intro mb-5"><span class="subheading mb-4 d-block" data-i18n="give.ways">Ways to give</span><h2 class="heading" data-i18n="give.details">Giving details</h2><p data-i18n="give.banksLead">Give directly to any of our Zambian bank accounts. Please use your name as the reference so the church can acknowledge your gift.</p></div>
 
-					<form class="rpai-give-form" id="give-form" novalidate>
-						<div class="rpai-give-field">
-							<label for="give-amount">Amount in kwacha</label>
-							<input id="give-amount" name="amount" type="text" inputmode="decimal"
-							       autocomplete="off" placeholder="500" required>
-							<p class="rpai-give-help">For example 500, or 1000.</p>
+				<h3 class="heading mb-4" data-i18n="give.banks">Zambian banks</h3>
+
+				<!-- SECURITY: every account number below is intentionally unpublished
+				     until the church office confirms it. Replace "To be confirmed"
+				     with verified numbers only. Never invent an account number. The
+				     account name is fixed by the church's bank mandate. -->
+				<div class="rpai-bank-grid mb-5">
+					<article class="rpai-bank-card">
+						<div class="rpai-bank-logo">
+							<svg viewBox="0 0 176 48" role="img" aria-label="Zanaco logo">
+								<rect width="48" height="48" rx="9" fill="#00843d"/>
+								<path d="M14 14h20L14 34h20" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+								<text x="58" y="33" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="800" fill="#00843d" letter-spacing="0.4">zanaco</text>
+							</svg>
 						</div>
-
-
-						<button type="submit" id="give-submit">Show me where to pay</button>
-						<p class="rpai-give-note" id="give-note" role="status"></p>
-					</form>
-
-					<div class="rpai-give-account" id="give-account" hidden>
-						<h3>Pay ZMW <span id="give-amount-out"></span></h3>
-						<p class="rpai-give-where">Pay to this account:</p>
-						<p class="rpai-give-number" id="give-number"></p>
-						<dl class="rpai-give-details">
-							<div><dt>Bank</dt><dd id="give-bank"></dd></div>
-							<div><dt>Account name</dt><dd id="give-name-out"></dd></div>
-							<div><dt>Reference</dt><dd id="give-reference"></dd></div>
-						</dl>
-						<p class="rpai-give-help">
-							Pay this exact amount from your mobile money or bank app. If you send
-							a different amount it is turned away, so you cannot give the wrong
-							amount by mistake.
-						</p>
-						<p class="rpai-give-note ok" id="give-after"></p>
-						<button type="button" class="rpai-give-again" id="give-again">
-							Give a different amount</button>
-					</div>
-
-					<div class="rpai-give-offline" id="give-offline" hidden>
-						<h3>Online giving is being connected</h3>
-						<p>Giving through this page is being set up and is not taking money
-						   just now. Nothing is lost by trying another time.</p>
-						<p>To give now, please <a href="tel:+260767716936">call +260 767 716 936</a>
-						   or <a href="mailto:royalpriesthoodassembliesintl@gmail.com">email the church</a>.</p>
-					</div>
-
-					<p class="rpai-give-safe">
-						We never ask for your card number, your banking password or your
-						mobile money PIN. If anyone does, it is not us.
-					</p>
-				</div>
-			</div>
-		</section>
-
-		<section class="section bg-white pt-0">
-			<div class="container">
-				<div class="rpai-section-intro mb-5"><span class="subheading mb-4 d-block">Ways to give</span><h2 class="heading">Giving details</h2><p>Give by mobile money or by bank transfer.</p></div>
-				<h3 class="heading mb-4">Mobile Money</h3>
-				<div class="rpai-payment-grid mb-5">
-					<div class="rpai-payment-placeholder rpai-payment-logo-card">
-						<img class="rpai-payment-logo rpai-payment-logo-airtel" src="icon-airtel.svg?v=1" alt="Airtel Money">
-						<p class="rpai-pending">Number to be confirmed</p>
-					</div>
-					<div class="rpai-payment-placeholder rpai-payment-logo-card">
-						<img class="rpai-payment-logo rpai-payment-logo-mtn" src="icon-mtn.svg?v=1" alt="MTN Mobile Money">
-						<p class="rpai-pending">Number to be confirmed</p>
-					</div>
-				</div>
-				<h3 class="heading mb-4">Card and bank transfer</h3>
-				<div class="rpai-payment-grid">
-					<div class="rpai-payment-placeholder rpai-payment-logo-card">
-						<h3>Pay by Visa</h3>
-						<img class="rpai-payment-logo rpai-payment-logo-visa" src="icon-visa.svg?v=1" alt="Visa">
-						<p class="rpai-pending">Card payment details to be confirmed</p>
-					</div>
-					<div class="rpai-payment-placeholder">
-						<h3>Bank Transfer</h3>
+						<h3 class="rpai-bank-name">Zanaco</h3>
+						<p class="rpai-bank-full-name">Zambia National Commercial Bank</p>
 						<dl class="rpai-bank-details">
-							<div><dt>Bank Name</dt><dd>To be confirmed</dd></div>
-							<div><dt>Account Name</dt><dd>To be confirmed</dd></div>
-							<div><dt>Account Number</dt><dd>To be confirmed</dd></div>
-							<div><dt>SWIFT Code</dt><dd>To be confirmed</dd></div>
+							<div><dt data-i18n="label.accountNumber">Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+							<div><dt data-i18n="label.accountName">Account name</dt><dd>Dunamis International Gospel Centre</dd></div>
+							<div><dt data-i18n="label.centre">Centre</dt><dd>Lusaka Main Centre</dd></div>
 						</dl>
-					</div>
+					</article>
+
+					<article class="rpai-bank-card">
+						<div class="rpai-bank-logo">
+							<svg viewBox="0 0 210 48" role="img" aria-label="Stanbic Bank logo">
+								<rect width="48" height="48" rx="9" fill="#0033a0"/>
+								<text x="24" y="34" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="800" fill="#fff">S</text>
+								<text x="58" y="26" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#0033a0">Stanbic</text>
+								<text x="58" y="39" font-family="Inter, Arial, sans-serif" font-size="11" font-weight="600" fill="#55607a" letter-spacing="0.8">BANK ZAMBIA</text>
+							</svg>
+						</div>
+						<h3 class="rpai-bank-name">Stanbic Bank</h3>
+						<p class="rpai-bank-full-name">Stanbic Bank Zambia</p>
+						<dl class="rpai-bank-details">
+							<div><dt data-i18n="label.accountNumber">Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+							<div><dt data-i18n="label.accountName">Account name</dt><dd>Dunamis International Gospel Centre</dd></div>
+							<div><dt data-i18n="label.centre">Centre</dt><dd>Lusaka Main Centre</dd></div>
+						</dl>
+					</article>
+
+					<article class="rpai-bank-card">
+						<div class="rpai-bank-logo">
+							<svg viewBox="0 0 168 48" role="img" aria-label="Absa Bank logo">
+								<rect width="48" height="48" rx="9" fill="#dc0032"/>
+								<text x="24" y="33" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" fill="#fff" letter-spacing="-0.8">absa</text>
+								<text x="58" y="33" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" fill="#dc0032" letter-spacing="-0.4">Absa</text>
+							</svg>
+						</div>
+						<h3 class="rpai-bank-name">Absa Bank</h3>
+						<p class="rpai-bank-full-name">Absa Bank Zambia</p>
+						<dl class="rpai-bank-details">
+							<div><dt data-i18n="label.accountNumber">Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+							<div><dt data-i18n="label.accountName">Account name</dt><dd>Dunamis International Gospel Centre</dd></div>
+							<div><dt data-i18n="label.centre">Centre</dt><dd>Lusaka Main Centre</dd></div>
+						</dl>
+					</article>
+
+					<article class="rpai-bank-card">
+						<div class="rpai-bank-logo">
+							<svg viewBox="0 0 176 48" role="img" aria-label="First National Bank logo">
+								<rect width="48" height="48" rx="9" fill="#00a0af"/>
+								<path d="M0 28h48v11a9 9 0 0 1-9 9H9a9 9 0 0 1-9-9z" fill="#f7a800"/>
+								<path d="M0 18h48v10H0z" fill="#009639"/>
+								<text x="24" y="31" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#fff">FNB</text>
+								<text x="58" y="33" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="800" fill="#00534c">FNB</text>
+							</svg>
+						</div>
+						<h3 class="rpai-bank-name">First National Bank</h3>
+						<p class="rpai-bank-full-name">FNB Zambia</p>
+						<dl class="rpai-bank-details">
+							<div><dt data-i18n="label.accountNumber">Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+							<div><dt data-i18n="label.accountName">Account name</dt><dd>Dunamis International Gospel Centre</dd></div>
+							<div><dt data-i18n="label.centre">Centre</dt><dd>Lusaka Main Centre</dd></div>
+						</dl>
+					</article>
+
+					<article class="rpai-bank-card">
+						<div class="rpai-bank-logo">
+							<svg viewBox="0 0 244 48" role="img" aria-label="Standard Chartered logo">
+								<rect width="48" height="48" rx="9" fill="#047a4d"/>
+								<path d="M11 34 21 14h7L18 34z" fill="#fff"/>
+								<path d="M23 34 33 14h7L30 34z" fill="#8fd6ff"/>
+								<text x="58" y="26" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" fill="#047a4d">Standard</text>
+								<text x="58" y="40" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#0072aa">Chartered</text>
+							</svg>
+						</div>
+						<h3 class="rpai-bank-name">Standard Chartered</h3>
+						<p class="rpai-bank-full-name">Standard Chartered Zambia</p>
+						<dl class="rpai-bank-details">
+							<div><dt data-i18n="label.accountNumber">Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+							<div><dt data-i18n="label.accountName">Account name</dt><dd>Dunamis International Gospel Centre</dd></div>
+							<div><dt data-i18n="label.centre">Centre</dt><dd>Lusaka Main Centre</dd></div>
+						</dl>
+					</article>
 				</div>
-				<p class="mt-4">For verified giving details, <a href="mailto:royalpriesthoodassembliesintl@gmail.com">email the church</a> or <a href="tel:+260767716936">call +260 767 716 936</a>.</p>
+
+				<h3 class="heading mb-4" data-i18n="give.paypal">International giving</h3>
+				<div class="rpai-paypal-panel mb-4">
+					<span class="rpai-paypal-word" aria-hidden="true">Pay<span>Pal</span></span>
+					<p data-i18n="give.paypalLead">Giving from outside Zambia? Use our only international gateway, PayPal.</p>
+					<!-- Replace with the church's verified PayPal donate or PayPal.me link. -->
+					<a class="btn btn-primary mt-2" href="https://www.paypal.com/donate" target="_blank" rel="noopener noreferrer" data-i18n="give.paypalButton">Give via PayPal</a>
+				</div>
+
+				<p class="mt-4"><span data-i18n="give.help">For help with any of these details, contact the church office.</span> <a href="mailto:royalpriesthoodassembliesintl@gmail.com" data-i18n="give.email">Email the church</a> · <a href="tel:+260767716936"><span data-i18n="give.call">Call</span> +260 767 716 936</a>.</p>
 			</div>
 		</section>
-</main>
+	</main>
 
 	<footer class="site-footer bg-white">
 		<div class="container">
@@ -160,7 +203,7 @@
 				</div>
 				<div class="col-lg-4 text-lg-end">
 					<div class="widget">
-						<h3>Follow us</h3>
+						<h3 data-i18n="footer.follow">Follow us</h3>
 						<ul class="list-unstyled rpai-social-links rpai-social-links-inline">
 							<li><a href="https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/" target="_blank" rel="noopener noreferrer" aria-label="Visit Royal Priesthood Assemblies International on Facebook"><img src="icon-facebook.svg?v=1" alt="Facebook"></a></li>
 							<li><a href="https://youtube.com/@royalpriesthoodassemblies?si=ufUW7rmUB-QJT5rU" target="_blank" rel="noopener noreferrer" aria-label="Visit Royal Priesthood Assemblies International on YouTube"><img src="icon-youtube.svg?v=1" alt="YouTube"></a></li>
@@ -179,88 +222,6 @@
 		</div>
 	</footer>
 	<div id="overlayer"></div><div class="loader"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>
-	<script src="js__bootstrap.bundle.min.js"></script><script src="js__tiny-slider.js"></script><script src="js__glightbox.min.js"></script><script src="js__aos.js"></script><script src="js__navbar.js?v=2"></script><script src="js__counter.js"></script><script src="js__custom.js?v=59"></script><script src="js__rpai.js?v=59"></script>
-<script>
-/* Giving: the person types an amount, and a private account for exactly that
-   amount is shown for them to pay into. Nothing about the person is kept, and
-   the form is only offered once the payment service is connected. */
-(function () {
-  var SERVING = 'https://young-sun-4e57rpai-church.makinkanduwa.workers.dev';
-  var form = document.getElementById('give-form');
-  var note = document.getElementById('give-note');
-  var account = document.getElementById('give-account');
-  var offline = document.getElementById('give-offline');
-  var button = document.getElementById('give-submit');
-  var again = document.getElementById('give-again');
-  if (!form) return;
-
-  function say(text, kind) {
-    note.textContent = text;
-    note.className = 'rpai-give-note on' + (kind ? ' ' + kind : '');
-  }
-
-  fetch(SERVING + '/health')
-    .then(function (r) { return r.json(); })
-    .then(function (h) {
-      if (h.givingReady) return;
-      form.hidden = true;
-      offline.hidden = false;
-    })
-    .catch(function () {
-      form.hidden = true;
-      offline.hidden = false;
-    });
-
-  again.addEventListener('click', function () {
-    account.hidden = true;
-    form.hidden = false;
-    note.textContent = '';
-  });
-
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    var raw = document.getElementById('give-amount').value;
-    var value = Number(String(raw).replace(/[,\s]/g, ''));
-
-    if (!(value >= 1)) {
-      say('Please enter an amount of at least 1 kwacha.', 'err');
-      return;
-    }
-
-    button.disabled = true;
-    say('Setting up your account...', 'busy');
-
-    fetch(SERVING + '/give/request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: value })
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (!data.ok || !data.giving) {
-          say(data.reply || 'Something went wrong. Please try again.', 'err');
-          return;
-        }
-        document.getElementById('give-amount-out').textContent =
-          Number(data.giving.amount).toLocaleString('en-US', {
-            minimumFractionDigits: 2
-          });
-        document.getElementById('give-number').textContent = data.giving.accountNumber;
-        document.getElementById('give-bank').textContent = data.giving.bankName || '-';
-        document.getElementById('give-name-out').textContent = data.giving.accountName || '-';
-        document.getElementById('give-reference').textContent = data.giving.reference;
-        document.getElementById('give-after').textContent =
-          'Please pay the exact amount above. The church checks every giving by its reference and will confirm it with you.';
-        note.textContent = '';
-        form.hidden = true;
-        account.hidden = false;
-      })
-      .catch(function () {
-        say('The request did not get through. Check your signal and try again.', 'err');
-      })
-      .then(function () { button.disabled = false; });
-  });
-})();
-</script>
+	<script src="js__bootstrap.bundle.min.js"></script><script src="js__tiny-slider.js"></script><script src="js__glightbox.min.js"></script><script src="js__aos.js"></script><script src="js__navbar.js?v=2"></script><script src="js__counter.js"></script><script src="js__custom.js?v=59"></script><script src="js__rpai.js?v=59"></script><script src="js__i18n.js?v=1"></script>
 </body>
 </html>
