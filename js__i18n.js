@@ -537,34 +537,43 @@ var DICTIONARY = {
 	}
 
 	/* ---------------------------------------------------------------- Google */
-	var googleEngine = { loading: false, ready: false, failed: false, callbacks: [] };
+	var googleEngine = { loading: false, ready: false, callbacks: [], scriptRequested: false };
 
 	function loadGoogle(callback) {
 		if (googleEngine.ready) { callback(true); return; }
-		if (googleEngine.failed) { callback(false); return; }
 
 		googleEngine.callbacks.push(callback);
 		if (googleEngine.loading) return;
 		googleEngine.loading = true;
 
-		var holder = document.createElement('div');
-		holder.id = 'google_translate_element';
-		holder.className = 'notranslate';
-		holder.setAttribute('aria-hidden', 'true');
-		document.body.appendChild(holder);
+		if (!document.getElementById('google_translate_element')) {
+			var holder = document.createElement('div');
+			holder.id = 'google_translate_element';
+			holder.className = 'notranslate';
+			holder.setAttribute('aria-hidden', 'true');
+			document.body.appendChild(holder);
+		}
 
 		var settled = false;
 		function finish(ok) {
 			if (settled) return;
 			settled = true;
 			googleEngine.ready = ok;
-			googleEngine.failed = !ok;
 			googleEngine.loading = false;
 			var callbacks = googleEngine.callbacks;
 			googleEngine.callbacks = [];
 			callbacks.forEach(function (fn) {
 				try { fn(ok); } catch (err) { /* one bad caller must not stop the rest */ }
 			});
+		}
+
+		/* If the stored language is a world language, put it into the combo as
+		   soon as the widget exists, however long the network took. */
+		function applyStoredLanguage() {
+			var stored = byCode[readStored()];
+			if (stored && stored.google && stored.google !== 'en') {
+				applyGoogle(stored.google);
+			}
 		}
 
 		window.rpaiGoogleInit = function () {
@@ -575,25 +584,35 @@ var DICTIONARY = {
 					multilanguagePage: false
 				}, 'google_translate_element');
 			} catch (err) {
-				finish(false);
-				return;
+				/* Already built; fall through to the combo check below. */
 			}
+			applyStoredLanguage();
+
 			/* The combo box is built a moment after the element. */
 			var tries = 0;
 			(function wait() {
-				if (document.querySelector('.goog-te-combo')) { finish(true); return; }
-				if (++tries > 60) { finish(false); return; }
+				if (document.querySelector('.goog-te-combo')) {
+					applyStoredLanguage();
+					finish(true);
+					return;
+				}
+				if (++tries > 200) { finish(false); return; }
 				setTimeout(wait, 150);
 			})();
 		};
 
-		var script = document.createElement('script');
-		script.src = 'https://translate.google.com/translate_a/element.js?cb=rpaiGoogleInit';
-		script.async = true;
-		script.onerror = function () { finish(false); };
-		document.head.appendChild(script);
+		if (!googleEngine.scriptRequested) {
+			googleEngine.scriptRequested = true;
+			var script = document.createElement('script');
+			script.src = 'https://translate.google.com/translate_a/element.js?cb=rpaiGoogleInit';
+			script.async = true;
+			script.onerror = function () { finish(false); };
+			document.head.appendChild(script);
+		}
 
-		setTimeout(function () { if (!settled) finish(false); }, 12000);
+		/* Slow mobile networks can take a while; keep waiting instead of
+		   abandoning the page half-translated. */
+		setTimeout(function () { if (!settled) finish(false); }, 45000);
 	}
 
 	function applyGoogle(lang, tries) {
@@ -611,8 +630,8 @@ var DICTIONARY = {
 			markUntranslatable();
 			return true;
 		}
-		if (tries < 80) {
-			setTimeout(function () { applyGoogle(lang, tries + 1); }, 200);
+		if (tries < 200) {
+			setTimeout(function () { applyGoogle(lang, tries + 1); }, 250);
 		}
 		return false;
 	}
