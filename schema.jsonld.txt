@@ -1,0 +1,34 @@
+<!-- Place this JSON-LD script in the <head> section of your HTML pages -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HouseOfWorship",
+  "name": "[INSERT_CHURCH_NAME_HERE]",
+  "alternateName": "[INSERT_ALTERNATE_NAME_HERE]",
+  "description": "[INSERT_CHURCH_DESCRIPTION_HERE]",
+  "url": "[INSERT_WEBSITE_URL_HERE]",
+  "logo": "[INSERT_WEBSITE_URL_HERE]/[INSERT_LOGO_PATH_HERE]",
+  "image": "[INSERT_WEBSITE_URL_HERE]/[INSERT_HERO_IMAGE_PATH_HERE]",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "[INSERT_ADDRESS_HERE]",
+    "addressLocality": "[INSERT_CITY_HERE]",
+    "addressRegion": "[INSERT_REGION_HERE]",
+    "postalCode": "[INSERT_POSTAL_CODE_HERE]",
+    "addressCountry": "[INSERT_COUNTRY_HERE]"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "[INSERT_LATITUDE_HERE]",
+    "longitude": "[INSERT_LONGITUDE_HERE]"
+  },
+  "telephone": "[INSERT_PHONE_NUMBER_HERE]",
+  "email": "[INSERT_EMAIL_HERE]",
+  "openingHours": "[INSERT_OPENING_HOURS_HERE]",
+  "sameAs": [
+    "[INSERT_FACEBOOK_URL_HERE]",
+    "[INSERT_YOUTUBE_URL_HERE]",
+    "[INSERT_INSTAGRAM_URL_HERE]"
+  ]
+}
+</script>

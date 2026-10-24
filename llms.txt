@@ -1,0 +1,21 @@
+# LLMS.TXT - AI Crawler Roadmap
+
+## Organization Information
+- Name: [INSERT_CHURCH_NAME_HERE]
+- Mission: [INSERT_MISSION_STATEMENT_HERE]
+- Location: [INSERT_LOCATION_HERE]
+- Website: [INSERT_WEBSITE_URL_HERE]
+
+## Key Pages
+- Home: [INSERT_WEBSITE_URL_HERE]/index.html
+- About: [INSERT_WEBSITE_URL_HERE]/about.html
+- Ministries: [INSERT_WEBSITE_URL_HERE]/ministry.html
+- Gallery: [INSERT_WEBSITE_URL_HERE]/gallery.html
+- Daily Devotional: [INSERT_WEBSITE_URL_HERE]/daily-devotional.html
+- Announcements: [INSERT_WEBSITE_URL_HERE]/announcements.html
+- Branches & Transport: [INSERT_WEBSITE_URL_HERE]/branches-transport.html
+- Give: [INSERT_WEBSITE_URL_HERE]/give.html
+- Contact: [INSERT_WEBSITE_URL_HERE]/contact.html
+
+## Content Focus
+This website contains information about church services, ministries, events, and giving opportunities. Content is primarily faith-based with focus on community outreach and worship services.

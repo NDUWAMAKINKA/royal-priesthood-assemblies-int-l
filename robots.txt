@@ -1,0 +1,30 @@
+# Robots.txt for AI Search Engine Crawling
+User-agent: *
+Allow: /
+
+# Allow AI Search Bots
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: [INSERT_WEBSITE_URL_HERE]/sitemap.xml

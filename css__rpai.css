@@ -1,4 +1,4 @@
-/* Shared responsive presentation for RPAI pages and content blocks. */
+﻿/* Shared responsive presentation for RPAI pages and content blocks. */
 /* Site design and development: Makinka Web Developers (mailto:makinkanduwa@gmail.com), 2026. */
 :root {
   --rpai-ink: #0b2240;
@@ -2255,10 +2255,10 @@ body {
    accent used by the giving cards.
    --------------------------------------------------------------------------- */
 .rpai-lang-switcher {
-  position: absolute;
-  top: 0.75rem;
-  left: 0;
-  z-index: 7;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99999;
   color: var(--rpai-ink);
   font-family: 'Inter', sans-serif;
 }
@@ -2267,16 +2267,16 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.5rem 0.75rem;
-  background: rgba(255, 255, 255, 0.94);
+  padding: 8px 16px;
+  background: var(--rpai-paper, #ffffff);
   border: 1px solid var(--rpai-line);
-  border-radius: 999px;
+  border-radius: 50px;
   color: var(--rpai-ink);
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: 700;
   line-height: 1;
-  box-shadow: 0 2px 10px rgba(11, 34, 64, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -2324,8 +2324,9 @@ body {
 
 .rpai-lang-menu {
   position: absolute;
-  top: calc(100% + 0.4rem);
-  left: 0;
+  bottom: calc(100% + 0.4rem);
+  right: 0;
+  left: auto;
   z-index: 20;
   width: max-content;
   min-width: 13rem;
@@ -2352,8 +2353,10 @@ body {
 }
 
 .rpai-lang-menu button {
-  display: block;
+  display: flex;
   width: 100%;
+  align-items: center;
+  gap: 0.55rem;
   padding: 0.45rem 0.6rem;
   background: none;
   border: 0;
@@ -2364,6 +2367,17 @@ body {
   font-weight: 500;
   text-align: left;
   cursor: pointer;
+}
+
+.rpai-lang-menu button img {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 14px;
+  border-radius: 2px;
+  object-fit: cover;
+  image-rendering: -webkit-optimize-contrast;
+  box-shadow: 0 0 0 1px rgba(11, 34, 64, 0.12);
 }
 
 .rpai-lang-menu button:hover,
@@ -2384,19 +2398,15 @@ body {
 
 @media (max-width: 991.98px) {
   .rpai-lang-switcher {
-    top: auto;
-    bottom: 0.15rem;
+    bottom: 20px;
+    right: 20px;
   }
 
-  /* The header is short on tablets and phones, so a menu anchored to the
-     trigger would open off-screen. Pin it to the viewport and cap its height
-     instead; it remains scrollable when every language does not fit. */
   .rpai-lang-menu {
-    position: fixed;
-    top: 4.75rem;
-    right: auto;
-    bottom: auto;
-    left: 0.75rem;
+    position: absolute;
+    bottom: calc(100% + 0.4rem);
+    right: 0;
+    left: auto;
     width: min(20rem, calc(100vw - 1.5rem));
     max-height: calc(100vh - 6rem);
   }
@@ -2404,13 +2414,33 @@ body {
 
 @media (max-width: 575.98px) {
   .rpai-lang-toggle {
-    padding: 0.45rem 0.6rem;
+    padding: 8px 14px;
     font-size: 0.72rem;
   }
 
   .rpai-lang-current {
     max-width: 4.6rem;
   }
+}
+
+/* The whole-page translation engine is loaded invisibly. Its toolbar and the
+   frame it inserts at the top of the page are hidden so the site keeps its own
+   design; the dropdown we built remains the only visible control. */
+#google_translate_element,
+.goog-te-banner-frame,
+.goog-te-gadget,
+.goog-te-gadget-simple,
+.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+html.translated-ltr,
+html.translated-rtl {
+  margin-top: 0 !important;
 }
 
 /* ---------------------------------------------------------------------------
@@ -2540,4 +2570,9 @@ body {
   .rpai-bank-grid {
     grid-template-columns: 1fr;
   }
+}
+
+
+.rpai-section-intro p {
+  text-align: center;
 }

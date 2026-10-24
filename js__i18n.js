@@ -1,13 +1,18 @@
 /*
  * RPAI language switcher.
  *
- * Translates navigation labels, the giving page prompts and its action
- * buttons. Church names ("Dunamis"), bank names, account names, account
- * numbers and the PayPal brand are deliberately left untouched: they are
- * proper nouns, not interface copy.
+ * World languages (English, Hindi, French, German, Italian, Portuguese,
+ * Russian, Spanish) are translated across the entire page by Google's
+ * translation engine, which is loaded invisibly. This covers every heading,
+ * paragraph, button, link and menu item on every page, including content that
+ * is added to the page later.
  *
- * Strings live in DICTIONARY below. Add a key to every language before using
- * it in the markup; anything missing falls back to English.
+ * Zambian languages (Bemba, Nyanja, Tonga, Lozi, Tumbuka) use the built-in
+ * dictionary below, because Google does not offer them yet. The dictionary
+ * also supplies the interface labels while the full-page engine starts.
+ *
+ * Church names ("Dunamis"), bank names, account names, account numbers and
+ * the PayPal brand are marked notranslate so they never change.
  */
 (function () {
 	'use strict';
@@ -15,18 +20,19 @@
 	var STORAGE_KEY = 'rpai.lang';
 
 	var LANGUAGES = [
-		{ code: 'bem', name: 'Bemba', htmlLang: 'bem', group: 'zambian' },
-		{ code: 'nya', name: 'Nyanja', htmlLang: 'ny', group: 'zambian' },
-		{ code: 'toi', name: 'Tonga', htmlLang: 'toi', group: 'zambian' },
-		{ code: 'loz', name: 'Lozi', htmlLang: 'loz', group: 'zambian' },
-		{ code: 'tum', name: 'Tumbuka', htmlLang: 'tum', group: 'zambian' },
-		{ code: 'en', name: 'English', htmlLang: 'en', group: 'world' },
-		{ code: 'fr', name: 'Français', htmlLang: 'fr', group: 'world' },
-		{ code: 'de', name: 'Deutsch', htmlLang: 'de', group: 'world' },
-		{ code: 'it', name: 'Italiano', htmlLang: 'it', group: 'world' },
-		{ code: 'pt', name: 'Português', htmlLang: 'pt', group: 'world' },
-		{ code: 'ru', name: 'Русский', htmlLang: 'ru', group: 'world' },
-		{ code: 'es', name: 'Español', htmlLang: 'es', group: 'world' }
+		{ code: 'bem', name: 'Bemba', htmlLang: 'bem', google: null, group: 'zambian' },
+		{ code: 'nya', name: 'Nyanja', htmlLang: 'ny', google: null, group: 'zambian' },
+		{ code: 'toi', name: 'Tonga', htmlLang: 'toi', google: null, group: 'zambian' },
+		{ code: 'loz', name: 'Lozi', htmlLang: 'loz', google: null, group: 'zambian' },
+		{ code: 'tum', name: 'Tumbuka', htmlLang: 'tum', google: null, group: 'zambian' },
+		{ code: 'en', name: 'English', htmlLang: 'en', google: 'en', group: 'world' },
+		{ code: 'hi', name: 'Hindi', htmlLang: 'hi', google: 'hi', group: 'world' },
+		{ code: 'fr', name: 'French', htmlLang: 'fr', google: 'fr', group: 'world' },
+		{ code: 'de', name: 'German', htmlLang: 'de', google: 'de', group: 'world' },
+		{ code: 'it', name: 'Italian', htmlLang: 'it', google: 'it', group: 'world' },
+		{ code: 'pt', name: 'Portuguese', htmlLang: 'pt', google: 'pt', group: 'world' },
+		{ code: 'ru', name: 'Russian', htmlLang: 'ru', google: 'ru', group: 'world' },
+		{ code: 'es', name: 'Spanish', htmlLang: 'es', google: 'es', group: 'world' }
 	];
 
 	var NAV_KEYS = {
@@ -41,7 +47,7 @@
 		'contact.html': 'nav.contact'
 	};
 
-	var DICTIONARY = {
+var DICTIONARY = {
 		en: {
 			'nav.home': 'Home',
 			'nav.about': 'About',
@@ -259,6 +265,37 @@
 			'label.centre': 'Centro',
 			'footer.follow': 'Síguenos'
 		},
+		hi: {
+			'nav.home': 'होम',
+			'nav.about': 'हमारे बारे में',
+			'nav.ministries': 'सेवाएँ',
+			'nav.gallery': 'गैलरी',
+			'nav.devotional': 'दैनिक भक्ति',
+			'nav.announcements': 'घोषणाएँ',
+			'nav.branches': 'शाखाएँ और परिवहन',
+			'nav.give': 'दान करें',
+			'nav.contact': 'संपर्क करें',
+			'lang.zambian': 'ज़ाम्बियाई भाषाएँ',
+			'lang.world': 'विश्व भाषाएँ',
+			'lang.select': 'भाषा चुनें',
+			'give.subheading': 'हमारे साथ भागीदार बनें',
+			'give.title': 'दान करें',
+			'give.heroLead': 'आपका दान स्थानीय सेवा, भवन विस्तार और पूरे ज़ाम्बिया में सुसमाचार के प्रसार में सहायता करता है।',
+			'give.ways': 'दान करने के तरीके',
+			'give.details': 'दान विवरण',
+			'give.banks': 'ज़ाम्बियाई बैंक',
+			'give.banksLead': 'हमारे किसी भी ज़ाम्बियाई बैंक खाते में सीधे दान करें। कृपया अपना नाम संदर्भ के रूप में लिखें ताकि चर्च आपके दान को पहचान सके।',
+			'give.paypal': 'अंतर्राष्ट्रीय दान',
+			'give.paypalLead': 'ज़ाम्बिया के बाहर से दान कर रहे हैं? हमारे एकमात्र अंतर्राष्ट्रीय गेटवे, PayPal का उपयोग करें।',
+			'give.paypalButton': 'PayPal के माध्यम से दान करें',
+			'give.help': 'इन विवरणों में सहायता के लिए चर्च कार्यालय से संपर्क करें।',
+			'give.email': 'चर्च को ईमेल करें',
+			'give.call': 'कॉल करें',
+			'label.accountName': 'खाता नाम',
+			'label.accountNumber': 'खाता संख्या',
+			'label.centre': 'केंद्र',
+			'footer.follow': 'हमें फॉलो करें'
+		},
 		bem: {
 			'nav.home': 'Kumukulilo',
 			'nav.about': 'Pa ifwe',
@@ -444,11 +481,49 @@
 		return (href || '').split('#')[0].split('?')[0].replace(/^\.\//, '');
 	}
 
-	function apply(lang) {
-		if (!byCode[lang]) lang = 'en';
+	/* Proper nouns are never handed to the translation engine. */
+	function markUntranslatable() {
+		var selector = [
+			'.rpai-bank-name',
+			'.rpai-bank-full-name',
+			'.rpai-paypal-word',
+			'.rpai-lang-switcher',
+			'.site-menu',
+			'.site-mobile-menu',
+			'[data-i18n]',
+			'.site-logo',
+			'.rpai-logo-tagline'
+		].join(',');
+		document.querySelectorAll(selector).forEach(function (element) {
+			element.classList.add('notranslate');
+			element.setAttribute('translate', 'no');
+		});
 
-		document.documentElement.setAttribute('lang', byCode[lang].htmlLang);
+		/* The account name is a proper noun; "To be confirmed" and the centre
+		   line are ordinary copy, so they still translate. */
+		document.querySelectorAll('.rpai-bank-details dd').forEach(function (element) {
+			if (/Dunamis International Gospel Centre/i.test(element.textContent)) {
+				element.classList.add('notranslate');
+				element.setAttribute('translate', 'no');
+			}
+		});
+	}
 
+	function updateSwitcher(lang) {
+		document.querySelectorAll('[data-lang]').forEach(function (option) {
+			option.setAttribute('aria-selected', option.getAttribute('data-lang') === lang ? 'true' : 'false');
+		});
+
+		var current = document.querySelector('[data-rpai-lang-current]');
+		if (current) current.textContent = byCode[lang].name;
+
+		var toggle = document.querySelector('[data-rpai-lang-toggle]');
+		if (toggle) toggle.setAttribute('aria-label', translate(lang, 'lang.select'));
+	}
+
+	/* Translation that works without a network connection: the interface
+	   labels and the giving page copy. */
+	function applyDictionary(lang) {
 		document.querySelectorAll('[data-i18n]').forEach(function (element) {
 			var value = translate(lang, element.getAttribute('data-i18n'));
 			if (value) element.textContent = value;
@@ -459,26 +534,130 @@
 			var key = NAV_KEYS[normaliseHref(link.getAttribute('href'))];
 			if (key) link.textContent = translate(lang, key);
 		});
-
-		document.querySelectorAll('[data-lang]').forEach(function (option) {
-			option.setAttribute('aria-selected', option.getAttribute('data-lang') === lang ? 'true' : 'false');
-		});
-
-		var current = document.querySelector('[data-rpai-lang-current]');
-		if (current) current.textContent = byCode[lang].name;
-
-		var toggle = document.querySelector('[data-rpai-lang-toggle]');
-		if (toggle) toggle.setAttribute('aria-label', translate(lang, 'lang.select'));
-
-		document.dispatchEvent(new CustomEvent('rpai:language-changed', { detail: { lang: lang } }));
 	}
 
+	/* ---------------------------------------------------------------- Google */
+	var googleEngine = { loading: false, ready: false, failed: false, callbacks: [] };
+
+	function loadGoogle(callback) {
+		if (googleEngine.ready) { callback(true); return; }
+		if (googleEngine.failed) { callback(false); return; }
+
+		googleEngine.callbacks.push(callback);
+		if (googleEngine.loading) return;
+		googleEngine.loading = true;
+
+		var holder = document.createElement('div');
+		holder.id = 'google_translate_element';
+		holder.className = 'notranslate';
+		holder.setAttribute('aria-hidden', 'true');
+		document.body.appendChild(holder);
+
+		var settled = false;
+		function finish(ok) {
+			if (settled) return;
+			settled = true;
+			googleEngine.ready = ok;
+			googleEngine.failed = !ok;
+			googleEngine.loading = false;
+			var callbacks = googleEngine.callbacks;
+			googleEngine.callbacks = [];
+			callbacks.forEach(function (fn) {
+				try { fn(ok); } catch (err) { /* one bad caller must not stop the rest */ }
+			});
+		}
+
+		window.rpaiGoogleInit = function () {
+			try {
+				new google.translate.TranslateElement({
+					pageLanguage: 'en',
+					autoDisplay: false,
+					multilanguagePage: false
+				}, 'google_translate_element');
+			} catch (err) {
+				finish(false);
+				return;
+			}
+			/* The combo box is built a moment after the element. */
+			var tries = 0;
+			(function wait() {
+				if (document.querySelector('.goog-te-combo')) { finish(true); return; }
+				if (++tries > 60) { finish(false); return; }
+				setTimeout(wait, 150);
+			})();
+		};
+
+		var script = document.createElement('script');
+		script.src = 'https://translate.google.com/translate_a/element.js?cb=rpaiGoogleInit';
+		script.async = true;
+		script.onerror = function () { finish(false); };
+		document.head.appendChild(script);
+
+		setTimeout(function () { if (!settled) finish(false); }, 12000);
+	}
+
+	function applyGoogle(lang, tries) {
+		tries = tries || 0;
+		var combo = document.querySelector('.goog-te-combo');
+		var option = combo ? combo.querySelector('option[value="' + lang + '"]') : null;
+
+		/* The combo exists before its language list is filled in, so wait for
+		   the requested language to appear before selecting it. */
+		if (combo && option) {
+			if (combo.value !== lang) {
+				combo.value = lang;
+				combo.dispatchEvent(new Event('change', { bubbles: true }));
+			}
+			markUntranslatable();
+			return true;
+		}
+		if (tries < 80) {
+			setTimeout(function () { applyGoogle(lang, tries + 1); }, 200);
+		}
+		return false;
+	}
+
+	function googleIsActive() {
+		return /translated/.test(document.documentElement.className);
+	}
+
+	function apply(lang) {
+		if (!byCode[lang]) lang = 'en';
+
+		document.documentElement.setAttribute('lang', byCode[lang].htmlLang);
+		updateSwitcher(lang);
+
+		/* The menu is translated by our own dictionary in every language, then
+		   protected from the full-page engine so it never slips back to
+		   English when the menu is closed. */
+		applyDictionary(lang);
+		markUntranslatable();
+
+		if (byCode[lang].google && lang !== 'en') {
+			loadGoogle(function (ok) {
+				if (ok) applyGoogle(byCode[lang].google);
+			});
+			return;
+		}
+
+		if (lang === 'en' && googleIsActive()) {
+			/* Returning to English from a translated page needs a clean load,
+			   because the engine rewrote the text nodes in place. */
+			window.location.reload();
+		}
+	}
+
+	/* --------------------------------------------------------------- Switcher */
 	function setup() {
 		var switcher = document.querySelector('[data-rpai-lang-switcher]');
 		if (!switcher) return;
 
 		var toggle = switcher.querySelector('[data-rpai-lang-toggle]');
 		var menu = switcher.querySelector('[data-rpai-lang-menu]');
+
+		switcher.classList.add('notranslate');
+		switcher.setAttribute('translate', 'no');
+		markUntranslatable();
 
 		function closeMenu() {
 			menu.hidden = true;
@@ -504,9 +683,17 @@
 			if (!option) return;
 			var lang = option.getAttribute('data-lang');
 			store(lang);
-			apply(lang);
 			closeMenu();
 			toggle.focus();
+
+			/* Moving between two full-page languages is instant. Leaving a
+			   translated page (back to English or to a Zambian language) is a
+			   fast reload so the original English text is restored first. */
+			if (googleIsActive() && (lang === 'en' || !byCode[lang] || !byCode[lang].google)) {
+				window.location.reload();
+				return;
+			}
+			apply(lang);
 		});
 
 		menu.addEventListener('keydown', function (event) {
