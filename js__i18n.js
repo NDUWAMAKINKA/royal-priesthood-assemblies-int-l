@@ -9,8 +9,11 @@
  * link and menu item on every page.
  *
  * Zambian languages (Bemba, Nyanja, Tonga, Lozi, Tumbuka) use the built-in
- * dictionary below, because Google does not offer them yet. The dictionary
- * also supplies the interface labels while the full-page engine starts.
+ * dictionary below, because Google does not offer them yet. Bemba, Nyanja
+ * and Tumbuka are translated by the full-page engine. Tonga and Lozi use
+ * the complete local maps in js__local-za.js, so switching is instant and
+ * works even on a slow mobile connection. The dictionary also supplies the
+ * interface labels.
  *
  * Church names ("Dunamis"), bank names, account names, account numbers and
  * the PayPal brand are marked notranslate so they never change.
@@ -457,6 +460,12 @@ var DICTIONARY = {
 	var byCode = {};
 	LANGUAGES.forEach(function (language) { byCode[language.code] = language; });
 
+	var LOCAL_TEXT = window.RPAI_LOCAL_TEXT || {};
+
+	function isLocalLanguage(lang) {
+		return !!(LOCAL_TEXT[lang] && typeof LOCAL_TEXT[lang] === 'object');
+	}
+
 	function translate(lang, key) {
 		var table = DICTIONARY[lang] || DICTIONARY.en;
 		return table[key] || DICTIONARY.en[key] || '';
@@ -488,6 +497,7 @@ var DICTIONARY = {
 			'.rpai-bank-name',
 			'.rpai-bank-full-name',
 			'.rpai-paypal-word',
+			'.rpai-pay-title',
 			'.rpai-lang-switcher',
 			'.site-menu',
 			'.site-mobile-menu',
@@ -828,6 +838,85 @@ var DICTIONARY = {
 		originalAttrs = new Map();
 	}
 
+	/* Tonga and Lozi are shipped as complete local maps. The map is applied
+	   synchronously, so there is no request, spinner or flicker. A small
+	   observer keeps strings inserted later (for example the gallery's
+	   slideshow buttons) translated too. */
+	var localObserver = null;
+	var localObserverLanguage = null;
+
+	function stopLocalObserver() {
+		if (localObserver) localObserver.disconnect();
+		localObserver = null;
+		localObserverLanguage = null;
+	}
+
+	function startLocalObserver(lang) {
+		stopLocalObserver();
+		if (!isLocalLanguage(lang) || !window.MutationObserver) return;
+		localObserverLanguage = lang;
+		localObserver = new MutationObserver(function () {
+			if (currentLanguage === localObserverLanguage) {
+				applyLocalPage(localObserverLanguage);
+			}
+		});
+		localObserver.observe(document.body, {
+			childList: true,
+			subtree: true,
+			characterData: true
+		});
+	}
+
+	function applyLocalPage(lang) {
+		var table = LOCAL_TEXT[lang];
+		if (!table) return;
+
+		collectSources().forEach(function (item) {
+			var current = item.node ? item.node.nodeValue : item.element.getAttribute(item.attribute);
+			if (!current) return;
+
+			var currentEdge = splitEdges(current);
+			var sourceEdge = splitEdges(item.source);
+			if (!currentEdge.text) return;
+
+			/* JavaScript can replace a label after the first pass. Treat the
+			   new English label as the source and refresh the saved original,
+			   so returning to English also restores the correct label. */
+			var source = sourceEdge.text;
+			if (currentEdge.text !== sourceEdge.text && table[currentEdge.text]) {
+				source = currentEdge.text;
+				if (item.node) {
+					originalNodes.set(item.node, current);
+				} else {
+					var saved = originalAttrs.get(item.element) || {};
+					saved[item.attribute] = current;
+					originalAttrs.set(item.element, saved);
+				}
+			}
+
+			var translated = table[source];
+			if (!translated) {
+				/* The footer year is written by a tiny inline script, so the
+				   text node can begin with a new four-digit year. Keep the year
+				   and translate the rest of the sentence. */
+				var dated = source.match(/^(\d{4})\s+([\s\S]+)$/);
+				if (dated && table[dated[2]]) {
+					translated = dated[1] + ' ' + table[dated[2]];
+				}
+			}
+			if (!translated || translated === currentEdge.text) return;
+
+			var value = currentEdge.leading + translated + currentEdge.trailing;
+			if (item.node) {
+				if (item.node.nodeValue !== value) item.node.nodeValue = value;
+			} else if (item.element.getAttribute(item.attribute) !== value) {
+				item.element.setAttribute(item.attribute, value);
+			}
+		});
+
+		markUntranslatable();
+	}
+
 	function apply(lang) {
 		if (!byCode[lang]) lang = 'en';
 		currentLanguage = lang;
@@ -836,15 +925,22 @@ var DICTIONARY = {
 		updateSwitcher(lang);
 
 		var isWorld = byCode[lang].google && lang !== 'en';
+		var isLocal = isLocalLanguage(lang);
+		stopLocalObserver();
 		if (!isWorld) restoreOriginalText();
 
 		/* Navigation and the switcher always use the dictionary. Body copy is
-		   translated for world languages, and fully dictionary-driven for
-		   English and the five Zambian languages. */
-		applyDictionary(lang, !isWorld);
+		   translated for world languages, loaded instantly from the local
+		   Tonga/Lozi maps, and restored to English for English. */
+		applyDictionary(lang, lang === 'en');
 		markUntranslatable();
 
-		if (isWorld) translatePage(lang);
+		if (isWorld) {
+			translatePage(lang);
+		} else if (isLocal) {
+			applyLocalPage(lang);
+			startLocalObserver(lang);
+		}
 	}
 
 	/* --------------------------------------------------------------- Switcher */
