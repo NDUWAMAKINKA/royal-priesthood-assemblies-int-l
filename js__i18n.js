@@ -3,9 +3,10 @@
  *
  * World languages (English, Hindi, French, German, Italian, Portuguese,
  * Russian, Spanish) are translated across the entire page by Google's
- * translation engine, which is loaded invisibly. This covers every heading,
- * paragraph, button, link and menu item on every page, including content that
- * is added to the page later.
+ * translation service, called directly in small batches. No widget,
+ * banner or floating icon is ever shown; the site's own dropdown is the
+ * only visible control. This covers every heading, paragraph, button,
+ * link and menu item on every page.
  *
  * Zambian languages (Bemba, Nyanja, Tonga, Lozi, Tumbuka) use the built-in
  * dictionary below, because Google does not offer them yet. The dictionary
@@ -20,11 +21,11 @@
 	var STORAGE_KEY = 'rpai.lang';
 
 	var LANGUAGES = [
-		{ code: 'bem', name: 'Bemba', htmlLang: 'bem', google: null, group: 'zambian' },
-		{ code: 'nya', name: 'Nyanja', htmlLang: 'ny', google: null, group: 'zambian' },
+		{ code: 'bem', name: 'Bemba', htmlLang: 'bem', google: 'bem', group: 'zambian' },
+		{ code: 'nya', name: 'Nyanja', htmlLang: 'ny', google: 'ny', group: 'zambian' },
 		{ code: 'toi', name: 'Tonga', htmlLang: 'toi', google: null, group: 'zambian' },
 		{ code: 'loz', name: 'Lozi', htmlLang: 'loz', google: null, group: 'zambian' },
-		{ code: 'tum', name: 'Tumbuka', htmlLang: 'tum', google: null, group: 'zambian' },
+		{ code: 'tum', name: 'Tumbuka', htmlLang: 'tum', google: 'tum', group: 'zambian' },
 		{ code: 'en', name: 'English', htmlLang: 'en', google: 'en', group: 'world' },
 		{ code: 'hi', name: 'Hindi', htmlLang: 'hi', google: 'hi', group: 'world' },
 		{ code: 'fr', name: 'French', htmlLang: 'fr', google: 'fr', group: 'world' },
@@ -490,9 +491,7 @@ var DICTIONARY = {
 			'.rpai-lang-switcher',
 			'.site-menu',
 			'.site-mobile-menu',
-			'[data-i18n]',
-			'.site-logo',
-			'.rpai-logo-tagline'
+			'.site-logo'
 		].join(',');
 		document.querySelectorAll(selector).forEach(function (element) {
 			element.classList.add('notranslate');
@@ -522,9 +521,12 @@ var DICTIONARY = {
 	}
 
 	/* Translation that works without a network connection: the interface
-	   labels and the giving page copy. */
-	function applyDictionary(lang) {
+	   labels and the giving page copy. World languages let the full-page
+	   engine translate the body, so only the interface is set here. */
+	function applyDictionary(lang, includeContent) {
 		document.querySelectorAll('[data-i18n]').forEach(function (element) {
+			var inSwitcher = element.closest('[data-rpai-lang-switcher]');
+			if (!includeContent && !inSwitcher) return;
 			var value = translate(lang, element.getAttribute('data-i18n'));
 			if (value) element.textContent = value;
 		});
@@ -536,134 +538,313 @@ var DICTIONARY = {
 		});
 	}
 
-	/* ---------------------------------------------------------------- Google */
-	var googleEngine = { loading: false, ready: false, callbacks: [], scriptRequested: false };
+	/* ------------------------------------------------------- Page translator */
+	var originalNodes = new Map();
+	var originalAttrs = new Map();
+	var translationToken = 0;
+	var translationCache = {};
+	var currentLanguage = 'en';
 
-	function loadGoogle(callback) {
-		if (googleEngine.ready) { callback(true); return; }
+	var SKIP_SELECTOR = [
+		'script', 'style', 'noscript', 'textarea', 'select', 'option',
+		'.notranslate', '[translate="no"]'
+	].join(',');
 
-		googleEngine.callbacks.push(callback);
-		if (googleEngine.loading) return;
-		googleEngine.loading = true;
+	function hasTranslatableText(value) {
+		return /[A-Za-z\u00C0-\u024F\u0400-\u04FF\u0900-\u097F]/.test(value || '');
+	}
 
-		if (!document.getElementById('google_translate_element')) {
-			var holder = document.createElement('div');
-			holder.id = 'google_translate_element';
-			holder.className = 'notranslate';
-			holder.setAttribute('aria-hidden', 'true');
-			document.body.appendChild(holder);
+	/* The built-in dictionary is the English source for the giving page, so
+	   reset those strings before collecting text to translate. */
+	function resetContentToEnglish() {
+		document.querySelectorAll('[data-i18n]').forEach(function (element) {
+			var english = DICTIONARY.en[element.getAttribute('data-i18n')];
+			if (english) element.textContent = english;
+		});
+	}
+
+	function splitEdges(value) {
+		var leading = value.match(/^\s*/)[0];
+		var trailing = value.match(/\s*$/)[0];
+		return {
+			leading: leading,
+			text: value.slice(leading.length, value.length - trailing.length),
+			trailing: trailing
+		};
+	}
+
+	/* Every visible string is collected once. The originals are kept so the
+	   page can switch languages (or return to English) without a reload. */
+	function collectSources() {
+		var items = [];
+		var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+			acceptNode: function (node) {
+				if (!hasTranslatableText(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+				var parent = node.parentElement;
+				if (!parent || parent.closest(SKIP_SELECTOR)) return NodeFilter.FILTER_REJECT;
+				return NodeFilter.FILTER_ACCEPT;
+			}
+		});
+		var node;
+		while ((node = walker.nextNode())) {
+			if (!originalNodes.has(node)) originalNodes.set(node, node.nodeValue);
+			items.push({ node: node, source: originalNodes.get(node) });
 		}
 
-		var settled = false;
-		function finish(ok) {
-			if (settled) return;
-			settled = true;
-			googleEngine.ready = ok;
-			googleEngine.loading = false;
-			var callbacks = googleEngine.callbacks;
-			googleEngine.callbacks = [];
-			callbacks.forEach(function (fn) {
-				try { fn(ok); } catch (err) { /* one bad caller must not stop the rest */ }
+		document.querySelectorAll('[placeholder], [title], [aria-label]').forEach(function (element) {
+			if (element.closest(SKIP_SELECTOR)) return;
+			var saved = originalAttrs.get(element) || {};
+			['placeholder', 'title', 'aria-label'].forEach(function (attribute) {
+				if (!element.hasAttribute(attribute)) return;
+				if (!(attribute in saved)) saved[attribute] = element.getAttribute(attribute);
+				if (hasTranslatableText(saved[attribute])) {
+					items.push({ element: element, attribute: attribute, source: saved[attribute] });
+				}
+			});
+			originalAttrs.set(element, saved);
+		});
+
+		return items;
+	}
+
+	/* Names and church titles are swapped for private-use characters before
+	   translation and put back afterwards, so no engine can translate them. */
+	var PROTECTED_TERMS = [
+		{ token: '\uE000', text: 'Royal Priesthood Assemblies International' },
+		{ token: '\uE001', text: 'Dunamis International Gospel Centre' },
+		{ token: '\uE002', text: 'Apostle Dr. Mighty Zunga' },
+		{ token: '\uE003', text: 'Mighty Zunga' },
+		{ token: '\uE004', text: 'Pastor Thelma' },
+		{ token: '\uE005', text: 'Thelma' },
+		{ token: '\uE006', text: 'RPAI' }
+	];
+
+	function protectTerms(value) {
+		PROTECTED_TERMS.forEach(function (term) {
+			value = value.split(term.text).join(term.token);
+		});
+		return value;
+	}
+
+	function restoreTerms(value) {
+		PROTECTED_TERMS.forEach(function (term) {
+			value = value.split(term.token).join(term.text);
+		});
+		return value;
+	}
+
+	function requestTranslation(lang, strings) {
+		var joined = protectTerms(strings.join('\n\u241E\n'));
+		var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' +
+			encodeURIComponent(lang) + '&dt=t&q=' + encodeURIComponent(joined);
+		return fetch(url).then(function (response) {
+			if (!response.ok) throw new Error('Translation request failed');
+			return response.json();
+		}).then(function (payload) {
+			var value = restoreTerms(payload[0].map(function (part) { return part[0]; }).join(''));
+			var parts = value.split(/\s*\u241E\s*/);
+			return parts.length === strings.length ? parts : null;
+		});
+	}
+
+	function requestOne(lang, value) {
+		return requestTranslation(lang, [value]).then(function (parts) {
+			return parts ? parts[0] : null;
+		}).catch(function () { return null; });
+	}
+
+	function getCache(lang) {
+		if (translationCache[lang]) return translationCache[lang];
+
+		var cache = new Map();
+		try {
+			var raw = window.sessionStorage.getItem('rpai.tr.' + lang);
+			if (raw) {
+				var saved = JSON.parse(raw);
+				Object.keys(saved).forEach(function (key) {
+					if (key.length < 1200) cache.set(key, saved[key]);
+				});
+			}
+		} catch (err) {
+			/* Private mode or a full store: translate without the cache. */
+		}
+		translationCache[lang] = cache;
+		return cache;
+	}
+
+	function saveCache(lang, cache) {
+		try {
+			var saved = {};
+			cache.forEach(function (value, key) {
+				if (key.length < 1200) saved[key] = value;
+			});
+			window.sessionStorage.setItem('rpai.tr.' + lang, JSON.stringify(saved));
+		} catch (err) {
+			/* The cache is an optimisation only. */
+		}
+	}
+
+	function buildBatches(unique, cache) {
+		var batches = [];
+		var batch = [];
+		var size = 0;
+
+		unique.forEach(function (value) {
+			if (cache.has(value)) return;
+			if (batch.length && (size + value.length > 4500 || batch.length >= 120)) {
+				batches.push(batch);
+				batch = [];
+				size = 0;
+			}
+			batch.push(value);
+			size += value.length + 3;
+		});
+		if (batch.length) batches.push(batch);
+		return batches;
+	}
+
+	/* Fetch only the strings that are not cached yet. */
+	var translationPending = {};
+	function ensureTranslations(lang, unique) {
+		/* A hover prefetch may still be in flight; join it instead of sending
+		   the same strings twice. */
+		if (translationPending[lang]) {
+			return translationPending[lang].then(function () {
+				return ensureTranslations(lang, unique);
 			});
 		}
 
-		/* If the stored language is a world language, put it into the combo as
-		   soon as the widget exists, however long the network took. */
-		function applyStoredLanguage() {
-			var stored = byCode[readStored()];
-			if (stored && stored.google && stored.google !== 'en') {
-				applyGoogle(stored.google);
-			}
-		}
+		var target = byCode[lang].google;
+		var cache = getCache(lang);
+		var batches = buildBatches(unique, cache);
+		if (!batches.length) return Promise.resolve(cache);
 
-		window.rpaiGoogleInit = function () {
-			try {
-				new google.translate.TranslateElement({
-					pageLanguage: 'en',
-					autoDisplay: false,
-					multilanguagePage: false
-				}, 'google_translate_element');
-			} catch (err) {
-				/* Already built; fall through to the combo check below. */
-			}
-			applyStoredLanguage();
-
-			/* The combo box is built a moment after the element. */
-			var tries = 0;
-			(function wait() {
-				if (document.querySelector('.goog-te-combo')) {
-					applyStoredLanguage();
-					finish(true);
-					return;
+		var request = Promise.all(batches.map(function (group) {
+			return requestTranslation(target, group).then(function (parts) {
+				if (parts) {
+					return group.map(function (value, index) {
+						return { source: value, translated: parts[index] };
+					});
 				}
-				if (++tries > 200) { finish(false); return; }
-				setTimeout(wait, 150);
-			})();
-		};
+				/* A changed separator means the batch cannot be split safely;
+				   translate its strings one by one instead. */
+				return Promise.all(group.map(function (value) {
+					return requestOne(target, value).then(function (translated) {
+						return { source: value, translated: translated };
+					});
+				}));
+			}).catch(function () {
+				return group.map(function (value) {
+					return { source: value, translated: null };
+				});
+			});
+		})).then(function (results) {
+			results.forEach(function (group) {
+				group.forEach(function (pair) {
+					if (pair.translated) cache.set(pair.source, pair.translated);
+				});
+			});
+			saveCache(lang, cache);
+			return cache;
+		});
 
-		if (!googleEngine.scriptRequested) {
-			googleEngine.scriptRequested = true;
-			var script = document.createElement('script');
-			script.src = 'https://translate.google.com/translate_a/element.js?cb=rpaiGoogleInit';
-			script.async = true;
-			script.onerror = function () { finish(false); };
-			document.head.appendChild(script);
-		}
-
-		/* Slow mobile networks can take a while; keep waiting instead of
-		   abandoning the page half-translated. */
-		setTimeout(function () { if (!settled) finish(false); }, 45000);
+		translationPending[lang] = request;
+		return request.then(function (cache) {
+			delete translationPending[lang];
+			return cache;
+		}, function (err) {
+			delete translationPending[lang];
+			throw err;
+		});
 	}
 
-	function applyGoogle(lang, tries) {
-		tries = tries || 0;
-		var combo = document.querySelector('.goog-te-combo');
-		var option = combo ? combo.querySelector('option[value="' + lang + '"]') : null;
+	function translatePage(lang) {
+		var token = ++translationToken;
+		if (!originalNodes.size && !originalAttrs.size) resetContentToEnglish();
 
-		/* The combo exists before its language list is filled in, so wait for
-		   the requested language to appear before selecting it. */
-		if (combo && option) {
-			if (combo.value !== lang) {
-				combo.value = lang;
-				combo.dispatchEvent(new Event('change', { bubbles: true }));
-			}
+		var items = collectSources();
+		var byText = new Map();
+		items.forEach(function (item) {
+			var edge = splitEdges(item.source);
+			if (!edge.text || !hasTranslatableText(edge.text)) return;
+			if (!byText.has(edge.text)) byText.set(edge.text, []);
+			byText.get(edge.text).push(item);
+		});
+
+		var unique = Array.from(byText.keys());
+		if (!unique.length) return;
+
+		ensureTranslations(lang, unique).then(function (cache) {
+			if (token !== translationToken) return;
+			items.forEach(function (item) {
+				var edge = splitEdges(item.source);
+				var translated = cache.get(edge.text);
+				if (!translated) return;
+				var value = edge.leading + translated + edge.trailing;
+				if (item.node) item.node.nodeValue = value;
+				else item.element.setAttribute(item.attribute, value);
+			});
 			markUntranslatable();
-			return true;
-		}
-		if (tries < 200) {
-			setTimeout(function () { applyGoogle(lang, tries + 1); }, 250);
-		}
-		return false;
+		});
 	}
 
-	function googleIsActive() {
-		return /translated/.test(document.documentElement.className);
+	/* Warming a language on hover or keyboard focus makes the eventual click
+	   feel instant, because the strings are already in the cache. */
+	var prefetching = {};
+	function prefetchTranslation(lang) {
+		var entry = byCode[lang];
+		if (!entry || !entry.google || lang === 'en' || prefetching[lang]) return;
+		if (!originalNodes.size && !originalAttrs.size && currentLanguage !== 'en') return;
+
+		prefetching[lang] = true;
+		var items = collectSources();
+		var unique = [];
+		var seen = new Set();
+		items.forEach(function (item) {
+			var edge = splitEdges(item.source);
+			if (!edge.text || !hasTranslatableText(edge.text) || seen.has(edge.text)) return;
+			seen.add(edge.text);
+			unique.push(edge.text);
+		});
+		ensureTranslations(lang, unique).then(function () {
+			prefetching[lang] = false;
+		}, function () {
+			prefetching[lang] = false;
+		});
+	}
+
+	function restoreOriginalText() {
+		translationToken++;
+		originalNodes.forEach(function (value, node) {
+			if (node.isConnected) node.nodeValue = value;
+		});
+		originalAttrs.forEach(function (saved, element) {
+			if (!element.isConnected) return;
+			Object.keys(saved).forEach(function (attribute) {
+				element.setAttribute(attribute, saved[attribute]);
+			});
+		});
+		originalNodes = new Map();
+		originalAttrs = new Map();
 	}
 
 	function apply(lang) {
 		if (!byCode[lang]) lang = 'en';
+		currentLanguage = lang;
 
 		document.documentElement.setAttribute('lang', byCode[lang].htmlLang);
 		updateSwitcher(lang);
 
-		/* The menu is translated by our own dictionary in every language, then
-		   protected from the full-page engine so it never slips back to
-		   English when the menu is closed. */
-		applyDictionary(lang);
+		var isWorld = byCode[lang].google && lang !== 'en';
+		if (!isWorld) restoreOriginalText();
+
+		/* Navigation and the switcher always use the dictionary. Body copy is
+		   translated for world languages, and fully dictionary-driven for
+		   English and the five Zambian languages. */
+		applyDictionary(lang, !isWorld);
 		markUntranslatable();
 
-		if (byCode[lang].google && lang !== 'en') {
-			loadGoogle(function (ok) {
-				if (ok) applyGoogle(byCode[lang].google);
-			});
-			return;
-		}
-
-		if (lang === 'en' && googleIsActive()) {
-			/* Returning to English from a translated page needs a clean load,
-			   because the engine rewrote the text nodes in place. */
-			window.location.reload();
-		}
+		if (isWorld) translatePage(lang);
 	}
 
 	/* --------------------------------------------------------------- Switcher */
@@ -690,11 +871,23 @@ var DICTIONARY = {
 			toggle.setAttribute('aria-expanded', 'true');
 			var selected = menu.querySelector('[aria-selected="true"]');
 			if (selected) selected.focus();
+
+			/* The three Zambian languages Google supports are warmed as soon
+			   as the menu opens, so a tap applies them immediately. */
+			['bem', 'nya', 'tum'].forEach(prefetchTranslation);
 		}
 
 		toggle.addEventListener('click', function () {
 			if (menu.hidden) openMenu();
 			else closeMenu();
+		});
+
+		/* Hovering or focusing an option starts its translation early. */
+		menu.querySelectorAll('[data-lang]').forEach(function (option) {
+			var code = option.getAttribute('data-lang');
+			option.addEventListener('pointerenter', function () { prefetchTranslation(code); });
+			option.addEventListener('focus', function () { prefetchTranslation(code); });
+			option.addEventListener('touchstart', function () { prefetchTranslation(code); }, { passive: true });
 		});
 
 		menu.addEventListener('click', function (event) {
@@ -704,14 +897,6 @@ var DICTIONARY = {
 			store(lang);
 			closeMenu();
 			toggle.focus();
-
-			/* Moving between two full-page languages is instant. Leaving a
-			   translated page (back to English or to a Zambian language) is a
-			   fast reload so the original English text is restored first. */
-			if (googleIsActive() && (lang === 'en' || !byCode[lang] || !byCode[lang].google)) {
-				window.location.reload();
-				return;
-			}
 			apply(lang);
 		});
 

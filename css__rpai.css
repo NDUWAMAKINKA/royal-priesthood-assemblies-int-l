@@ -1,4 +1,4 @@
-﻿/* Shared responsive presentation for RPAI pages and content blocks. */
+/* Shared responsive presentation for RPAI pages and content blocks. */
 /* Site design and development: Makinka Web Developers (mailto:makinkanduwa@gmail.com), 2026. */
 :root {
   --rpai-ink: #0b2240;
@@ -2276,7 +2276,7 @@ body {
   font-size: 0.78rem;
   font-weight: 700;
   line-height: 1;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   cursor: pointer;
 }
 
@@ -2430,8 +2430,34 @@ body {
 .goog-te-banner-frame,
 .goog-te-gadget,
 .goog-te-gadget-simple,
+.goog-te-gadget-icon,
+.goog-te-balloon-frame,
+.goog-te-menu-frame,
+.goog-te-spinner-pos,
+.goog-toolbar,
+.goog-logo-link,
+#goog-gt-tt,
 .skiptranslate {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Keep the engine's hidden holder out of the layout and off screen. */
+#google_translate_element {
+  position: fixed !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.skiptranslate > iframe,
+iframe.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 body {
@@ -2441,6 +2467,14 @@ body {
 html.translated-ltr,
 html.translated-rtl {
   margin-top: 0 !important;
+}
+
+/* The "original text" hover card and any Google badge must never cover the
+   site or its own language button. */
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-te-spinner-pos {
+  display: none !important;
 }
 
 /* ---------------------------------------------------------------------------
@@ -2479,6 +2513,14 @@ html.translated-rtl {
   width: auto;
   max-width: 100%;
   height: 2.5rem;
+}
+
+.rpai-bank-logo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 3.5rem;
+  object-fit: contain;
 }
 
 .rpai-bank-name {
@@ -2570,9 +2612,4 @@ html.translated-rtl {
   .rpai-bank-grid {
     grid-template-columns: 1fr;
   }
-}
-
-
-.rpai-section-intro p {
-  text-align: center;
 }
