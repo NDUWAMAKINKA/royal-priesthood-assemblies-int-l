@@ -55,7 +55,7 @@ translated.
 | 5 | Daily Devotional | `daily-devotional.html` | Daily faith reading. Brings people back daily — the main repeat-visit driver. |
 | 6 | Announcements | `announcements.html` | Live Facebook page feed. Keeps visitors current without the church editing the site. |
 | 7 | Branches & Transport | `branches-transport.html` | Branch/home-cell locations, Sunday transport, directions. Practical info people ask for most. |
-| 8 | Give | `give.html` | Hero heading "Give". Zambian giving details: cards for Zanaco, Stanbic, Absa, FNB and Standard Chartered (account name, number and centre), plus PayPal as the only international gateway. Mobile-money and card-typing options have been removed. |
+| 8 | Give | `give.html` | Hero heading "Give". Zambian giving details: cards for Zanaco, Stanbic, Absa, FNB and Standard Chartered (account name, number and centre), mobile-money details for Airtel, MTN and Zamtel, plus PayPal as the only international gateway. PayPal details are shown as text, with no payment link. |
 | 9 | Contact | `contact.html` | Prayer request form, "I'm New Here" card, map, address, phone, email. |
 
 ---
@@ -153,8 +153,10 @@ The Give page is fully localised to Zambia. It lists five bank cards — Zanaco,
 Stanbic, Absa, FNB and Standard Chartered — each showing the account name
 (**Dunamis International Gospel Centre**), the church centre and the account
 number. Account numbers stay as "To be confirmed" until the church office
-supplies verified details. PayPal is the only international gateway, and there
-are no mobile-money, card-typing or USSD options.
+supplies verified details. Airtel, MTN and Zamtel mobile-money details are also
+shown as "To be confirmed". PayPal is the only international gateway; its email
+and account name are shown as non-clickable text until the office supplies
+verified details.
 
 The old Node + Express payment backend in `server/` is **not connected** to the
 page and is no longer used by it. It should be retired or reviewed separately

@@ -466,6 +466,15 @@ h6 {
   text-align: center;
 }
 
+.rpai-payment-logo {
+  display: block;
+  width: 5rem;
+  max-width: 100%;
+  height: 5rem;
+  object-fit: contain;
+  object-position: center;
+}
+
 /* Mobile money brand colours. */
 .rpai-pay-title {
   margin: 0;
@@ -2591,6 +2600,11 @@ body {
   max-width: 28rem;
   margin-right: auto;
   margin-left: auto;
+}
+
+.rpai-paypal-details {
+  margin-top: 1.35rem;
+  text-align: left;
 }
 
 @media (max-width: 575.98px) {
