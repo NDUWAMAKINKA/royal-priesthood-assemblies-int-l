@@ -22,7 +22,7 @@ royalpriesthood/
 │   ├── #audio ................. Worship audio          (placeholder)
 │   └── #songs ................. Songs and downloads
 ├── daily-devotional.html ....... Daily Devotional
-├── announcements.html .......... Announcements (Facebook feed)
+├── announcements.html .......... Announcements (local announcement.json)
 ├── branches-transport.html ..... Branches & Transport
 ├── give.html ................... Give
 └── contact.html ................ Contact
@@ -53,7 +53,7 @@ translated.
 | 3 | Ministries | `ministry.html` | The ministry/fellowship directory (Royal Men, Virtuous Women, NextGen Youth, Home Cells). Answers "where do I fit in?". |
 | 4 | Gallery | `gallery.html` | Photos, video, worship audio and songs. Proves the church is real and active. A **slideshow that is always running** (Pause / Play / Previous / Next). **Show all pictures** lays every photo out at once; a **Back to slideshow** button sits above the grid and sticks to the top of the screen so the way out is always in reach. No photo count is shown. |
 | 5 | Daily Devotional | `daily-devotional.html` | Daily faith reading. Brings people back daily — the main repeat-visit driver. |
-| 6 | Announcements | `announcements.html` | Live Facebook page feed. Keeps visitors current without the church editing the site. |
+| 6 | Announcements | `announcements.html` | The current church notice, rendered from `announcement.json` by `js__announcement.js`. A scheduled GitHub Action keeps the JSON in step with the church's Facebook Page. No Facebook login, iframe, cookie or browser-side third-party request is involved. |
 | 7 | Branches & Transport | `branches-transport.html` | Branch/home-cell locations, Sunday transport, directions. Practical info people ask for most. |
 | 8 | Give | `give.html` | Hero heading "Give". Zambian giving details: cards for Zanaco, Stanbic, Absa, FNB and Standard Chartered (account name, number and centre), mobile-money details for Airtel, MTN and Zamtel, plus PayPal as the only international gateway. PayPal details are shown as text, with no payment link. |
 | 9 | Contact | `contact.html` | Prayer request form, "I'm New Here" card, map, address, phone, email. |
@@ -113,7 +113,6 @@ These jump from one page straight into a specific block on another.
 | Link | Page | Purpose |
 |------|------|---------|
 | `facebook.com/.../` (as "Stream live service") | index | Live service streaming |
-| `facebook.com/.../` (as "Open the church's Facebook page") | announcements | Fallback if the embedded feed is blocked |
 | `youtube.com/watch?v=mwtbEGNABWU` | index, ministry | The one known working church video |
 | `youtube.com/results?search_query=...service` | gallery | Service video search |
 | `wa.me/...Sunday transport.` | branches-transport | WhatsApp specifically about Sunday transport |
@@ -127,8 +126,12 @@ These jump from one page straight into a specific block on another.
 
 | Embed | Page | Purpose |
 |-------|------|---------|
-| Facebook page plugin (iframe) | announcements | Shows the church feed automatically |
+| Local announcement card (`announcement.json` + `js__announcement.js`) | announcements | Shows the current church notice without a third-party embed |
 | Google Map (iframe) | contact | Shows where the church is |
+
+### Announcement sync
+
+`.github/workflows/sync-announcements.yml` runs every 30 minutes and on demand. It calls the Facebook Graph API with the `FB_PAGE_ID` and `FB_PAGE_ACCESS_TOKEN` repository secrets and rewrites `announcement.json` only when the Page has a newer text post. The workflow skips photo-only posts and never overwrites a newer manual announcement. The browser never contacts Facebook; it fetches the committed JSON.
 
 ---
 
@@ -141,7 +144,7 @@ These do not exist yet. Each is listed with why it is worth adding.
 | `sitemap.xml` | Tells Google every page. Smallest possible SEO win. |
 | `robots.txt` | Controls how search engines crawl the site. |
 | `404.html` | Visitors who hit a dead link currently see nothing helpful. |
-| Privacy Policy page | The site loads the Facebook plugin and Google Maps, which use cookies. A policy page is expected and builds trust. |
+| Privacy Policy page | The site embeds Google Maps, which may use cookies. A policy page is expected and builds trust. |
 | Canonical URLs (`<link rel="canonical">`) | Prevents duplicate-content confusion in search results. |
 | Open Graph tags | Without these, sharing the site on Facebook/WhatsApp shows no preview image or description. Important for a church shared heavily on WhatsApp. |
 | Real audio in `#audio` | The gallery advertises worship audio but the section is empty. |

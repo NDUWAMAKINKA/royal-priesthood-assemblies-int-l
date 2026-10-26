@@ -1,0 +1,166 @@
+# Sync the church's latest Facebook Page post into announcement.json.
+#
+# The website never calls Facebook. This workflow does, on a schedule, and
+# commits only the plain text and timestamp to the repository. GitHub Pages
+# then serves the JSON and the announcement card reads it client-side.
+#
+# Required repository secrets
+#   FB_PAGE_ID            the numeric Page ID (100064645061857 for RPAI)
+#   FB_PAGE_ACCESS_TOKEN  a long-lived Page access token with
+#                         pages_read_engagement (and pages_show_list when the
+#                         token is created)
+#
+# The Meta app must have access to the Page. In Development mode only app
+# admins and testers can use the token; request Advanced Access for
+# pages_read_engagement before relying on the schedule in production.
+#
+# GitHub disables scheduled workflows after 60 days without repository
+# activity. If the site has been quiet, run this workflow manually once, or
+# push any commit, to re-enable the schedule.
+#
+# Manual announcements still work: the workflow only replaces announcement.json
+# when the Facebook post is newer than the timestamp already in the file.
+
+name: Sync Facebook announcement
+
+on:
+  schedule:
+    # Every 30 minutes. GitHub may delay scheduled runs at busy times.
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-facebook-announcement
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Facebook credentials
+        env:
+          PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          PAGE_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${PAGE_ID}" ] || [ -z "${PAGE_TOKEN}" ]; then
+            echo "::error::Add FB_PAGE_ID and FB_PAGE_ACCESS_TOKEN to the repository secrets."
+            exit 1
+          fi
+
+      - name: Fetch the latest text post
+        env:
+          PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          PAGE_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          GRAPH_VERSION: ${{ vars.FB_GRAPH_VERSION || 'v26.0' }}
+        run: |
+          set -euo pipefail
+
+          api="https://graph.facebook.com/${GRAPH_VERSION}/${PAGE_ID}/posts"
+
+          # --get + --data-urlencode keeps the query string safe. The token is
+          # sent in a header so it never appears in a URL or a log line.
+          response="$(curl \
+            --fail \
+            --silent \
+            --show-error \
+            --retry 3 \
+            --retry-delay 3 \
+            --get "${api}" \
+            --data-urlencode "fields=message,created_time,updated_time,permalink_url" \
+            --data-urlencode "limit=25" \
+            -H "Authorization: Bearer ${PAGE_TOKEN}")"
+
+          # A Graph API error can still arrive with HTTP 200. Refuse anything
+          # that is not the documented posts collection.
+          printf '%s' "${response}" | jq -e '.data | type == "array"' > /dev/null
+
+          # Photo-only posts have no message. Skip them and use the newest post
+          # that actually says something a visitor can read.
+          post="$(printf '%s' "${response}" | jq -c '
+            [.data[]
+             | select((.message // "") | gsub("\\s"; "") | length > 0)
+            ][0]
+          ')"
+
+          if [ "${post}" = "null" ] || [ -z "${post}" ]; then
+            echo "No text announcement on the Page. Keeping the current announcement.json."
+            exit 0
+          fi
+
+          # Keep the message as plain text. A blank line survives as a
+          # paragraph break in the browser; the 4,000-character cap keeps a
+          # runaway post from taking over the page.
+          message="$(printf '%s' "${post}" | jq -r '
+            .message
+            | gsub("\\r"; "")
+            | gsub("^\\s+|\\s+$"; "")
+            | .[0:4000]
+          ')"
+
+          if [ -z "${message}" ]; then
+            echo "The newest post became empty after trimming. Nothing to publish."
+            exit 0
+          fi
+
+          # updated_time is used instead of created_time so an edited post
+          # refreshes the page. Normalise it to UTC ISO 8601 for the browser.
+          raw_timestamp="$(printf '%s' "${post}" | jq -r '.updated_time // .created_time')"
+          timestamp="$(date -u -d "${raw_timestamp}" +%Y-%m-%dT%H:%M:%SZ)"
+
+          # Do not overwrite a newer manual announcement (or the same post).
+          current_timestamp="$(jq -r '.timestamp // .updatedAt // empty' announcement.json 2>/dev/null || true)"
+          if [ -n "${current_timestamp}" ]; then
+            current_epoch="$(date -u -d "${current_timestamp}" +%s 2>/dev/null || echo 0)"
+            post_epoch="$(date -u -d "${timestamp}" +%s)"
+            if [ "${post_epoch}" -le "${current_epoch}" ]; then
+              echo "announcement.json is already current. Nothing to do."
+              exit 0
+            fi
+          fi
+
+          tmp="$(mktemp)"
+          jq -n \
+            --arg message "${message}" \
+            --arg timestamp "${timestamp}" \
+            '{message: $message, timestamp: $timestamp}' > "${tmp}"
+
+          # Validate before replacing the live file.
+          jq -e '
+            (.message | type) == "string"
+            and (.message | length) > 0
+            and (.timestamp | type) == "string"
+            and (.timestamp | length) > 0
+          ' "${tmp}" > /dev/null
+
+          mv "${tmp}" announcement.json
+          echo "Prepared announcement from ${timestamp}."
+
+      - name: Commit and push when the announcement changed
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- announcement.json; then
+            echo "The announcement has not changed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add announcement.json
+          git commit -m "chore: sync latest Facebook announcement"
+
+          # A manual commit may have landed while the API call was running.
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

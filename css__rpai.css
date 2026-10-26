@@ -1094,146 +1094,126 @@ h6 {
   }
 }
 
-/* --- Announcement box ------------------------------------------------------
-   The Facebook feed was a bare iframe sitting directly on the white page with
-   no frame at all. It is now a card with the same gold top rule, heading and
-   shadow used elsewhere, plus a fallback link because Facebook embeds are
-   often blocked for visitors who are not signed in. */
-/* --- Facebook box ----------------------------------------------------------
-   Facebook shows its posts only to people signed in to Facebook. For everyone
-   else the Page Plugin renders an empty box, which looked like a broken website.
-   So the button is the main thing on show: it works for every visitor. The live
-   feed is kept underneath for anyone who is signed in. */
-.rpai-facebook-card {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--rpai-line);
-}
-
-.rpai-facebook-action {
-  padding: 1.1rem 1.25rem;
-  border-bottom: 1px solid var(--rpai-line);
-  text-align: center;
-}
-
-.rpai-facebook-button {
-  display: inline-block;
-  padding: 0.7rem 1.5rem;
-  color: #fff;
-  background: #1877F2;
-  border: 1px solid #0f5bb5;
-  border-radius: 4px;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.rpai-facebook-button:hover,
-.rpai-facebook-button:focus-visible {
-  color: #fff;
-  background: #0f5bb5;
-}
-
-.rpai-facebook-note {
-  max-width: 26rem;
-  margin: 0.8rem auto 0;
-  color: var(--rpai-ink);
-  font-size: 0.82rem;
-  line-height: 1.55;
-  opacity: 0.72;
-}
-
+/* --- Announcement card -----------------------------------------------------
+   The page used to embed Facebook's Page Plugin, which stays blank for anyone
+   who is not signed in to Facebook. The announcement is now published in
+   announcement.json and drawn here by js__announcement.js, so there is no
+   third-party request and every visitor sees the same notice. The card keeps
+   the site's gold top rule and paper tone, with a mark that gives the notice a
+   clear focal point on a phone. */
 .rpai-announcement-feed {
-  display: flex;
-  flex-direction: column;
-  width: min(100%, 34rem);
-  /* The button and note are the part every visitor sees, so the feed below is
-     given whatever room is left rather than reserving 46rem for a box that
-     stays empty. */
-  max-height: min(90vh, 52rem);
+  width: min(100%, 46rem);
   margin: 0 auto;
-  overflow: hidden;
+}
+
+.rpai-announcement-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 1.6rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
   background: #fff;
   border: 1px solid var(--rpai-line);
-  border-top: 3px solid var(--rpai-gold);
-  border-radius: 4px;
-  box-shadow: 0 20px 45px -28px rgba(11, 34, 64, 0.55);
+  border-top: 4px solid var(--rpai-gold);
+  border-radius: 6px;
+  box-shadow: 0 24px 50px -34px rgba(11, 34, 64, 0.55);
 }
 
-.rpai-announcement-head {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.9rem 1.5rem;
-  border-bottom: 1px solid var(--rpai-line);
+.rpai-announcement-mark {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  color: var(--rpai-gold-label);
+  background: var(--rpai-paper);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 50%;
 }
 
-.rpai-announcement-icon {
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
+.rpai-announcement-mark svg {
+  width: 1.35rem;
+  height: 1.35rem;
 }
 
-.rpai-announcement-text {
+.rpai-announcement-content {
   min-width: 0;
 }
 
-.rpai-announcement-title {
-  display: block;
+.rpai-announcement-message {
+  margin: 0;
   color: var(--rpai-ink);
-  font-family: 'Cinzel', serif;
+  font-size: clamp(1.1rem, 1rem + 0.65vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.65;
+  text-align: left;
+}
+
+.rpai-announcement-message p {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+
+.rpai-announcement-message p + p {
+  margin-top: 0.85rem;
+}
+
+.rpai-announcement-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1.35rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rpai-line);
+  color: #59636e;
   font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.rpai-announcement-sub {
+.rpai-announcement-meta[hidden] {
+  display: none;
+}
+
+.rpai-announcement-clock svg {
   display: block;
-  color: #59636e;
-  font-size: 0.85rem;
+  width: 0.95rem;
+  height: 0.95rem;
 }
 
-.rpai-announcement-frame {
-  flex: 1 1 auto;
-  min-height: 0;
-  padding: 0.75rem;
-  background: #f7f8f8;
+[data-announcement-time] {
+  font-variant-numeric: tabular-nums;
 }
 
-.rpai-facebook-embed {
-  display: block;
-  width: 100%;
-  /* Sized to the viewport rather than a fixed tall box: the card fits on one
-     screen and the feed scrolls inside it, instead of the page scrolling too. */
-  height: clamp(17rem, 46vh, 28rem);
-  background: #fff;
-  border: 0;
-  border-radius: 3px;
+/* A short, calm entry. The card is already complete without JavaScript, so the
+   animation is decoration only and is dropped for reduced-motion users. */
+@media (prefers-reduced-motion: no-preference) {
+  .rpai-announcement-card[data-announcement-state="live"] {
+    animation: rpai-announcement-in 0.35s ease-out both;
+  }
 }
 
-.rpai-announcement-fallback {
-  flex: 0 0 auto;
-  margin: 0;
-  padding: 0.8rem 1.5rem 1rem;
-  border-top: 1px solid var(--rpai-line);
-  color: #39434f;
-  font-size: 0.9rem;
-  text-align: center;
+@keyframes rpai-announcement-in {
+  from { opacity: 0.75; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
 }
 
-.rpai-announcement-fallback a {
-  color: var(--rpai-ink);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
+@media (max-width: 480px) {
+  .rpai-announcement-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.5rem 1.25rem;
+  }
 
-.rpai-announcement-fallback a:hover,
-.rpai-announcement-fallback a:focus-visible {
-  color: var(--rpai-gold-label);
+  .rpai-announcement-mark {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .rpai-announcement-message {
+    font-size: 1.08rem;
+  }
 }
 
 .rpai-song-links {
