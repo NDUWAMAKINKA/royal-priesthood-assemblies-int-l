@@ -2456,60 +2456,6 @@ body {
   }
 }
 
-/* The whole-page translation engine is loaded invisibly. Its toolbar and the
-   frame it inserts at the top of the page are hidden so the site keeps its own
-   design; the dropdown we built remains the only visible control. */
-#google_translate_element,
-.goog-te-banner-frame,
-.goog-te-gadget,
-.goog-te-gadget-simple,
-.goog-te-gadget-icon,
-.goog-te-balloon-frame,
-.goog-te-menu-frame,
-.goog-te-spinner-pos,
-.goog-toolbar,
-.goog-logo-link,
-#goog-gt-tt,
-.skiptranslate {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* Keep the engine's hidden holder out of the layout and off screen. */
-#google_translate_element {
-  position: fixed !important;
-  top: -9999px !important;
-  left: -9999px !important;
-  width: 1px !important;
-  height: 1px !important;
-  overflow: hidden !important;
-}
-
-.skiptranslate > iframe,
-iframe.goog-te-banner-frame {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-body {
-  top: 0 !important;
-}
-
-html.translated-ltr,
-html.translated-rtl {
-  margin-top: 0 !important;
-}
-
-/* The "original text" hover card and any Google badge must never cover the
-   site or its own language button. */
-#goog-gt-tt,
-.goog-te-balloon-frame,
-.goog-te-spinner-pos {
-  display: none !important;
-}
-
 /* ---------------------------------------------------------------------------
    Giving: Zambian bank cards + international PayPal gateway
    Same white card, hairline border and gold top edge as every other card on
@@ -2537,23 +2483,30 @@ html.translated-rtl {
 .rpai-bank-logo {
   display: flex;
   align-items: center;
-  min-height: 3rem;
+  justify-content: center;
+  width: 100%;
+  min-height: 4.5rem;
   margin-bottom: 1rem;
+  padding: 0.25rem 0;
+  text-align: center;
 }
 
 .rpai-bank-logo svg {
   display: block;
-  width: auto;
+  width: 10rem;
   max-width: 100%;
-  height: 2.5rem;
+  height: 4rem;
+  object-fit: contain;
+  object-position: center;
 }
 
 .rpai-bank-logo img {
   display: block;
-  width: auto;
+  width: 10rem;
   max-width: 100%;
-  height: 3.5rem;
+  height: 4rem;
   object-fit: contain;
+  object-position: center;
 }
 
 .rpai-bank-name {
@@ -2606,6 +2559,11 @@ html.translated-rtl {
   color: #59636e;
   font-style: italic;
   font-weight: 500;
+}
+
+.rpai-bank-details dd.rpai-bank-account-name {
+  font-size: 0.82rem;
+  letter-spacing: -0.01em;
 }
 
 .rpai-paypal-panel {

@@ -1,22 +1,16 @@
 /*
  * RPAI language switcher.
  *
- * World languages (English, Hindi, French, German, Italian, Portuguese,
- * Russian, Spanish) are translated across the entire page by Google's
- * translation service, called directly in small batches. No widget,
- * banner or floating icon is ever shown; the site's own dropdown is the
- * only visible control. This covers every heading, paragraph, button,
- * link and menu item on every page.
+ * Every language (Bemba, Nyanja, Tonga, Lozi, Tumbuka, English, Hindi,
+ * French, German, Italian, Portuguese, Russian and Spanish) is shipped as a
+ * complete map in js__local-text.js. Switching applies the map
+ * synchronously: there is no widget, network request, spinner or flicker.
+ * The maps cover headings, paragraphs, buttons, links, placeholders, the
+ * mobile menu and the gallery's dynamic controls. The built-in dictionary
+ * below supplies the main interface and giving-page copy.
  *
- * Zambian languages (Bemba, Nyanja, Tonga, Lozi, Tumbuka) use the built-in
- * dictionary below, because Google does not offer them yet. Bemba, Nyanja
- * and Tumbuka are translated by the full-page engine. Tonga and Lozi use
- * the complete local maps in js__local-za.js, so switching is instant and
- * works even on a slow mobile connection. The dictionary also supplies the
- * interface labels.
- *
- * Church names ("Dunamis"), bank names, account names, account numbers and
- * the PayPal brand are marked notranslate so they never change.
+ * Church names, bank names, account names, account numbers and the PayPal
+ * brand are marked notranslate so they never change.
  */
 (function () {
 	'use strict';
@@ -24,19 +18,19 @@
 	var STORAGE_KEY = 'rpai.lang';
 
 	var LANGUAGES = [
-		{ code: 'bem', name: 'Bemba', htmlLang: 'bem', google: 'bem', group: 'zambian' },
-		{ code: 'nya', name: 'Nyanja', htmlLang: 'ny', google: 'ny', group: 'zambian' },
-		{ code: 'toi', name: 'Tonga', htmlLang: 'toi', google: null, group: 'zambian' },
-		{ code: 'loz', name: 'Lozi', htmlLang: 'loz', google: null, group: 'zambian' },
-		{ code: 'tum', name: 'Tumbuka', htmlLang: 'tum', google: 'tum', group: 'zambian' },
-		{ code: 'en', name: 'English', htmlLang: 'en', google: 'en', group: 'world' },
-		{ code: 'hi', name: 'Hindi', htmlLang: 'hi', google: 'hi', group: 'world' },
-		{ code: 'fr', name: 'French', htmlLang: 'fr', google: 'fr', group: 'world' },
-		{ code: 'de', name: 'German', htmlLang: 'de', google: 'de', group: 'world' },
-		{ code: 'it', name: 'Italian', htmlLang: 'it', google: 'it', group: 'world' },
-		{ code: 'pt', name: 'Portuguese', htmlLang: 'pt', google: 'pt', group: 'world' },
-		{ code: 'ru', name: 'Russian', htmlLang: 'ru', google: 'ru', group: 'world' },
-		{ code: 'es', name: 'Spanish', htmlLang: 'es', google: 'es', group: 'world' }
+		{ code: 'bem', name: 'Bemba', htmlLang: 'bem', group: 'zambian' },
+		{ code: 'nya', name: 'Nyanja', htmlLang: 'ny', group: 'zambian' },
+		{ code: 'toi', name: 'Tonga', htmlLang: 'toi', group: 'zambian' },
+		{ code: 'loz', name: 'Lozi', htmlLang: 'loz', group: 'zambian' },
+		{ code: 'tum', name: 'Tumbuka', htmlLang: 'tum', group: 'zambian' },
+		{ code: 'en', name: 'English', htmlLang: 'en', group: 'world' },
+		{ code: 'hi', name: 'Hindi', htmlLang: 'hi', group: 'world' },
+		{ code: 'fr', name: 'French', htmlLang: 'fr', group: 'world' },
+		{ code: 'de', name: 'German', htmlLang: 'de', group: 'world' },
+		{ code: 'it', name: 'Italian', htmlLang: 'it', group: 'world' },
+		{ code: 'pt', name: 'Portuguese', htmlLang: 'pt', group: 'world' },
+		{ code: 'ru', name: 'Russian', htmlLang: 'ru', group: 'world' },
+		{ code: 'es', name: 'Spanish', htmlLang: 'es', group: 'world' }
 	];
 
 	var NAV_KEYS = {
@@ -491,11 +485,12 @@ var DICTIONARY = {
 		return (href || '').split('#')[0].split('?')[0].replace(/^\.\//, '');
 	}
 
-	/* Proper nouns are never handed to the translation engine. */
+	/* Proper nouns are never handed to the translation map. */
 	function markUntranslatable() {
 		var selector = [
 			'.rpai-bank-name',
 			'.rpai-bank-full-name',
+			'.rpai-bank-account-name',
 			'.rpai-paypal-word',
 			'.rpai-pay-title',
 			'.rpai-lang-switcher',
@@ -506,15 +501,6 @@ var DICTIONARY = {
 		document.querySelectorAll(selector).forEach(function (element) {
 			element.classList.add('notranslate');
 			element.setAttribute('translate', 'no');
-		});
-
-		/* The account name is a proper noun; "To be confirmed" and the centre
-		   line are ordinary copy, so they still translate. */
-		document.querySelectorAll('.rpai-bank-details dd').forEach(function (element) {
-			if (/Dunamis International Gospel Centre/i.test(element.textContent)) {
-				element.classList.add('notranslate');
-				element.setAttribute('translate', 'no');
-			}
 		});
 	}
 
@@ -528,11 +514,23 @@ var DICTIONARY = {
 
 		var toggle = document.querySelector('[data-rpai-lang-toggle]');
 		if (toggle) toggle.setAttribute('aria-label', translate(lang, 'lang.select'));
+
+		var menu = document.querySelector('[data-rpai-lang-menu], .rpai-lang-menu');
+		if (menu) menu.setAttribute('aria-label', translate(lang, 'lang.select'));
+
+		/* The mobile menu's close control sits inside the protected menu
+		   block, so its accessible label is updated here rather than by the
+		   page map. */
+		var closeButton = document.querySelector('.site-mobile-menu-close .js-menu-toggle');
+		if (closeButton) {
+			var closeLabel = lang === 'en' ? 'Close menu' : (LOCAL_TEXT[lang] && LOCAL_TEXT[lang]['Close menu']);
+			if (closeLabel) closeButton.setAttribute('aria-label', closeLabel);
+		}
 	}
 
-	/* Translation that works without a network connection: the interface
-	   labels and the giving page copy. World languages let the full-page
-	   engine translate the body, so only the interface is set here. */
+	/* The dictionary supplies the main interface labels and the giving-page
+	   copy. It is applied first on every switch, before the complete local
+	   map translates the rest of the visible page. */
 	function applyDictionary(lang, includeContent) {
 		document.querySelectorAll('[data-i18n]').forEach(function (element) {
 			var inSwitcher = element.closest('[data-rpai-lang-switcher]');
@@ -551,26 +549,15 @@ var DICTIONARY = {
 	/* ------------------------------------------------------- Page translator */
 	var originalNodes = new Map();
 	var originalAttrs = new Map();
-	var translationToken = 0;
-	var translationCache = {};
 	var currentLanguage = 'en';
 
 	var SKIP_SELECTOR = [
 		'script', 'style', 'noscript', 'textarea', 'select', 'option',
-		'.notranslate', '[translate="no"]'
+		'.notranslate', '[translate="no"]', '.tns-liveregion'
 	].join(',');
 
 	function hasTranslatableText(value) {
 		return /[A-Za-z\u00C0-\u024F\u0400-\u04FF\u0900-\u097F]/.test(value || '');
-	}
-
-	/* The built-in dictionary is the English source for the giving page, so
-	   reset those strings before collecting text to translate. */
-	function resetContentToEnglish() {
-		document.querySelectorAll('[data-i18n]').forEach(function (element) {
-			var english = DICTIONARY.en[element.getAttribute('data-i18n')];
-			if (english) element.textContent = english;
-		});
 	}
 
 	function splitEdges(value) {
@@ -617,214 +604,7 @@ var DICTIONARY = {
 		return items;
 	}
 
-	/* Names and church titles are swapped for private-use characters before
-	   translation and put back afterwards, so no engine can translate them. */
-	var PROTECTED_TERMS = [
-		{ token: '\uE000', text: 'Royal Priesthood Assemblies International' },
-		{ token: '\uE001', text: 'Dunamis International Gospel Centre' },
-		{ token: '\uE002', text: 'Apostle Dr. Mighty Zunga' },
-		{ token: '\uE003', text: 'Mighty Zunga' },
-		{ token: '\uE004', text: 'Pastor Thelma' },
-		{ token: '\uE005', text: 'Thelma' },
-		{ token: '\uE006', text: 'RPAI' }
-	];
-
-	function protectTerms(value) {
-		PROTECTED_TERMS.forEach(function (term) {
-			value = value.split(term.text).join(term.token);
-		});
-		return value;
-	}
-
-	function restoreTerms(value) {
-		PROTECTED_TERMS.forEach(function (term) {
-			value = value.split(term.token).join(term.text);
-		});
-		return value;
-	}
-
-	function requestTranslation(lang, strings) {
-		var joined = protectTerms(strings.join('\n\u241E\n'));
-		var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' +
-			encodeURIComponent(lang) + '&dt=t&q=' + encodeURIComponent(joined);
-		return fetch(url).then(function (response) {
-			if (!response.ok) throw new Error('Translation request failed');
-			return response.json();
-		}).then(function (payload) {
-			var value = restoreTerms(payload[0].map(function (part) { return part[0]; }).join(''));
-			var parts = value.split(/\s*\u241E\s*/);
-			return parts.length === strings.length ? parts : null;
-		});
-	}
-
-	function requestOne(lang, value) {
-		return requestTranslation(lang, [value]).then(function (parts) {
-			return parts ? parts[0] : null;
-		}).catch(function () { return null; });
-	}
-
-	function getCache(lang) {
-		if (translationCache[lang]) return translationCache[lang];
-
-		var cache = new Map();
-		try {
-			var raw = window.sessionStorage.getItem('rpai.tr.' + lang);
-			if (raw) {
-				var saved = JSON.parse(raw);
-				Object.keys(saved).forEach(function (key) {
-					if (key.length < 1200) cache.set(key, saved[key]);
-				});
-			}
-		} catch (err) {
-			/* Private mode or a full store: translate without the cache. */
-		}
-		translationCache[lang] = cache;
-		return cache;
-	}
-
-	function saveCache(lang, cache) {
-		try {
-			var saved = {};
-			cache.forEach(function (value, key) {
-				if (key.length < 1200) saved[key] = value;
-			});
-			window.sessionStorage.setItem('rpai.tr.' + lang, JSON.stringify(saved));
-		} catch (err) {
-			/* The cache is an optimisation only. */
-		}
-	}
-
-	function buildBatches(unique, cache) {
-		var batches = [];
-		var batch = [];
-		var size = 0;
-
-		unique.forEach(function (value) {
-			if (cache.has(value)) return;
-			if (batch.length && (size + value.length > 4500 || batch.length >= 120)) {
-				batches.push(batch);
-				batch = [];
-				size = 0;
-			}
-			batch.push(value);
-			size += value.length + 3;
-		});
-		if (batch.length) batches.push(batch);
-		return batches;
-	}
-
-	/* Fetch only the strings that are not cached yet. */
-	var translationPending = {};
-	function ensureTranslations(lang, unique) {
-		/* A hover prefetch may still be in flight; join it instead of sending
-		   the same strings twice. */
-		if (translationPending[lang]) {
-			return translationPending[lang].then(function () {
-				return ensureTranslations(lang, unique);
-			});
-		}
-
-		var target = byCode[lang].google;
-		var cache = getCache(lang);
-		var batches = buildBatches(unique, cache);
-		if (!batches.length) return Promise.resolve(cache);
-
-		var request = Promise.all(batches.map(function (group) {
-			return requestTranslation(target, group).then(function (parts) {
-				if (parts) {
-					return group.map(function (value, index) {
-						return { source: value, translated: parts[index] };
-					});
-				}
-				/* A changed separator means the batch cannot be split safely;
-				   translate its strings one by one instead. */
-				return Promise.all(group.map(function (value) {
-					return requestOne(target, value).then(function (translated) {
-						return { source: value, translated: translated };
-					});
-				}));
-			}).catch(function () {
-				return group.map(function (value) {
-					return { source: value, translated: null };
-				});
-			});
-		})).then(function (results) {
-			results.forEach(function (group) {
-				group.forEach(function (pair) {
-					if (pair.translated) cache.set(pair.source, pair.translated);
-				});
-			});
-			saveCache(lang, cache);
-			return cache;
-		});
-
-		translationPending[lang] = request;
-		return request.then(function (cache) {
-			delete translationPending[lang];
-			return cache;
-		}, function (err) {
-			delete translationPending[lang];
-			throw err;
-		});
-	}
-
-	function translatePage(lang) {
-		var token = ++translationToken;
-		if (!originalNodes.size && !originalAttrs.size) resetContentToEnglish();
-
-		var items = collectSources();
-		var byText = new Map();
-		items.forEach(function (item) {
-			var edge = splitEdges(item.source);
-			if (!edge.text || !hasTranslatableText(edge.text)) return;
-			if (!byText.has(edge.text)) byText.set(edge.text, []);
-			byText.get(edge.text).push(item);
-		});
-
-		var unique = Array.from(byText.keys());
-		if (!unique.length) return;
-
-		ensureTranslations(lang, unique).then(function (cache) {
-			if (token !== translationToken) return;
-			items.forEach(function (item) {
-				var edge = splitEdges(item.source);
-				var translated = cache.get(edge.text);
-				if (!translated) return;
-				var value = edge.leading + translated + edge.trailing;
-				if (item.node) item.node.nodeValue = value;
-				else item.element.setAttribute(item.attribute, value);
-			});
-			markUntranslatable();
-		});
-	}
-
-	/* Warming a language on hover or keyboard focus makes the eventual click
-	   feel instant, because the strings are already in the cache. */
-	var prefetching = {};
-	function prefetchTranslation(lang) {
-		var entry = byCode[lang];
-		if (!entry || !entry.google || lang === 'en' || prefetching[lang]) return;
-		if (!originalNodes.size && !originalAttrs.size && currentLanguage !== 'en') return;
-
-		prefetching[lang] = true;
-		var items = collectSources();
-		var unique = [];
-		var seen = new Set();
-		items.forEach(function (item) {
-			var edge = splitEdges(item.source);
-			if (!edge.text || !hasTranslatableText(edge.text) || seen.has(edge.text)) return;
-			seen.add(edge.text);
-			unique.push(edge.text);
-		});
-		ensureTranslations(lang, unique).then(function () {
-			prefetching[lang] = false;
-		}, function () {
-			prefetching[lang] = false;
-		});
-	}
-
 	function restoreOriginalText() {
-		translationToken++;
 		originalNodes.forEach(function (value, node) {
 			if (node.isConnected) node.nodeValue = value;
 		});
@@ -838,16 +618,19 @@ var DICTIONARY = {
 		originalAttrs = new Map();
 	}
 
-	/* Tonga and Lozi are shipped as complete local maps. The map is applied
-	   synchronously, so there is no request, spinner or flicker. A small
-	   observer keeps strings inserted later (for example the gallery's
-	   slideshow buttons) translated too. */
+	/* Every language is shipped as a complete map. Applying it is
+	   synchronous: no request, spinner or flicker. A small observer keeps
+	   strings inserted later (for example the gallery's slideshow controls)
+	   translated too. */
 	var localObserver = null;
+	var menuLabelObserver = null;
 	var localObserverLanguage = null;
 
 	function stopLocalObserver() {
 		if (localObserver) localObserver.disconnect();
+		if (menuLabelObserver) menuLabelObserver.disconnect();
 		localObserver = null;
+		menuLabelObserver = null;
 		localObserverLanguage = null;
 	}
 
@@ -865,11 +648,65 @@ var DICTIONARY = {
 			subtree: true,
 			characterData: true
 		});
+
+		/* js__navbar.js swaps the burger's aria-label between "Open menu" and
+		   "Close menu" when the mobile menu opens. Translate that new label
+		   without observing every attribute on the page. */
+		var menuToggle = document.querySelector('.site-menu-toggle');
+		if (!menuToggle) return;
+		menuLabelObserver = new MutationObserver(function () {
+			if (currentLanguage === localObserverLanguage) {
+				applyLocalPage(localObserverLanguage);
+			}
+		});
+		menuLabelObserver.observe(menuToggle, {
+			attributes: true,
+			attributeFilter: ['aria-label']
+		});
+	}
+
+	/* Tiny Slider keeps a live region for screen readers and rewrites only
+	   its .current span as the gallery moves. Keep the span intact and make
+	   the surrounding wording language-neutral, so no English label remains
+	   after switching language. */
+	function localiseSliderRegions(lang) {
+		document.querySelectorAll('.tns-liveregion').forEach(function (region) {
+			var current = region.querySelector('.current');
+			if (!current) return;
+
+			var text = (region.textContent || '').replace(/\s+/g, ' ').trim();
+			var match = text.match(/^(?:slide\s+)?(\d+)(?:\s*(?:to|–|-)\s*(\d+))?\s*(?:\/|of)\s*(\d+)$/i);
+			if (!match) return;
+
+			var start = match[1];
+			var end = match[2] || start;
+			var total = match[3];
+			var prefix = lang === 'en' ? 'slide ' : '';
+			var range = lang === 'en' ? start + ' to ' + end : start + '–' + end;
+			var suffix = lang === 'en' ? ' of ' + total : ' / ' + total;
+
+			var prefixNode = current.previousSibling;
+			if (!prefixNode || prefixNode.nodeType !== 3) {
+				prefixNode = document.createTextNode('');
+				current.parentNode.insertBefore(prefixNode, current);
+			}
+			var suffixNode = current.nextSibling;
+			if (!suffixNode || suffixNode.nodeType !== 3) {
+				suffixNode = document.createTextNode('');
+				current.parentNode.appendChild(suffixNode);
+			}
+
+			if (prefixNode.nodeValue !== prefix) prefixNode.nodeValue = prefix;
+			if (current.textContent !== range) current.textContent = range;
+			if (suffixNode.nodeValue !== suffix) suffixNode.nodeValue = suffix;
+		});
 	}
 
 	function applyLocalPage(lang) {
 		var table = LOCAL_TEXT[lang];
 		if (!table) return;
+
+		localiseSliderRegions(lang);
 
 		collectSources().forEach(function (item) {
 			var current = item.node ? item.node.nodeValue : item.element.getAttribute(item.attribute);
@@ -915,6 +752,11 @@ var DICTIONARY = {
 		});
 
 		markUntranslatable();
+
+		var closeButton = document.querySelector('.site-mobile-menu-close .js-menu-toggle');
+		if (closeButton && table['Close menu'] && closeButton.getAttribute('aria-label') !== table['Close menu']) {
+			closeButton.setAttribute('aria-label', table['Close menu']);
+		}
 	}
 
 	function apply(lang) {
@@ -924,20 +766,15 @@ var DICTIONARY = {
 		document.documentElement.setAttribute('lang', byCode[lang].htmlLang);
 		updateSwitcher(lang);
 
-		var isWorld = byCode[lang].google && lang !== 'en';
-		var isLocal = isLocalLanguage(lang);
 		stopLocalObserver();
-		if (!isWorld) restoreOriginalText();
-
-		/* Navigation and the switcher always use the dictionary. Body copy is
-		   translated for world languages, loaded instantly from the local
-		   Tonga/Lozi maps, and restored to English for English. */
-		applyDictionary(lang, lang === 'en');
+		restoreOriginalText();
+		applyDictionary(lang, true);
 		markUntranslatable();
+		localiseSliderRegions(lang);
 
-		if (isWorld) {
-			translatePage(lang);
-		} else if (isLocal) {
+		/* English is already in the markup. Every other language is applied
+		   from its complete local map without a network request. */
+		if (lang !== 'en' && isLocalLanguage(lang)) {
 			applyLocalPage(lang);
 			startLocalObserver(lang);
 		}
@@ -967,23 +804,11 @@ var DICTIONARY = {
 			toggle.setAttribute('aria-expanded', 'true');
 			var selected = menu.querySelector('[aria-selected="true"]');
 			if (selected) selected.focus();
-
-			/* The three Zambian languages Google supports are warmed as soon
-			   as the menu opens, so a tap applies them immediately. */
-			['bem', 'nya', 'tum'].forEach(prefetchTranslation);
 		}
 
 		toggle.addEventListener('click', function () {
 			if (menu.hidden) openMenu();
 			else closeMenu();
-		});
-
-		/* Hovering or focusing an option starts its translation early. */
-		menu.querySelectorAll('[data-lang]').forEach(function (option) {
-			var code = option.getAttribute('data-lang');
-			option.addEventListener('pointerenter', function () { prefetchTranslation(code); });
-			option.addEventListener('focus', function () { prefetchTranslation(code); });
-			option.addEventListener('touchstart', function () { prefetchTranslation(code); }, { passive: true });
 		});
 
 		menu.addEventListener('click', function (event) {
