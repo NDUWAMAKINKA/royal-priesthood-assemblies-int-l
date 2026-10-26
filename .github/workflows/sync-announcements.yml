@@ -4,11 +4,13 @@
 # commits only the plain text and timestamp to the repository. GitHub Pages
 # then serves the JSON and the announcement card reads it client-side.
 #
-# Required repository secrets
-#   FB_PAGE_ID            the numeric Page ID (100064645061857 for RPAI)
+# Required repository secret
 #   FB_PAGE_ACCESS_TOKEN  a long-lived Page access token with
 #                         pages_read_engagement (and pages_show_list when the
 #                         token is created)
+#
+# The numeric Page ID is fixed below. Override it with the optional
+# FB_PAGE_ID secret if the church ever moves to a different Page.
 #
 # The Meta app must have access to the Page. In Development mode only app
 # admins and testers can use the token; request Advanced Access for
@@ -50,12 +52,12 @@ jobs:
       - name: Check Facebook credentials
         id: credentials
         env:
-          PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          PAGE_ID: ${{ secrets.FB_PAGE_ID || '100064645061857' }}
           PAGE_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
         run: |
           set -euo pipefail
-          if [ -z "${PAGE_ID}" ] || [ -z "${PAGE_TOKEN}" ]; then
-            echo "::notice::FB_PAGE_ID or FB_PAGE_ACCESS_TOKEN is not configured. Skipping this run."
+          if [ -z "${PAGE_TOKEN}" ]; then
+            echo "::notice::FB_PAGE_ACCESS_TOKEN is not configured. Skipping this run."
             echo "ready=false" >> "${GITHUB_OUTPUT}"
             exit 0
           fi
@@ -64,7 +66,7 @@ jobs:
       - name: Fetch the latest text post
         if: steps.credentials.outputs.ready == 'true'
         env:
-          PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          PAGE_ID: ${{ secrets.FB_PAGE_ID || '100064645061857' }}
           PAGE_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           GRAPH_VERSION: ${{ vars.FB_GRAPH_VERSION || 'v26.0' }}
         run: |

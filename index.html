@@ -158,6 +158,43 @@
 		</div>
 	</section>
 
+	<section class="section bg-white">
+		<div class="container">
+			<div class="rpai-section-intro mb-5 text-center mx-auto">
+				<span class="subheading mb-4 d-block">Church updates</span>
+				<h2 class="heading" id="home-announcement-heading">Latest announcements</h2>
+			</div>
+			<div class="rpai-announcement-feed">
+				<!-- The current announcement is also written here so the page is
+				     complete without JavaScript. js__announcement.js refreshes it
+				     from announcement.json; if that request fails, this copy stays. -->
+				<article class="rpai-announcement-card" data-announcement-card aria-busy="false" aria-labelledby="home-announcement-heading">
+					<span class="rpai-announcement-mark" aria-hidden="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M4 10v4a1 1 0 0 0 1 1h2l4 3V6L7 9H5a1 1 0 0 0-1 1Z"></path>
+							<path d="M16 8.5a5 5 0 0 1 0 7"></path>
+							<path d="M18.8 6a8.5 8.5 0 0 1 0 12"></path>
+						</svg>
+					</span>
+					<div class="rpai-announcement-content">
+						<div class="rpai-announcement-message" data-announcement-message>
+							<p>Sunday service moves to 8am from 1 December.</p>
+						</div>
+						<p class="rpai-announcement-meta" data-announcement-meta>
+							<span class="rpai-announcement-clock" aria-hidden="true">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+									<circle cx="12" cy="12" r="9"></circle>
+									<path d="M12 7v5l3 2"></path>
+								</svg>
+							</span>
+							<time datetime="2026-10-25T21:35:00Z" data-announcement-time>25 October 2026</time>
+						</p>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
 	<!-- This is the about section. It tells people a little about the church and shows photos. -->
 	<!-- The pictures help make the story feel warm and real. -->
 	<div class="section">
@@ -345,7 +382,7 @@
 	<script src="js__aos.js"></script>
 	<script src="js__navbar.js?v=2"></script>
 	<script src="js__counter.js"></script>
-	<script src="js__custom.js?v=59"></script><script src="js__rpai.js?v=59"></script><script src="js__local-text.js?v=11"></script><script src="js__i18n.js?v=24"></script>
+	<script src="js__custom.js?v=59"></script><script src="js__rpai.js?v=59"></script><script src="js__local-text.js?v=11"></script><script src="js__i18n.js?v=24"></script><script src="js__announcement.js?v=3"></script>
 
 </body>
 </html>
