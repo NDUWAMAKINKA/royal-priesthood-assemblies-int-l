@@ -131,7 +131,7 @@ These jump from one page straight into a specific block on another.
 
 ### Announcement sync
 
-`.github/workflows/sync-announcements.yml` runs every 30 minutes and on demand. It calls the Facebook Graph API with the `FB_PAGE_ID` and `FB_PAGE_ACCESS_TOKEN` repository secrets and rewrites `announcement.json` only when the Page has a newer text post. The workflow skips photo-only posts and never overwrites a newer manual announcement. The browser never contacts Facebook; it fetches the committed JSON.
+`.github/workflows/sync-announcements.yml` runs every 30 minutes and on demand. It calls the Facebook Graph API with the `FB_PAGE_ACCESS_TOKEN` repository secret and rewrites `announcement.json` only when the Page has a newer text post. The workflow skips photo-only posts and never overwrites a newer manual announcement. The browser never contacts Facebook; it fetches the committed JSON. Page ID `100064645061857` is built in. Setup and token instructions: `FACEBOOK-SYNC-SETUP.md`.
 
 ---
 
