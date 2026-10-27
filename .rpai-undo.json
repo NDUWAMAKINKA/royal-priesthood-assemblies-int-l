@@ -68,5 +68,12 @@
     "marker": "daily",
     "command": "daily",
     "before": "<p>God has not forgotten you. His mercies are new every morning.</p>"
+  },
+  {
+    "at": "2026-10-27T07:38:34.327Z",
+    "file": "daily-devotional.html",
+    "marker": "daily",
+    "command": "daily",
+    "before": "<p>God has not forgotten you. His mercies are new every morning.</p>"
   }
 ]
