@@ -130,6 +130,7 @@ time.
 | `announcement.json is already current` | The Facebook post is older than the current manual notice | Publish a newer post, or make the timestamp in `announcement.json` older |
 | Push fails with `protected branch` | Branch protection blocks GitHub Actions | Allow the Actions bot to push to `main`, or relax the rule for this workflow |
 | `Resource not accessible by integration` | Workflow permissions are too narrow | Keep `permissions: contents: write` in the workflow |
+| Run fails in a few seconds with no steps; annotation says `The job was not started because your account is locked due to a billing issue` | GitHub Billing is blocking Actions for the account | Open [GitHub Billing](https://github.com/settings/billing), clear any balance or fix the payment method, then run the workflow again |
 
 ---
 
