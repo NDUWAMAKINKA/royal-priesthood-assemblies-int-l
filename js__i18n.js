@@ -513,7 +513,10 @@ var DICTIONARY = {
 		if (current) current.textContent = byCode[lang].name;
 
 		var toggle = document.querySelector('[data-rpai-lang-toggle]');
-		if (toggle) toggle.setAttribute('aria-label', translate(lang, 'lang.select'));
+		/* Include the visible current language in the accessible name so it
+		   satisfies the "label in name" rule for speech input and screen
+		   readers. */
+		if (toggle) toggle.setAttribute('aria-label', translate(lang, 'lang.select') + ': ' + byCode[lang].name);
 
 		var menu = document.querySelector('[data-rpai-lang-menu], .rpai-lang-menu');
 		if (menu) menu.setAttribute('aria-label', translate(lang, 'lang.select'));
