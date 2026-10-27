@@ -10,8 +10,11 @@ function required(name) {
 
 /**
  * Minor-unit exponents, taken from ISO 4217.
- * ZMW and XOF are whole-unit currencies (exponent 0) - there is no "kobo"
- * equivalent, so a charge of 50 ZMW must be sent as "50", never "5000".
+ *
+ * The configured currency's exponent can be overridden with
+ * PAYSTACK_CURRENCY_EXPONENT because the provider's interpretation must be
+ * confirmed against the live account. Getting this wrong changes the charge by
+ * a factor of 100.
  */
 export const SUBUNIT_EXPONENTS = {
   ZMW: 0,
@@ -24,6 +27,52 @@ export const SUBUNIT_EXPONENTS = {
   RWF: 0,
 };
 
+const configuredCurrency = (process.env.PAYSTACK_CURRENCY || 'ZMW').toUpperCase();
+const exponentRaw = process.env.PAYSTACK_CURRENCY_EXPONENT;
+const currencyExponent =
+  exponentRaw === undefined || exponentRaw === '' ? 0 : Number(exponentRaw);
+
+if (![0, 2].includes(currencyExponent)) {
+  throw new Error(
+    'PAYSTACK_CURRENCY_EXPONENT must be 0 or 2, confirmed against your provider account'
+  );
+}
+if (exponentRaw === undefined || exponentRaw === '') {
+  console.warn(
+    '[config] PAYSTACK_CURRENCY_EXPONENT is not set; using 0. Confirm this with Paystack before taking live payments.'
+  );
+}
+
+function parseOrigins(value) {
+  return String(value || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+    .map((origin) => (origin.startsWith('http') ? origin : `https://${origin}`));
+}
+
+const allowedOrigins = parseOrigins(
+  process.env.ALLOWED_ORIGIN ||
+    'http://127.0.0.1:8123,http://localhost:8123,https://nduwamakinka.github.io,https://rpai-church-site.onrender.com'
+);
+
+const minAmount = Number(process.env.PAYSTACK_MIN_AMOUNT || 1);
+const maxAmount = Number(process.env.PAYSTACK_MAX_AMOUNT || 1_000_000);
+const operators = (process.env.PAYSTACK_OPERATORS || 'mtn,airtel')
+  .split(',')
+  .map((operator) => operator.trim().toLowerCase())
+  .filter(Boolean);
+
+if (!Number.isFinite(minAmount) || minAmount <= 0) {
+  throw new Error('PAYSTACK_MIN_AMOUNT must be a positive number');
+}
+if (!Number.isFinite(maxAmount) || maxAmount < minAmount) {
+  throw new Error('PAYSTACK_MAX_AMOUNT must be a number at least the minimum');
+}
+if (!operators.length) {
+  throw new Error('PAYSTACK_OPERATORS must contain at least one provider');
+}
+
 export const config = {
   env: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT || 3000),
@@ -32,12 +81,19 @@ export const config = {
     secretKey: required('PAYSTACK_SECRET_KEY'),
     // The API base is api.paystack.co. paystack.co is the dashboard website.
     baseUrl: 'https://api.paystack.co',
-    currency: (process.env.PAYSTACK_CURRENCY || 'ZMW').toUpperCase(),
+    currency: configuredCurrency,
+    currencyExponent,
+    minAmount,
+    maxAmount,
+    operators,
     timeoutMs: 20_000,
   },
 
-  allowedOrigin: process.env.ALLOWED_ORIGIN || 'http://127.0.0.1:8123',
-  publicSiteUrl: process.env.PUBLIC_SITE_URL || 'http://127.0.0.1:8123',
+  allowedOrigins,
+  // Kept for callers that only need the primary origin (for example logs).
+  allowedOrigin: allowedOrigins[0] || 'http://127.0.0.1:8123',
+  publicSiteUrl:
+    process.env.PUBLIC_SITE_URL || 'https://rpai-church-site.onrender.com',
   allowedCountries: (process.env.ALLOWED_COUNTRIES || 'ZM')
     .split(',')
     .map((c) => c.trim().toUpperCase())
@@ -53,13 +109,23 @@ export const config = {
   },
 };
 
-if (config.paystack.secretKey.startsWith('sk_live') && config.env === 'production') {
+if (
+  config.paystack.secretKey.startsWith('sk_live') &&
+  config.env === 'production'
+) {
   // Not an error, just a loud reminder that live keys are now in play.
   console.warn('[config] Using a LIVE Paystack key. Test carefully.');
 }
 
+function exponentFor(currency) {
+  if (currency === config.paystack.currency) {
+    return config.paystack.currencyExponent;
+  }
+  return SUBUNIT_EXPONENTS[currency];
+}
+
 export function toSubunits(amount, currency = config.paystack.currency) {
-  const exponent = SUBUNIT_EXPONENTS[currency];
+  const exponent = exponentFor(currency);
   if (exponent === undefined) {
     throw new Error(`Unknown currency "${currency}" - add it to SUBUNIT_EXPONENTS`);
   }
@@ -71,6 +137,6 @@ export function toSubunits(amount, currency = config.paystack.currency) {
 }
 
 export function fromSubunits(subunits, currency = config.paystack.currency) {
-  const exponent = SUBUNIT_EXPONENTS[currency] ?? 2;
+  const exponent = exponentFor(currency) ?? 2;
   return Number(subunits) / 10 ** exponent;
 }

@@ -1,4 +1,5 @@
 import { config } from './config.js';
+import { savePayment } from './store.js';
 import { bankDetailsArePublishable } from './validation.js';
 
 const WARNING =
@@ -36,17 +37,33 @@ export function buildBankTransferInstructions() {
 }
 
 /**
- * A donor choosing bank transfer still leaves us something to reconcile. We log
- * the intent server-side and return the reference the donor should quote.
+ * A donor choosing bank transfer still leaves us something to reconcile. The
+ * intent is persisted with the same payment table as mobile money so the
+ * church has one place to look when the bank statement arrives.
  */
-export function recordBankTransferIntent({ email, amount, reference }) {
+export async function recordBankTransferIntent({
+  email,
+  amount,
+  currency = config.paystack.currency,
+  reference,
+}) {
+  const saved = await savePayment({
+    reference,
+    method: 'bank_transfer',
+    provider: null,
+    email,
+    amount,
+    currency,
+    status: 'awaiting_transfer',
+  });
+
   return {
     method: 'bank_transfer',
     reference,
     email,
     amount,
-    status: 'awaiting_transfer',
-    recordedAt: new Date().toISOString(),
+    status: saved?.status ?? 'awaiting_transfer',
+    recordedAt: saved?.createdAt ?? new Date().toISOString(),
     next: 'Donor pays from their banking app, then quotes the reference when contacting the church.',
   };
 }

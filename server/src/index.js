@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 
 import { config } from './config.js';
+import { closeDb, query } from './db.js';
 import { chargeSchema } from './validation.js';
 import {
   initializeMobileMoneyCharge,
@@ -18,6 +19,8 @@ import {
   savePayment,
   updatePayment,
   getPayment,
+  saveWebhookEvent,
+  markWebhookProcessed,
 } from './store.js';
 
 const app = express();
@@ -29,7 +32,7 @@ app.use(helmet());
 // CORS is scoped to the one site that is allowed to call this API.
 app.use(
   cors({
-    origin: config.allowedOrigin,
+    origin: config.allowedOrigins,
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Idempotency-Key'],
   })
@@ -96,9 +99,10 @@ app.post('/api/charge', async (req, res, next) => {
         });
       }
       const reference = input.reference || newReference('BANK');
-      const record = recordBankTransferIntent({
+      const record = await recordBankTransferIntent({
         email: input.email,
         amount: input.amount,
+        currency: input.currency,
         reference,
       });
       return res.json({ ...record, instructions });
@@ -107,7 +111,7 @@ app.post('/api/charge', async (req, res, next) => {
     // Guard against double taps creating two charges.
     const idemKey = req.get('Idempotency-Key');
     const replay = {};
-    if (beginIdempotent(idemKey, replay)) {
+    if (await beginIdempotent(idemKey, replay)) {
       return res.json({ ...replay, replayed: true });
     }
 
@@ -122,7 +126,7 @@ app.post('/api/charge', async (req, res, next) => {
       reference,
     });
 
-    savePayment({
+    await savePayment({
       reference: charge.reference,
       method: 'mobile_money',
       provider: input.mobile_money.provider,
@@ -146,7 +150,7 @@ app.post('/api/charge', async (req, res, next) => {
       message:
         'Open the secure payment page to enter your mobile money PIN, then return here.',
     };
-    rememberIdempotent(idemKey, payload);
+    await rememberIdempotent(idemKey, payload);
     return res.json(payload);
   } catch (err) {
     return next(err);
@@ -196,6 +200,19 @@ app.post('/api/webhook', async (req, res) => {
   }
 
   const event = req.body;
+  const webhookRowId = await saveWebhookEvent({
+    eventId: event?.data?.id,
+    eventType: event?.event,
+    reference: event?.data?.reference,
+    payload: event,
+    signatureValid: true,
+  }).catch((err) => {
+    // The audit copy is important but must not cause Paystack to retry a
+    // payment already confirmed by a valid signature.
+    console.error('[webhook] could not record event:', err.message);
+    return null;
+  });
+
   if (event?.event === 'charge.success') {
     const data = event.data ?? {};
     const reference = data.reference;
@@ -203,7 +220,7 @@ app.post('/api/webhook', async (req, res) => {
     const status = data.status;
 
     // The webhook is the only trustworthy confirmation of payment.
-    updatePayment(reference, {
+    await updatePayment(reference, {
       status,
       paidAt: data.paid_at ?? new Date().toISOString(),
       channel: data.channel,
@@ -221,8 +238,12 @@ app.post('/api/webhook', async (req, res) => {
   }
 
   if (event?.event === 'charge.failed') {
-    updatePayment(event.data?.reference, { status: 'failed' });
+    await updatePayment(event.data?.reference, { status: 'failed' });
   }
+
+  await markWebhookProcessed(webhookRowId).catch((err) => {
+    console.error('[webhook] could not mark event processed:', err.message);
+  });
 
   // Always acknowledge fast; do heavy work asynchronously.
   return res.sendStatus(200);
@@ -233,13 +254,13 @@ app.post('/api/webhook', async (req, res) => {
 // ---------------------------------------------------------------------------
 app.get('/api/payments/:reference', async (req, res, next) => {
   try {
-    const local = getPayment(req.params.reference);
+    const local = await getPayment(req.params.reference);
 
     // If still pending, ask Paystack directly rather than trusting local state.
     if (local && local.status === 'pending') {
       const verified = await verifyCharge(req.params.reference).catch(() => null);
       if (verified) {
-        updatePayment(req.params.reference, {
+        await updatePayment(req.params.reference, {
           status: verified.status,
           paidAt: verified.paid_at,
           channel: verified.channel,
@@ -247,7 +268,7 @@ app.get('/api/payments/:reference', async (req, res, next) => {
       }
     }
 
-    const fresh = getPayment(req.params.reference) ?? local;
+    const fresh = (await getPayment(req.params.reference)) ?? local;
     if (!fresh) return res.status(404).json({ error: 'not_found' });
 
     return res.json({
@@ -263,9 +284,23 @@ app.get('/api/payments/:reference', async (req, res, next) => {
 });
 
 // ---------------------------------------------------------------------------
-app.get('/api/health', (_req, res) =>
-  res.json({ ok: true, currency: config.paystack.currency })
-);
+app.get('/api/health', async (_req, res) => {
+  try {
+    await query('select 1');
+    return res.json({
+      ok: true,
+      db: 'ok',
+      currency: config.paystack.currency,
+    });
+  } catch (err) {
+    console.error('[health] database check failed:', err.message);
+    return res.status(503).json({
+      ok: false,
+      db: 'unavailable',
+      currency: config.paystack.currency,
+    });
+  }
+});
 
 app.use((err, _req, res, _next) => {
   console.error('[error]', err);
@@ -276,10 +311,26 @@ app.use((err, _req, res, _next) => {
   });
 });
 
-app.listen(config.port, () => {
+const server = app.listen(config.port, () => {
   console.log(`RPAI giving API listening on :${config.port}`);
-  console.log(`Allowed origin: ${config.allowedOrigin}`);
+  console.log(`Allowed origins: ${config.allowedOrigins.join(', ')}`);
   console.log(`Currency: ${config.paystack.currency}`);
 });
+
+let shuttingDown = false;
+async function shutdown(signal) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`[shutdown] ${signal}`);
+  server.close(async () => {
+    await closeDb().catch(() => {});
+    process.exit(0);
+  });
+  // Do not let a stuck connection keep a Render instance alive forever.
+  setTimeout(() => process.exit(1), 10_000).unref();
+}
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
 
 export default app;

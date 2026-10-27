@@ -19,8 +19,14 @@ export const chargeSchema = z.object({
   email: z.string().trim().email('Enter a valid email address').max(254),
   amount: z.coerce
     .number()
-    .positive('Amount must be greater than zero')
-    .max(5_000_000, 'Amount is above the permitted maximum'),
+    .min(
+      config.paystack.minAmount,
+      `Amount must be at least ${config.paystack.minAmount}`
+    )
+    .max(
+      config.paystack.maxAmount,
+      `Amount is above the permitted maximum of ${config.paystack.maxAmount}`
+    ),
   currency: z.string().trim().toUpperCase().default(config.paystack.currency),
 
   method: z.enum(['mobile_money', 'bank_transfer'], {
@@ -31,8 +37,10 @@ export const chargeSchema = z.object({
   mobile_money: z
     .object({
       phone: phoneSchema,
-      provider: z.enum(['mtn', 'airtel'], {
-        errorMap: () => ({ message: 'Provider must be "mtn" or "airtel"' }),
+      provider: z.enum(config.paystack.operators, {
+        errorMap: () => ({
+          message: `Provider must be one of: ${config.paystack.operators.join(', ')}`,
+        }),
       }),
     })
     .optional(),

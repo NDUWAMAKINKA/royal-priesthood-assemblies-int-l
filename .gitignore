@@ -5,6 +5,9 @@ __pycache__/
 venv/
 env/
 
+# Static-site build output for Render
+dist/
+
 # Operating system clutter
 .DS_Store
 Thumbs.db
@@ -24,7 +27,6 @@ Facebook_files/
 # Node backend for the giving API
 server/node_modules/
 server/.env
-server/.env.example
 server/package-lock.json
 
 # Admin bot: local state and secrets never belong in the repository

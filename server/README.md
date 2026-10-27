@@ -2,7 +2,10 @@
 
 Payment backend for the Give page. **This does not run on GitHub Pages** —
 GitHub Pages hosts static files only. Deploy this folder to a host that runs
-Node (Railway, Render, Fly.io, Railway, Cloud Run, or your own VPS).
+Node (Render, Railway, Fly.io, Cloud Run, or your own VPS).
+
+Production deployment is prepared for **Render + Supabase Postgres**. See
+`../DEPLOY-RENDER.md` for the Blueprint, environment variables and webhook URL.
 
 ## Why it cannot live in the site folder
 
@@ -87,8 +90,8 @@ than trusting local state.
 
 ## 6. What the code handles for you
 
-- **Minor units** are ISO 4217 driven. ZMW exponent 0, so `50` ZMW is sent as
-  `"50"`, never `"5000"`.
+- **Minor units** use `PAYSTACK_CURRENCY_EXPONENT`, confirmed for the live
+  provider account. Set `0` or `2`; a wrong value changes the charge by 100x.
 - **Phone normalisation** accepts `0971234567` or `+260971234567`.
 - **HMAC-SHA512 webhook verification** with constant-time compare, using the
   raw request body.
@@ -100,15 +103,26 @@ than trusting local state.
 
 ---
 
-## 7. Before production
+## 7. Production storage
 
-1. Replace `store.js` with Postgres or Redis — the in-memory store loses
-   payment state on restart.
-2. Put a real rate limiter (Redis) in front; the in-memory one is per-instance.
-3. Add your confirmation email in the webhook handler, queued not inline.
-4. Set `PAYSTACK_WEBHOOK_SECRET` to the secret key's companion value from the
+The payment store now uses Supabase Postgres. The schema is in
+`server/sql/001_init.sql` and is applied with:
+
+```bash
+npm run db:migrate
+```
+
+The Render start command runs the migration before the API starts. Payments,
+idempotency responses and webhook audit events survive restarts and are shared
+by every API instance.
+
+## 8. Before production
+
+1. Put a real rate limiter (Redis) in front; the in-memory one is per-instance.
+2. Add your confirmation email in the webhook handler, queued not inline.
+3. Set `PAYSTACK_WEBHOOK_SECRET` to the secret key's companion value from the
    dashboard.
-5. Never deploy `.env`. Add `server/.env` and `server/node_modules` to
-   `.gitignore`.
+4. Confirm `PAYSTACK_CURRENCY_EXPONENT` with Paystack before taking live money.
+5. Never deploy `.env`; `server/.env` is gitignored.
 6. Do not use this module for anything else without review — it holds the key
    to real money.

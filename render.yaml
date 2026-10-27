@@ -1,0 +1,60 @@
+services:
+  # -------------------------------------------------------------------------
+  # Giving API: Node/Express, backed by Supabase Postgres.
+  # -------------------------------------------------------------------------
+  - type: web
+    name: rpai-give-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm run db:migrate && npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Supabase session pooler. Paste the full postgresql:// URL from
+      # Supabase -> Project Settings -> Database -> Connection string.
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: "true"
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: PAYSTACK_WEBHOOK_SECRET
+        sync: false
+      - key: PAYSTACK_CURRENCY
+        value: ZMW
+      # Required. Confirm 0 or 2 with Paystack before taking live payments.
+      - key: PAYSTACK_CURRENCY_EXPONENT
+        sync: false
+      - key: PAYSTACK_OPERATORS
+        value: mtn,airtel
+      - key: PAYSTACK_MIN_AMOUNT
+        value: "1"
+      - key: PAYSTACK_MAX_AMOUNT
+        value: "1000000"
+      # Add the final frontend URL here if Render appends a suffix to the
+      # static-site name. The GitHub Pages origin stays allowed during the
+      # transition.
+      - key: ALLOWED_ORIGIN
+        value: https://nduwamakinka.github.io,https://rpai-church-site.onrender.com
+      - key: PUBLIC_SITE_URL
+        value: https://rpai-church-site.onrender.com
+
+  # -------------------------------------------------------------------------
+  # Static church website. scripts/build-static.mjs copies only the public
+  # site files into dist/ so the API, docs and admin tooling are not served.
+  # -------------------------------------------------------------------------
+  - type: web
+    name: rpai-church-site
+    runtime: static
+    buildCommand: node scripts/build-static.mjs
+    staticPublishPath: dist
+    autoDeployTrigger: commit
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
