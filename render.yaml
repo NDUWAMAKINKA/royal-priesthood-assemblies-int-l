@@ -7,10 +7,13 @@ services:
     runtime: node
     plan: free
     region: frankfurt
+    branch: main
     rootDir: server
     buildCommand: npm install
     startCommand: npm run db:migrate && npm start
     healthCheckPath: /api/health
+    # Every commit to `main` rebuilds this service. The static site below uses
+    # the same trigger, so one push deploys frontend and backend together.
     autoDeployTrigger: commit
     envVars:
       - key: NODE_ENV
@@ -51,10 +54,17 @@ services:
   - type: web
     name: rpai-church-site
     runtime: static
+    branch: main
     buildCommand: node scripts/build-static.mjs
     staticPublishPath: dist
+    # Paired with rpai-give-api above: the same commit deploys both.
     autoDeployTrigger: commit
     headers:
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
+      # deploy.py reads this file after every deploy. It must never be cached,
+      # otherwise the check can report an old commit as live.
+      - path: /deploy-info.json
+        name: Cache-Control
+        value: no-store, must-revalidate

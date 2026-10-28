@@ -1,0 +1,7 @@
+# Shell scripts must keep LF endings, otherwise CRLF breaks them on Linux
+# and in the Render build image.
+*.sh text eol=lf
+*.py text eol=lf
+
+# Windows batch files are safer with CRLF.
+*.bat text eol=crlf

@@ -1,5 +1,73 @@
 # Render + Supabase deployment
 
+## One command deploys both services
+
+The website and the giving API are built from the same branch, and
+`render.yaml` sets `autoDeployTrigger: commit` on both. A single push
+therefore rebuilds the backend and the frontend. `deploy.py` wraps that push
+and then waits until both services really are serving the new commit.
+
+```bash
+# Windows
+deploy.bat
+
+# Linux / macOS / Render shell
+./deploy.sh
+
+# Any platform, directly
+python scripts/deploy.py
+```
+
+Typical use:
+
+```bash
+# Commit everything in the working tree with a message, push, wait, verify
+python scripts/deploy.py -m "content: Sunday bulletin"
+
+# Changes already committed - just push and verify
+python scripts/deploy.py
+```
+
+What it does, in order:
+
+1. Refuses to run on the wrong branch, behind `origin`, or with uncommitted
+   changes that have no message.
+2. Commits and pushes `main` (only when there is something to push).
+3. Polls `https://rpai-church-site.onrender.com/deploy-info.json` and
+   `https://rpai-give-api.onrender.com/api/health` until both report the
+   pushed commit hash.
+4. Exits `0` on success, `1` when a service never becomes healthy, and `2`
+   for a preflight problem.
+
+`dist/deploy-info.json` is written by `scripts/build-static.mjs` and contains
+the commit Render built, so the check is a real proof the frontend shipped -
+not just that the old page still answers.
+
+### Rebuild without a new commit
+
+Grab each service's Deploy Hook in Render, put them in `.env.deploy` (see
+`.env.deploy.example`), then:
+
+```bash
+python scripts/deploy.py --redeploy all
+python scripts/deploy.py --redeploy frontend
+python scripts/deploy.py --redeploy backend
+```
+
+### Useful flags
+
+| Flag | Meaning |
+|---|---|
+| `-m, --message` | Commit pending changes with this message |
+| `--branch` | Branch to deploy (default `main`) |
+| `--timeout` | Seconds to wait for both services (default `900`) |
+| `--no-wait` | Push and exit without verifying |
+| `--dry-run` | Show what would happen, change nothing |
+
+The first deploy still needs the one-time setup below.
+
+---
+
 This repository now contains two Render services in `render.yaml`:
 
 | Service | Type | What it serves |

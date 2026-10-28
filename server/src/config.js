@@ -77,6 +77,11 @@ export const config = {
   env: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT || 3000),
 
+  // Render injects the deployed commit at build time. scripts/deploy.py reads
+  // it from /api/health to prove the instance matches what was pushed.
+  deployedCommit:
+    process.env.RENDER_GIT_COMMIT || process.env.GIT_COMMIT || 'unknown',
+
   paystack: {
     secretKey: required('PAYSTACK_SECRET_KEY'),
     // The API base is api.paystack.co. paystack.co is the dashboard website.

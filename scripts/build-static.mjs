@@ -1,4 +1,5 @@
-import { cp, mkdir, readdir, rm } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { cp, mkdir, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 /**
@@ -26,7 +27,26 @@ const skippedFiles = new Set([
   'check_html.py',
   'rename-manifest.txt',
   'render.yaml',
+  'deploy.bat',
+  'deploy.sh',
 ]);
+
+/**
+ * Render sets RENDER_GIT_COMMIT for the build. Locally there is no such
+ * variable, so fall back to git. deploy.py compares this value against the
+ * pushed commit to prove the frontend actually shipped.
+ */
+function deployedCommit() {
+  if (process.env.RENDER_GIT_COMMIT) return process.env.RENDER_GIT_COMMIT;
+  try {
+    return execFileSync('git', ['rev-parse', 'HEAD'], {
+      cwd: root,
+      encoding: 'utf8',
+    }).trim();
+  } catch {
+    return 'unknown';
+  }
+}
 
 function isWebsiteFile(name) {
   if (skippedFiles.has(name)) return false;
@@ -53,4 +73,18 @@ for (const entry of await readdir(root, { withFileTypes: true })) {
   copied += 1;
 }
 
-console.log(`[static] copied ${copied} entries to dist/`);
+// Deployment marker. deploy.py polls /deploy-info.json and only reports
+// success once this file exists with the commit that was just pushed.
+const commit = deployedCommit();
+const info = {
+  commit,
+  builtAt: new Date().toISOString(),
+  service: 'rpai-church-site',
+};
+await writeFile(
+  path.join(out, 'deploy-info.json'),
+  `${JSON.stringify(info, null, 2)}\n`,
+  'utf8'
+);
+
+console.log(`[static] copied ${copied} entries to dist/ (commit ${commit})`);

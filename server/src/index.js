@@ -290,6 +290,9 @@ app.get('/api/health', async (_req, res) => {
     return res.json({
       ok: true,
       db: 'ok',
+      // Exposed so scripts/deploy.py can prove that the running instance is
+      // the commit that was just pushed. Render injects this at build time.
+      commit: config.deployedCommit,
       currency: config.paystack.currency,
     });
   } catch (err) {
@@ -297,6 +300,7 @@ app.get('/api/health', async (_req, res) => {
     return res.status(503).json({
       ok: false,
       db: 'unavailable',
+      commit: config.deployedCommit,
       currency: config.paystack.currency,
     });
   }

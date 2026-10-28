@@ -8,6 +8,9 @@ env/
 # Static-site build output for Render
 dist/
 
+# Local deploy settings (Render deploy hooks are secrets)
+.env.deploy
+
 # Operating system clutter
 .DS_Store
 Thumbs.db
