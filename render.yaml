@@ -43,9 +43,9 @@ services:
       # static-site name. The GitHub Pages origin stays allowed during the
       # transition.
       - key: ALLOWED_ORIGIN
-        value: https://nduwamakinka.github.io,https://rpai-church-site.onrender.com
+        value: https://nduwamakinka.github.io,https://royal-priesthood-assemblies-int-l-1.onrender.com,https://rpai-church-site.onrender.com
       - key: PUBLIC_SITE_URL
-        value: https://rpai-church-site.onrender.com
+        value: https://royal-priesthood-assemblies-int-l-1.onrender.com
 
   # -------------------------------------------------------------------------
   # Static church website. scripts/build-static.mjs copies only the public

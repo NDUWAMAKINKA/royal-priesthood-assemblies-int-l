@@ -33,19 +33,21 @@ What it does, in order:
 1. Refuses to run on the wrong branch, behind `origin`, or with uncommitted
    changes that have no message.
 2. Commits and pushes `main` (only when there is something to push).
-3. Waits for the GitHub Pages workflow run for that exact commit to finish
-   successfully, and for `/api/health` on the API to report the same commit.
+3. Waits for the site build of that exact commit to finish successfully -
+   Render's `/deploy-info.json` stamp when the site is served by Render, or
+   the GitHub Pages workflow run - and for `/api/health` to report the same
+   commit.
 4. Exits `0` on success, `1` when a deploy finishes unsuccessfully or times
    out, and `2` for a preflight problem.
 
-The frontend check is a real proof, not a page fetch: GitHub Pages reports the
-commit it built, and `server/src/index.js` returns `RENDER_GIT_COMMIT` from
-`/api/health`.
+The frontend check is a real proof, not a page fetch:
+`scripts/build-static.mjs` writes `dist/deploy-info.json` with the commit
+Render built, GitHub Pages reports the commit it published, and
+`server/src/index.js` returns `RENDER_GIT_COMMIT` from `/api/health`.
 
-If the website ever moves from GitHub Pages to the Render static site, set
-`SITE_URL` in `.env.deploy`. `scripts/build-static.mjs` then writes
-`dist/deploy-info.json` with the built commit, and `deploy.py` checks that
-file instead.
+`deploy.py` uses the Render stamp whenever that site exists, and falls back to
+the GitHub Pages build for the same commit. Set `SITE_URL` in `.env.deploy` if
+the static site URL changes.
 
 If the API has no live server yet, the command reports it and still succeeds -
 the site is what visitors see. Pass `--require-backend` to make a missing API
@@ -142,13 +144,16 @@ until verified details are added.
 
 ## 3. After the first deploy
 
-1. Open `https://rpai-give-api.onrender.com/api/health`. It should return
-   `{"ok":true,"db":"ok",...}`.
+1. Open `https://royal-priesthood-assemblies-int-l.onrender.com/api/health`.
+   It should return `{"ok":true,"db":"ok","commit":"...","currency":"ZMW"}`.
 2. If Render gives the static site a different URL, update `ALLOWED_ORIGIN` on
-   the API to include it.
+   the API to include it. The service currently answers CORS only for the
+   origins in that variable, so a new frontend origin is blocked until it is
+   added.
 3. In Paystack, set the webhook URL to
-   `https://rpai-give-api.onrender.com/api/webhook`.
-4. Open the static site and confirm the church pages load from Render.
+   `https://royal-priesthood-assemblies-int-l.onrender.com/api/webhook`.
+4. Open `https://royal-priesthood-assemblies-int-l-1.onrender.com/` and
+   confirm the church pages load.
 5. The Give page still shows the verified static details. It does not silently
    start charging anyone. A payment form must be added and reviewed before the
    API is used by donors.
@@ -158,7 +163,7 @@ until verified details are added.
 The payment controller in `server/public/js__give.js` defaults to:
 
 ```text
-https://rpai-give-api.onrender.com
+https://royal-priesthood-assemblies-int-l.onrender.com
 ```
 
 A page can override it before the script loads:

@@ -28,8 +28,8 @@ Optional configuration, as environment variables or in `.env.deploy`:
 
     GITHUB_REPO=NDUWAMAKINKA/royal-priesthood-assemblies-int-l
     GITHUB_TOKEN=ghp_...                 (avoids anonymous API rate limits)
-    SITE_URL=https://rpai-church-site.onrender.com
-    API_HEALTH_URL=https://rpai-give-api.onrender.com/api/health
+    SITE_URL=https://royal-priesthood-assemblies-int-l-1.onrender.com
+    API_HEALTH_URL=https://royal-priesthood-assemblies-int-l.onrender.com/api/health
     RENDER_DEPLOY_HOOK_FRONTEND=https://api.render.com/deploy/srv-...?key=...
     RENDER_DEPLOY_HOOK_BACKEND=https://api.render.com/deploy/srv-...?key=...
 
@@ -55,8 +55,10 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 DEFAULT_BRANCH = "main"
-DEFAULT_SITE_URL = "https://rpai-church-site.onrender.com"
-DEFAULT_API_HEALTH_URL = "https://rpai-give-api.onrender.com/api/health"
+DEFAULT_SITE_URL = "https://royal-priesthood-assemblies-int-l-1.onrender.com"
+DEFAULT_API_HEALTH_URL = (
+    "https://royal-priesthood-assemblies-int-l.onrender.com/api/health"
+)
 DEFAULT_TIMEOUT = 15 * 60
 DEFAULT_POLL = 20
 
@@ -232,7 +234,7 @@ def check_stamp(site_url: str, sha: str) -> tuple:
         data = http_get_json(url)
     except urllib.error.HTTPError as err:
         if err.code == 404:
-            return "pending", "no deploy stamp at %s" % site_url
+            return "missing", "no deploy stamp at %s" % site_url
         return "error", "HTTP %s" % err.code
     except (urllib.error.URLError, TimeoutError, OSError) as err:
         return "error", "unreachable (%s)" % getattr(err, "reason", err)
@@ -497,7 +499,18 @@ def main(argv: list) -> int:
     try:
         preflight(args.branch)
 
-        if args.frontend == "pages" or (args.frontend == "auto" and repo):
+        head = git_output("rev-parse", "HEAD")
+
+        if args.frontend == "pages":
+            use_pages = True
+        elif args.frontend == "stamp":
+            use_pages = False
+        else:
+            # Prefer the stamped Render build when that site exists; otherwise
+            # fall back to the GitHub Pages build for the same commit.
+            use_pages = bool(repo) and check_stamp(site_url, head)[0] == "missing"
+
+        if use_pages:
             frontend = lambda sha: check_pages(repo, sha)  # noqa: E731
             frontend_label = "GitHub Pages (%s)" % repo
         else:
@@ -540,7 +553,7 @@ def main(argv: list) -> int:
             elif not args.no_wait and not args.dry_run:
                 log("[deploy] no new commit - verifying what is already live")
 
-        target = git_output("rev-parse", "HEAD")
+        target = head
 
         if args.dry_run:
             log("")

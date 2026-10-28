@@ -24,12 +24,14 @@ deploy.bat                                    # Windows
 python scripts/deploy.py -m "what changed"    # any platform
 ```
 
-- The church website is published to GitHub Pages from `main`.
-- The giving API in `server/` runs on Render as `rpai-give-api` and stores
-  payments in Supabase Postgres.
+- The church website is served by Render at
+  <https://royal-priesthood-assemblies-int-l-1.onrender.com> and mirrored on
+  GitHub Pages.
+- The giving API runs on Render at
+  <https://royal-priesthood-assemblies-int-l.onrender.com> and stores payments
+  in Supabase Postgres.
 - Both deploy from `main` on every commit, so the frontend and backend never
-  drift apart. A Render static site (`rpai-church-site`) is also defined in
-  `render.yaml` and deploys on the same commit.
+  drift apart.
 
 See `DEPLOY-RENDER.md` for the Blueprint, environment variables and the
 flags `deploy.py` accepts.

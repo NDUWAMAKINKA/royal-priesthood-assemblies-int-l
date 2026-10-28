@@ -51,10 +51,26 @@ function parseOrigins(value) {
     .map((origin) => (origin.startsWith('http') ? origin : `https://${origin}`));
 }
 
+const publicSiteUrl =
+  process.env.PUBLIC_SITE_URL ||
+  'https://royal-priesthood-assemblies-int-l-1.onrender.com';
+
 const allowedOrigins = parseOrigins(
   process.env.ALLOWED_ORIGIN ||
-    'http://127.0.0.1:8123,http://localhost:8123,https://nduwamakinka.github.io,https://rpai-church-site.onrender.com'
+    [
+      'http://127.0.0.1:8123',
+      'http://localhost:8123',
+      'https://nduwamakinka.github.io',
+      'https://royal-priesthood-assemblies-int-l-1.onrender.com',
+      'https://rpai-church-site.onrender.com',
+    ].join(',')
 );
+
+// Whatever site is declared as the public one must always be able to call the
+// API, even if ALLOWED_ORIGIN was set earlier and not updated since the move.
+if (publicSiteUrl && !allowedOrigins.includes(publicSiteUrl)) {
+  allowedOrigins.push(publicSiteUrl);
+}
 
 const minAmount = Number(process.env.PAYSTACK_MIN_AMOUNT || 1);
 const maxAmount = Number(process.env.PAYSTACK_MAX_AMOUNT || 1_000_000);
@@ -97,8 +113,7 @@ export const config = {
   allowedOrigins,
   // Kept for callers that only need the primary origin (for example logs).
   allowedOrigin: allowedOrigins[0] || 'http://127.0.0.1:8123',
-  publicSiteUrl:
-    process.env.PUBLIC_SITE_URL || 'https://rpai-church-site.onrender.com',
+  publicSiteUrl,
   allowedCountries: (process.env.ALLOWED_COUNTRIES || 'ZM')
     .split(',')
     .map((c) => c.trim().toUpperCase())

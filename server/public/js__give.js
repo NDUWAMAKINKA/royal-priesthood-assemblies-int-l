@@ -9,7 +9,8 @@
 
   // The Render API is the production default. A page may override it before
   // this script loads with: <script>window.RPAI_API_BASE = 'https://...';</script>
-  var API = window.RPAI_API_BASE || 'https://rpai-give-api.onrender.com';
+  var API =
+    window.RPAI_API_BASE || 'https://royal-priesthood-assemblies-int-l.onrender.com';
   var POLL_INTERVAL_MS = 3000;
   var POLL_TIMEOUT_MS = 5 * 60 * 1000;
 
