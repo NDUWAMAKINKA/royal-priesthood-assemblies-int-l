@@ -549,7 +549,7 @@ def main(argv: list) -> int:
             if pushed:
                 log("[deploy] one push ships both:")
                 log("         frontend -> %s" % frontend_label)
-                log("         backend  -> rpai-give-api (%s)" % health_url)
+                log("         backend  -> %s" % health_url)
             elif not args.no_wait and not args.dry_run:
                 log("[deploy] no new commit - verifying what is already live")
 
