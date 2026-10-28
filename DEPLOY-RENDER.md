@@ -2,10 +2,10 @@
 
 ## One command deploys both services
 
-The website and the giving API are built from the same branch, and
-`render.yaml` sets `autoDeployTrigger: commit` on both. A single push
-therefore rebuilds the backend and the frontend. `deploy.py` wraps that push
-and then waits until both services really are serving the new commit.
+The website and the giving API are built from the same branch, so a single
+push ships both: GitHub Pages republishes the site, and Render rebuilds the
+API. `deploy.py` wraps that push and then waits until both really are serving
+the new commit.
 
 ```bash
 # Windows
@@ -33,15 +33,23 @@ What it does, in order:
 1. Refuses to run on the wrong branch, behind `origin`, or with uncommitted
    changes that have no message.
 2. Commits and pushes `main` (only when there is something to push).
-3. Polls `https://rpai-church-site.onrender.com/deploy-info.json` and
-   `https://rpai-give-api.onrender.com/api/health` until both report the
-   pushed commit hash.
-4. Exits `0` on success, `1` when a service never becomes healthy, and `2`
-   for a preflight problem.
+3. Waits for the GitHub Pages workflow run for that exact commit to finish
+   successfully, and for `/api/health` on the API to report the same commit.
+4. Exits `0` on success, `1` when a deploy finishes unsuccessfully or times
+   out, and `2` for a preflight problem.
 
-`dist/deploy-info.json` is written by `scripts/build-static.mjs` and contains
-the commit Render built, so the check is a real proof the frontend shipped -
-not just that the old page still answers.
+The frontend check is a real proof, not a page fetch: GitHub Pages reports the
+commit it built, and `server/src/index.js` returns `RENDER_GIT_COMMIT` from
+`/api/health`.
+
+If the website ever moves from GitHub Pages to the Render static site, set
+`SITE_URL` in `.env.deploy`. `scripts/build-static.mjs` then writes
+`dist/deploy-info.json` with the built commit, and `deploy.py` checks that
+file instead.
+
+If the API has no live server yet, the command reports it and still succeeds -
+the site is what visitors see. Pass `--require-backend` to make a missing API
+a failure.
 
 ### Rebuild without a new commit
 
@@ -60,9 +68,15 @@ python scripts/deploy.py --redeploy backend
 |---|---|
 | `-m, --message` | Commit pending changes with this message |
 | `--branch` | Branch to deploy (default `main`) |
-| `--timeout` | Seconds to wait for both services (default `900`) |
+| `--frontend` | `auto`, `pages` or `stamp` - how the site is verified |
+| `--require-backend` | Fail unless the API is live too |
+| `--timeout` | Seconds to wait for the deploy (default `900`) |
+| `--poll` | Seconds between checks (default `20`) |
 | `--no-wait` | Push and exit without verifying |
 | `--dry-run` | Show what would happen, change nothing |
+
+Set `GITHUB_TOKEN` in `.env.deploy` if the anonymous GitHub API limit (60
+requests per hour) is too low. A read-only token with no scopes is enough.
 
 The first deploy still needs the one-time setup below.
 
