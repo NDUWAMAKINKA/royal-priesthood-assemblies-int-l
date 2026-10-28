@@ -40,6 +40,10 @@ What it does, in order:
 4. Exits `0` on success, `1` when a deploy finishes unsuccessfully or times
    out, and `2` for a preflight problem.
 
+The API check accepts the newest commit that touched `server/` as well as the
+pushed commit, because Render only rebuilds a service for commits that change
+its code. A healthy API on its own newest code is not "stale".
+
 The frontend check is a real proof, not a page fetch:
 `scripts/build-static.mjs` writes `dist/deploy-info.json` with the commit
 Render built, GitHub Pages reports the commit it published, and

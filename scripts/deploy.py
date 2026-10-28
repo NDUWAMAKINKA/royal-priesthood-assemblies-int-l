@@ -249,8 +249,15 @@ def check_stamp(site_url: str, sha: str) -> tuple:
     return "ok", "static build %s" % short(live)
 
 
-def check_api(health_url: str, sha: str) -> tuple:
-    """Is the API serving this commit and connected to the database?"""
+def check_api(health_url: str, expected) -> tuple:
+    """Is the API serving its own newest code, with a working database?
+
+    `expected` is a commit or a collection of commits. Render only rebuilds the
+    API for commits that touch `server/`, so a healthy API may legitimately sit
+    on the last commit that changed its code while the site moves ahead.
+    """
+    if isinstance(expected, str):
+        expected = (expected,)
     url = "%s?t=%d" % (health_url, int(time.time() * 1000))
     try:
         data = http_get_json(url)
@@ -275,8 +282,11 @@ def check_api(health_url: str, sha: str) -> tuple:
         return "failed", "health check reported ok=false"
 
     live = str(data.get("commit", "unknown")).strip()
-    if live not in ("", "unknown") and live != sha:
-        return "pending", "live %s, want %s" % (short(live), short(sha))
+    if live not in ("", "unknown") and live not in expected:
+        return "pending", "live %s, want %s" % (
+            short(live),
+            " or ".join(short(item) for item in expected),
+        )
     return "ok", "API %s, db %s" % (short(live), data.get("db", "?"))
 
 
@@ -334,7 +344,8 @@ def wait_for_deploy(
                 log("       Finish the Render setup in DEPLOY-RENDER.md, then run:")
                 log("       python scripts/deploy.py --redeploy backend")
             else:
-                log("[ok] frontend and backend are serving %s" % short(target))
+                log("[ok] frontend: %s" % state["frontend"][1])
+                log("     backend:  %s" % state["backend"][1])
             return True
 
         if state["frontend"][0] == "failed" or backend_status in BACKEND_FATAL:
@@ -516,7 +527,14 @@ def main(argv: list) -> int:
         else:
             frontend = lambda sha: check_stamp(site_url, sha)  # noqa: E731
             frontend_label = "Render static site (%s)" % site_url
-        backend = lambda sha: check_api(health_url, sha)  # noqa: E731
+        # Render only rebuilds the API for commits that touch server/, so an
+        # API sitting on the last server commit is still up to date.
+        backend_commit = (
+            git_output("log", "-1", "--format=%H", "--", "server/") or head
+        )
+        backend = lambda sha: check_api(  # noqa: E731
+            health_url, {sha, backend_commit}
+        )
 
         if args.redeploy:
             wanted = (
