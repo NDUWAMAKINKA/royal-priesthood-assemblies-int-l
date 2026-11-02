@@ -72,6 +72,15 @@ if (publicSiteUrl && !allowedOrigins.includes(publicSiteUrl)) {
   allowedOrigins.push(publicSiteUrl);
 }
 
+const smtpPort = Number(process.env.SMTP_PORT || 587);
+const smtpSecureRaw = process.env.SMTP_SECURE;
+const smtpSecure =
+  smtpSecureRaw === undefined || smtpSecureRaw === ''
+    ? smtpPort === 465
+    : String(smtpSecureRaw).toLowerCase() === 'true';
+
+const adminTokenHours = Number(process.env.CONFERENCE_ADMIN_TOKEN_HOURS || 8);
+
 const minAmount = Number(process.env.PAYSTACK_MIN_AMOUNT || 1);
 const maxAmount = Number(process.env.PAYSTACK_MAX_AMOUNT || 1_000_000);
 const operators = (process.env.PAYSTACK_OPERATORS || 'mtn,airtel')
@@ -87,6 +96,18 @@ if (!Number.isFinite(maxAmount) || maxAmount < minAmount) {
 }
 if (!operators.length) {
   throw new Error('PAYSTACK_OPERATORS must contain at least one provider');
+}
+
+if (
+  !Number.isFinite(adminTokenHours) ||
+  adminTokenHours < 1 ||
+  adminTokenHours > 72
+) {
+  throw new Error('CONFERENCE_ADMIN_TOKEN_HOURS must be between 1 and 72');
+}
+
+if (!Number.isFinite(smtpPort) || smtpPort < 1 || smtpPort > 65535) {
+  throw new Error('SMTP_PORT must be a valid port number');
 }
 
 export const config = {
@@ -126,6 +147,45 @@ export const config = {
     swift: process.env.BANK_SWIFT || '',
     branch: process.env.BANK_BRANCH || '',
     address: process.env.BANK_ADDRESS || '',
+  },
+
+  /**
+   * Email delivery for the online meeting link.
+   *
+   * Two transports are supported so the church can use whichever account it
+   * already owns: Resend (one HTTPS request, no extra package) or any SMTP
+   * mailbox, including Gmail with an app password. When neither is configured
+   * the API refuses registrations instead of silently collecting addresses it
+   * cannot reply to.
+   */
+  mail: {
+    from:
+      process.env.MAIL_FROM ||
+      'Royal Priesthood Assemblies International <royalpriesthoodassembliesintl@gmail.com>',
+    replyTo:
+      process.env.MAIL_REPLY_TO || 'royalpriesthoodassembliesintl@gmail.com',
+    resendApiKey: process.env.RESEND_API_KEY || '',
+    smtp: {
+      host: process.env.SMTP_HOST || '',
+      port: smtpPort,
+      secure: smtpSecure,
+      user: process.env.SMTP_USER || '',
+      pass: process.env.SMTP_PASS || '',
+    },
+  },
+
+  /**
+   * The pastor-facing page at /admin. The password is only ever compared on
+   * the server; the browser receives a short-lived signed token instead.
+   */
+  conference: {
+    adminPassword: process.env.CONFERENCE_ADMIN_PASSWORD || '',
+    adminSecret:
+      process.env.CONFERENCE_ADMIN_SECRET ||
+      process.env.CONFERENCE_ADMIN_PASSWORD ||
+      '',
+    adminTokenHours,
+    publicSiteUrl,
   },
 };
 

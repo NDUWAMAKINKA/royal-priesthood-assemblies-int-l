@@ -4,7 +4,10 @@
 This document lists every page, every link, and what each one is **for**.
 It is a planning reference — nothing here changes the live site.
 
-Generated from an audit of the 9 HTML pages in the project root.
+Generated from an audit of the 11 HTML pages in the project root.
+
+> Updated for the Library and Video Conference pages. The primary menu now has
+> 11 links on every page; the two new pages are included below.
 
 ---
 
@@ -19,8 +22,10 @@ royalpriesthood/
 ├── gallery.html ................ Gallery & Media
 │   ├── #photos ................. Sunday gallery (photo slider)
 │   ├── #video ................. Service video
-│   ├── #audio ................. Worship audio          (placeholder)
+│   ├── #audio ................. Worship audio (links to the Library)
 │   └── #songs ................. Songs and downloads
+├── library.html ................ Searchable messages, worship, videos and devotionals
+├── video-conference.html ....... Online meeting details and automatic email link requests
 ├── daily-devotional.html ....... Daily Devotional
 ├── announcements.html .......... Announcements (local announcement.json)
 ├── branches-transport.html ..... Branches & Transport
@@ -30,14 +35,14 @@ royalpriesthood/
     └── #connect-card ........... "I'm New Here" connect card
 ```
 
-**9 pages total. All 9 are in the main menu. No page is orphaned** —
+**11 pages total. All 11 are in the main menu. No page is orphaned** —
 every page can be reached from every other page.
 
 ---
 
-## 2. PRIMARY NAVIGATION (the 9 menu links)
+## 2. PRIMARY NAVIGATION (the 11 menu links)
 
-These appear in the header menu **and** the mobile menu on **all 9 pages**.
+These appear in the header menu **and** the mobile menu on **all 11 pages**.
 
 Every page also carries the same language switcher: the five major Zambian
 languages (Bemba, Nyanja, Tonga, Lozi, Tumbuka) and seven world languages
@@ -52,11 +57,13 @@ translated.
 | 2 | About | `about.html` | Who the church is, the founder, mission and vision, values. Builds trust for first-time visitors. |
 | 3 | Ministries | `ministry.html` | The ministry/fellowship directory (Royal Men, Virtuous Women, NextGen Youth, Home Cells). Answers "where do I fit in?". |
 | 4 | Gallery | `gallery.html` | Photos, video, worship audio and songs. Proves the church is real and active. A **slideshow that is always running** (Pause / Play / Previous / Next). **Show all pictures** lays every photo out at once; a **Back to slideshow** button sits above the grid and sticks to the top of the screen so the way out is always in reach. No photo count is shown. |
-| 5 | Daily Devotional | `daily-devotional.html` | Daily faith reading. Brings people back daily — the main repeat-visit driver. |
-| 6 | Announcements | `announcements.html` | The current church notice, rendered from `announcement.json` by `js__announcement.js`. A scheduled GitHub Action keeps the JSON in step with the church's Facebook Page. No Facebook login, iframe, cookie or browser-side third-party request is involved. |
-| 7 | Branches & Transport | `branches-transport.html` | Branch/home-cell locations, Sunday transport, directions. Practical info people ask for most. |
-| 8 | Give | `give.html` | Hero heading "Give". Zambian giving details: cards for Zanaco, Stanbic, Absa, FNB and Standard Chartered (account name, number and centre), mobile-money details for Airtel, MTN and Zamtel, plus PayPal as the only international gateway. PayPal details are shown as text, with no payment link. |
-| 9 | Contact | `contact.html` | Prayer request form, "I'm New Here" card, map, address, phone, email. |
+| 5 | Library | `library.html` | Searchable messages, worship recordings, service videos, the daily devotional and the online meeting. The search box and category buttons work in the browser; audio players load only when played. |
+| 6 | Daily Devotional | `daily-devotional.html` | Daily faith reading. Brings people back daily — the main repeat-visit driver. |
+| 7 | Announcements | `announcements.html` | The current church notice, rendered from `announcement.json` by `js__announcement.js`. A scheduled GitHub Action keeps the JSON in step with the church's Facebook Page. No Facebook login, iframe, cookie or browser-side third-party request is involved. |
+| 8 | Branches & Transport | `branches-transport.html` | Branch/home-cell locations, Sunday transport, directions. Practical info people ask for most. |
+| 9 | Video Conference | `video-conference.html` | Embedded Jitsi meeting room, schedule, optional backup dial-in details and an email form that sends the room link automatically. The pastor edits the room at `/admin` on the API host. |
+| 10 | Give | `give.html` | Hero heading "Give". Zambian giving details: cards for Zanaco, Stanbic, Absa, FNB and Standard Chartered (account name, number and centre), mobile-money details for Airtel, MTN and Zamtel, plus PayPal as the only international gateway. PayPal details are shown as text, with no payment link. |
+| 11 | Contact | `contact.html` | Prayer request form, "I'm New Here" card, map, address, phone, email. |
 
 ---
 
@@ -79,9 +86,10 @@ These jump from one page straight into a specific block on another.
 | `#photos` | gallery | Sunday gallery | Live |
 | `#video` | gallery | Service video | Live |
 | `#songs` | gallery | Songs and downloads | Live |
-| `#audio` | gallery | Worship audio | **Placeholder — heading and note only, no audio file** |
+| `#audio` | gallery | Worship audio | Placeholder links to the Library, where the recordings play |
 | `#prayer-request` | contact | Prayer request form | Live |
 | `#connect-card` | contact | I'm New Here card | Live |
+| `#register` | video-conference | Email sign-up for the meeting link | Live |
 
 > Note: every page also has a `href="#"` burger button. That is the mobile
 > menu toggle handled by JavaScript — it is not a real destination.

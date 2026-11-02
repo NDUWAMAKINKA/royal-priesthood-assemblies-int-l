@@ -85,6 +85,18 @@ than trusting local state.
 | GET | `/api/bank-transfer` | Bank details for the fallback card |
 | GET | `/api/capabilities` | Live check of enabled currencies/countries |
 | GET | `/api/health` | Liveness |
+| GET | `/api/conference` | Public meeting details |
+| POST | `/api/conference/register` | Emails the join link to a visitor |
+| POST | `/api/admin/login` | Issues an 8-hour admin token |
+| GET/PUT | `/api/admin/conference` | Read or update meeting settings |
+| GET | `/api/admin/registrations` | List people who asked for the link |
+| POST | `/api/admin/registrations/:id/resend` | Resend one link |
+| DELETE | `/api/admin/registrations/:id` | Remove one registration |
+| POST | `/api/admin/test-email` | Verify email delivery |
+
+The meeting admin page is served at `/admin`. The public room is embedded with
+Jitsi Meet; the FreeConferenceCall link is an optional backup. See
+`../VIDEO-CONFERENCE-SETUP.md`.
 
 ---
 
@@ -106,7 +118,8 @@ than trusting local state.
 ## 7. Production storage
 
 The payment store now uses Supabase Postgres. The schema is in
-`server/sql/001_init.sql` and is applied with:
+`server/sql/001_init.sql` (payments) and `server/sql/002_conference.sql`
+(meeting settings and registrations), and is applied with:
 
 ```bash
 npm run db:migrate

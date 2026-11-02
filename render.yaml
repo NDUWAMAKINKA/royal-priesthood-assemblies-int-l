@@ -46,6 +46,23 @@ services:
         value: https://nduwamakinka.github.io,https://royal-priesthood-assemblies-int-l-1.onrender.com,https://rpai-church-site.onrender.com
       - key: PUBLIC_SITE_URL
         value: https://royal-priesthood-assemblies-int-l-1.onrender.com
+      # Online meeting admin. The pastor uses /admin on this same API host.
+      - key: CONFERENCE_ADMIN_PASSWORD
+        sync: false
+      - key: CONFERENCE_ADMIN_SECRET
+        sync: false
+      - key: CONFERENCE_ADMIN_TOKEN_HOURS
+        value: "8"
+      # Email delivery for the meeting link. Set RESEND_API_KEY here, or add
+      # the SMTP_* variables in the Render dashboard. These are intentionally
+      # not given placeholder values: an unconfigured API refuses registrations
+      # rather than collecting addresses it cannot email.
+      - key: RESEND_API_KEY
+        sync: false
+      - key: MAIL_FROM
+        value: Royal Priesthood Assemblies International <royalpriesthoodassembliesintl@gmail.com>
+      - key: MAIL_REPLY_TO
+        value: royalpriesthoodassembliesintl@gmail.com
 
   # -------------------------------------------------------------------------
   # Static church website. scripts/build-static.mjs copies only the public

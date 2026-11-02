@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Online Meeting Desk | RPAI</title>
+  <link rel="stylesheet" href="admin.css?v=2">
+</head>
+<body>
+  <div class="admin-shell">
+    <header class="admin-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">RPAI</span>
+        <div>
+          <p class="brand-church">Royal Priesthood Assemblies International</p>
+          <h1>Online Meeting Desk</h1>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="top-link" id="public-page-link" href="https://royal-priesthood-assemblies-int-l-1.onrender.com/video-conference.html" target="_blank" rel="noopener noreferrer">View public page</a>
+        <button type="button" class="button button-quiet" id="logout-button" hidden>Sign out</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <section class="login-card" id="login-view" aria-labelledby="login-title">
+        <p class="kicker">Church leaders only</p>
+        <h2 id="login-title">Sign in</h2>
+        <p class="lead">Enter the admin password to publish the meeting link and see who has asked for it. The password is checked on the server and is never stored in this browser.</p>
+        <form id="login-form" method="post" novalidate>
+          <label for="login-password">Admin password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+          <button type="submit" class="button" id="login-button">Sign in</button>
+          <p class="form-status" id="login-status" role="status" aria-live="polite"></p>
+        </form>
+        <noscript>
+          <p class="small-note"><strong>This page needs JavaScript.</strong> Do not enter the password with JavaScript turned off. Turn it on and reload the page.</p>
+        </noscript>
+        <p class="small-note">If you do not know the password, ask the person who set up the church website. It is stored only on the server, never in the website files.</p>
+      </section>
+
+      <section id="app-view" hidden>
+        <div class="warning" id="setup-warning" role="status" aria-live="polite" hidden></div>
+
+        <div class="tabs" role="tablist" aria-label="Online meeting sections">
+          <button type="button" class="tab is-active" data-tab="meeting" role="tab" aria-selected="true" aria-controls="tab-meeting">Meeting details</button>
+          <button type="button" class="tab" data-tab="registrations" role="tab" aria-selected="false" aria-controls="tab-registrations">Registrations <span class="tab-count" id="tab-count">0</span></button>
+          <button type="button" class="tab" data-tab="help" role="tab" aria-selected="false" aria-controls="tab-help">Help</button>
+        </div>
+
+        <section class="panel" id="tab-meeting" role="tabpanel" aria-labelledby="meeting-heading">
+          <div class="panel-grid">
+            <form class="card" id="meeting-form">
+              <div class="card-head">
+                <p class="kicker">Public meeting card</p>
+                <h2 id="meeting-heading">What people see</h2>
+                <p>Set the Jitsi room once. People join in the browser — no account and no app. The email form sends the room link automatically.</p>
+              </div>
+
+              <div class="field">
+                <label for="meeting-title">Meeting title</label>
+                <input id="meeting-title" name="title" type="text" maxlength="120" required>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="meeting-host">Host</label>
+                  <input id="meeting-host" name="hostName" type="text" maxlength="120">
+                </div>
+                <div class="field">
+                  <label for="meeting-schedule">When it meets</label>
+                  <input id="meeting-schedule" name="schedule" type="text" maxlength="160" placeholder="Sundays at 9:00 AM CAT">
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="meeting-jitsi-room">Jitsi room name</label>
+                <div class="field-with-button">
+                  <input id="meeting-jitsi-room" name="jitsiRoom" type="text" maxlength="80" pattern="[A-Za-z0-9_-]{3,80}" placeholder="RPAI-Online-Meeting">
+                  <button type="button" class="button button-quiet" id="generate-jitsi-room">Generate</button>
+                </div>
+                <p class="help">This is the room people join. It must be 3–80 letters, numbers, hyphens or underscores. Use <strong>Generate</strong> for a private-looking name.</p>
+              </div>
+
+              <div class="field">
+                <label for="meeting-join-url">Backup meeting link <span class="optional">(optional)</span></label>
+                <input id="meeting-join-url" name="joinUrl" type="url" maxlength="500" placeholder="https://join.freeconferencecall.com/...">
+                <p class="help">Only used if Jitsi is unavailable or for a very large service. Leave blank if not needed. It must start with <strong>https://</strong>.</p>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="meeting-dial-in">Backup dial-in number <span class="optional">(optional)</span></label>
+                  <input id="meeting-dial-in" name="dialInNumber" type="text" maxlength="40" placeholder="+260 ...">
+                </div>
+                <div class="field">
+                  <label for="meeting-access-code">Backup access code <span class="optional">(optional)</span></label>
+                  <input id="meeting-access-code" name="accessCode" type="text" maxlength="40">
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="meeting-description">Welcome message <span class="optional">(optional)</span></label>
+                <textarea id="meeting-description" name="description" rows="4" maxlength="2000" placeholder="A short welcome shown on the page and included in the email."></textarea>
+              </div>
+
+              <label class="check-row" for="registration-open">
+                <input id="registration-open" name="registrationOpen" type="checkbox">
+                <span>Allow people to request the link by email</span>
+              </label>
+
+              <div class="form-actions">
+                <button type="submit" class="button" id="save-button">Save meeting details</button>
+                <p class="form-status" id="save-status" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+
+            <aside class="card side-card">
+              <p class="kicker">How it starts</p>
+              <h3>The room starts by itself</h3>
+              <p>Jitsi opens the room when the first person joins. The pastor can join first to welcome people and keep order, but there is no <strong>Host</strong> button to press.</p>
+              <a class="button button-outline" href="https://meet.jit.si" target="_blank" rel="noopener noreferrer">Open Jitsi Meet</a>
+              <hr>
+              <h3>What happens when someone registers</h3>
+              <ol class="steps">
+                <li>They enter their email on the public Video Conference page.</li>
+                <li>The server stores the request and emails the room link.</li>
+                <li>They appear in the Registrations tab.</li>
+                <li>No manual sending is needed.</li>
+              </ol>
+              <p class="small-note">The FreeConferenceCall link is only a backup. Leave it blank unless the church needs it for a large service.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section class="panel" id="tab-registrations" role="tabpanel" aria-labelledby="registrations-heading" hidden>
+          <div class="card">
+            <div class="card-head split">
+              <div>
+                <p class="kicker">Automated invitations</p>
+                <h2 id="registrations-heading">People who asked for the link</h2>
+                <p id="registrations-summary">They receive the link automatically. Resend one if it did not arrive.</p>
+              </div>
+              <div class="toolbar">
+                <button type="button" class="button button-quiet" id="refresh-registrations">Refresh</button>
+                <button type="button" class="button button-quiet" id="export-registrations">Export CSV</button>
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table class="registrations-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Requested</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody id="registrations-body"></tbody>
+              </table>
+            </div>
+            <p class="empty" id="registrations-empty" hidden>No one has registered yet. Share the public Video Conference page so people can request the link.</p>
+            <p class="form-status" id="registrations-status" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section class="panel" id="tab-help" role="tabpanel" aria-labelledby="help-heading" hidden>
+          <div class="panel-grid">
+            <div class="card">
+              <p class="kicker">Step by step</p>
+              <h2 id="help-heading">How to run the meeting</h2>
+              <ol class="steps steps-numbered">
+                <li><strong>Set the Jitsi room</strong> in Meeting details. Use the Generate button if you want a private-looking room name, then save.</li>
+                <li><strong>Share the Video Conference page</strong> with the church. People request the link by email and receive it automatically.</li>
+                <li><strong>Join at meeting time</strong> by opening the Video Conference page and pressing <strong>Join the meeting</strong>. The room opens in the browser.</li>
+                <li><strong>Join first if possible</strong> so the pastor can welcome people and keep order. If the pastor is late, the room still starts for everyone else.</li>
+                <li><strong>The backup link</strong> is only for a large service or if Jitsi is unavailable. Leave it blank unless the church needs it.</li>
+              </ol>
+              <p class="small-note">No account and no app are needed for Jitsi. The free public server is provided as-is; the FreeConferenceCall link is the backup.</p>
+            </div>
+
+            <div class="card">
+              <p class="kicker">Email check</p>
+              <h3>Send a test email</h3>
+              <p>Use this once after setup. If the test arrives, registration emails will work too.</p>
+              <form id="test-email-form">
+                <div class="field">
+                  <label for="test-email">Send to</label>
+                  <input id="test-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                </div>
+                <button type="submit" class="button" id="test-email-button">Send test email</button>
+                <p class="form-status" id="test-email-status" role="status" aria-live="polite"></p>
+              </form>
+              <hr>
+              <h3>If email does not arrive</h3>
+              <ul class="plain-list">
+                <li>Check the spam or promotions folder.</li>
+                <li>Make sure <code>RESEND_API_KEY</code> or the <code>SMTP_*</code> values are set on Render.</li>
+                <li>For Gmail, use a 16-character App Password, not the normal account password.</li>
+                <li>Ask the person who manages the server to check the Render logs.</li>
+              </ul>
+              <p class="small-note">For safety, sign out when using a shared phone or computer.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="admin-footer">
+      <p>Royal Priesthood Assemblies International · A place of love where everyone counts.</p>
+    </footer>
+  </div>
+
+  <script src="admin.js?v=2"></script>
+</body>
+</html>

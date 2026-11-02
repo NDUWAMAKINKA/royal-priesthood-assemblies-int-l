@@ -11,6 +11,8 @@
 - About: [INSERT_WEBSITE_URL_HERE]/about.html
 - Ministries: [INSERT_WEBSITE_URL_HERE]/ministry.html
 - Gallery: [INSERT_WEBSITE_URL_HERE]/gallery.html
+- Library: [INSERT_WEBSITE_URL_HERE]/library.html
+- Video Conference: [INSERT_WEBSITE_URL_HERE]/video-conference.html
 - Daily Devotional: [INSERT_WEBSITE_URL_HERE]/daily-devotional.html
 - Announcements: [INSERT_WEBSITE_URL_HERE]/announcements.html
 - Branches & Transport: [INSERT_WEBSITE_URL_HERE]/branches-transport.html

@@ -141,6 +141,16 @@ Render reads `render.yaml` and asks for the values marked `sync: false`.
 | `PAYSTACK_CURRENCY_EXPONENT` | `0` or `2`, confirmed with Paystack before live payments |
 | `ALLOWED_ORIGIN` | Comma-separated frontend origins |
 | `PUBLIC_SITE_URL` | The final static-site URL |
+| `CONFERENCE_ADMIN_PASSWORD` | Long passphrase for `/admin` |
+| `CONFERENCE_ADMIN_SECRET` | Random value used to sign admin tokens |
+| `RESEND_API_KEY` | Resend key, **or** use the SMTP values below |
+| `MAIL_FROM` | Sender address the provider allows |
+| `MAIL_REPLY_TO` | Church reply address |
+| `SMTP_HOST` | e.g. `smtp.gmail.com` when using SMTP |
+| `SMTP_PORT` | `465` (secure) or `587` |
+| `SMTP_SECURE` | `true` for 465, `false` for 587 |
+| `SMTP_USER` | Mailbox address |
+| `SMTP_PASS` | App password, never the normal account password |
 
 Optional bank-transfer values are intentionally not in the Blueprint yet. The
 API returns `available: false` and keeps the public page at **To be confirmed**
@@ -161,6 +171,34 @@ until verified details are added.
 5. The Give page still shows the verified static details. It does not silently
    start charging anyone. A payment form must be added and reviewed before the
    API is used by donors.
+
+## 3b. Online meeting admin
+
+After the API is live, open:
+
+```text
+https://royal-priesthood-assemblies-int-l.onrender.com/admin
+```
+
+Sign in with `CONFERENCE_ADMIN_PASSWORD`. Check or generate the **Jitsi room
+name**, add the schedule and host, tick **Allow people to request the link by
+email**, and save. No FreeConferenceCall account is needed; its link is only an
+optional backup.
+
+The public page is:
+
+```text
+https://royal-priesthood-assemblies-int-l-1.onrender.com/video-conference.html
+```
+
+The API stores meeting settings and registrations in the
+`conference_settings` and `conference_registrations` tables. The migrations run
+before the server starts. Registration stays closed until both a meeting room
+and an email transport are configured; this prevents the church from collecting
+addresses it cannot answer.
+
+`VIDEO-CONFERENCE-SETUP.md` explains the Gmail and Resend options, the pastor's
+weekly routine, and troubleshooting.
 
 ## 4. Frontend API base
 

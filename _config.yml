@@ -9,3 +9,5 @@ exclude:
   - check_html.py
   - README.md
   - SITEMAP.md
+  - VIDEO-CONFERENCE-SETUP.md
+  - DEPLOY-RENDER.md

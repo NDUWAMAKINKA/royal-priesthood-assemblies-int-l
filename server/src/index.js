@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -22,6 +23,9 @@ import {
   saveWebhookEvent,
   markWebhookProcessed,
 } from './store.js';
+import conferenceRoutes from './conference-routes.js';
+import adminRoutes from './admin-routes.js';
+import { mailStatus } from './mailer.js';
 
 const app = express();
 
@@ -33,8 +37,8 @@ app.use(helmet());
 app.use(
   cors({
     origin: config.allowedOrigins,
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Idempotency-Key'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Idempotency-Key', 'Authorization'],
   })
 );
 
@@ -70,6 +74,19 @@ app.use('/api', (req, res, next) => {
   }
   return next();
 });
+
+// ---------------------------------------------------------------------------
+// Online meeting: public registration API and the pastor's admin page.
+// ---------------------------------------------------------------------------
+app.use('/api/conference', conferenceRoutes);
+app.use('/api/admin', adminRoutes);
+
+const adminDir = fileURLToPath(new URL('../public/admin', import.meta.url));
+app.use('/admin', (_req, res, next) => {
+  res.set('X-Robots-Tag', 'noindex, nofollow');
+  next();
+});
+app.use('/admin', express.static(adminDir, { index: 'index.html' }));
 
 // ---------------------------------------------------------------------------
 // POST /api/charge
@@ -294,6 +311,11 @@ app.get('/api/health', async (_req, res) => {
       // the commit that was just pushed. Render injects this at build time.
       commit: config.deployedCommit,
       currency: config.paystack.currency,
+      // Booleans only: never expose a credential or an address here.
+      conference: {
+        mail: mailStatus().mode,
+        admin: Boolean(config.conference.adminPassword),
+      },
     });
   } catch (err) {
     console.error('[health] database check failed:', err.message);
@@ -319,6 +341,10 @@ const server = app.listen(config.port, () => {
   console.log(`RPAI giving API listening on :${config.port}`);
   console.log(`Allowed origins: ${config.allowedOrigins.join(', ')}`);
   console.log(`Currency: ${config.paystack.currency}`);
+  console.log(`Meeting email: ${mailStatus().mode}`);
+  console.log(
+    `Meeting admin: ${config.conference.adminPassword ? 'configured' : 'not configured'}`
+  );
 });
 
 let shuttingDown = false;

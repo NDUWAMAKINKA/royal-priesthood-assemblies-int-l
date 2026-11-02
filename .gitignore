@@ -37,6 +37,9 @@ server/package-lock.json
 .rpai-backup-*
 *.before-markers
 
+# Personal request notes, not website content
+VEDIO COFERENCING..txt
+
 # The admin bot runs on the church computer, not on the website. Keeping
 # the folder out also keeps its .env with the GitHub token, its 53MB
 # cloudflared binary and its undo history out of a public repository.

@@ -2594,3 +2594,672 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* The HTML hidden attribute must always win over component display rules.
+   Without this, a grid/flex card can override the browser's default and show
+   an empty dial-in or access-code row. */
+[hidden] {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------------------
+   Video conference
+   The public page uses the same navy, gold and paper palette as the rest of
+   the site. The meeting card is the dark counterpoint to the white sign-up
+   panel, so the two halves read as one invitation.
+   --------------------------------------------------------------------------- */
+.rpai-conference-hero .rpai-conference-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  padding: 0.35rem 0.75rem;
+  color: var(--rpai-ink);
+  background: var(--rpai-gold);
+  border: 1px solid var(--rpai-gold-edge);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rpai-conference-status.is-open {
+  background: var(--rpai-gold);
+}
+
+.rpai-conference-status.is-closed,
+.rpai-conference-status.is-loading {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.rpai-conference-status.is-error {
+  color: #fff;
+  background: #8b1e1e;
+  border-color: #8b1e1e;
+}
+
+.rpai-conference-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  color: #fff;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(212, 175, 55, 0.18), transparent 55%),
+    linear-gradient(150deg, #102c4b 0%, #07182d 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-top: 4px solid var(--rpai-gold);
+  box-shadow: 0 24px 50px -34px rgba(11, 34, 64, 0.6);
+}
+
+.rpai-conference-card .subheading {
+  color: var(--rpai-gold);
+  text-align: left;
+}
+
+.rpai-conference-card h2 {
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.45rem, 1.2rem + 1vw, 2rem);
+  line-height: 1.25;
+  text-align: left;
+}
+
+.rpai-conference-schedule {
+  margin-bottom: 1rem;
+  color: var(--rpai-gold);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.rpai-conference-description {
+  margin-bottom: 1.25rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.75;
+  white-space: pre-line;
+}
+
+.rpai-conference-details {
+  display: grid;
+  gap: 0;
+  margin: 0 0 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.rpai-conference-details div {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, 0.5fr) minmax(0, 1.5fr);
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.rpai-conference-details dt {
+  color: var(--rpai-gold);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.rpai-conference-details dd {
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.rpai-conference-details a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.rpai-conference-join {
+  width: 100%;
+  margin-top: auto;
+}
+
+.rpai-conference-join.is-disabled {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.rpai-conference-powered {
+  margin: 0.85rem 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.rpai-conference-powered a {
+  color: var(--rpai-gold);
+  text-decoration: underline;
+}
+
+.rpai-conference-room {
+  margin-top: 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: #07182d;
+  border-top: 4px solid var(--rpai-gold);
+  border-radius: 6px;
+  box-shadow: 0 24px 50px -34px rgba(11, 34, 64, 0.6);
+}
+
+.rpai-conference-room-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rpai-conference-room-head .subheading {
+  color: var(--rpai-gold);
+  text-align: left;
+}
+
+.rpai-conference-room-head .heading {
+  margin: 0;
+  color: #fff;
+  font-family: 'Allura', 'Segoe Script', cursive;
+  font-size: clamp(1.8rem, 1.4rem + 1.2vw, 2.5rem);
+  line-height: 1.1;
+  text-align: left;
+}
+
+.rpai-conference-embed {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  overflow: hidden;
+  background: #0b2240;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+.rpai-conference-embed iframe {
+  display: block;
+  width: 100% !important;
+  border: 0;
+}
+
+.rpai-conference-room-status {
+  min-height: 1.4rem;
+  margin: 0.75rem 0 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.rpai-conference-room-status.is-error {
+  color: #ffb3b3;
+  font-weight: 600;
+}
+
+.rpai-conference-room-note {
+  margin: 0.75rem 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.rpai-conference-room-note a {
+  color: var(--rpai-gold);
+  text-decoration: underline;
+}
+
+@media (max-width: 767.98px) {
+  .rpai-conference-room-head .heading {
+    font-size: 1.9rem;
+  }
+
+  .rpai-conference-embed {
+    min-height: 420px;
+  }
+}
+
+.rpai-conference-register {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.rpai-conference-register .subheading,
+.rpai-conference-register h2 {
+  text-align: left;
+}
+
+.rpai-conference-register h2 {
+  margin-bottom: 0.75rem;
+}
+
+.rpai-conference-register > p {
+  color: #4e5967;
+  line-height: 1.7;
+}
+
+.rpai-conference-register form {
+  margin-top: 0.5rem;
+}
+
+.rpai-conference-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.75rem;
+  background: #f7f9fc;
+  border: 1px solid #dce4ec;
+  border-radius: 4px;
+}
+
+.rpai-conference-consent label {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.rpai-conference-consent input {
+  width: 1.15rem;
+  min-width: 1.15rem;
+  min-height: 1.15rem;
+  margin-top: 0.18rem;
+  accent-color: var(--rpai-gold-edge);
+}
+
+.rpai-conference-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.rpai-conference-privacy {
+  margin: 0.85rem 0 0;
+  color: #5c6875;
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.rpai-form-status.is-error {
+  color: #8b1e1e;
+  font-weight: 600;
+}
+
+.rpai-form-status.is-success {
+  color: #175c3a;
+  font-weight: 600;
+}
+
+.rpai-conference-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.rpai-conference-step {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-top: 3px solid var(--rpai-gold);
+}
+
+.rpai-conference-step-number {
+  display: grid;
+  width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  margin-bottom: 0.9rem;
+  color: var(--rpai-ink);
+  background: var(--rpai-gold);
+  border-radius: 50%;
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.rpai-conference-step h3 {
+  margin-bottom: 0.5rem;
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  text-align: left;
+}
+
+.rpai-conference-step p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.65;
+}
+
+.rpai-conference-faq {
+  max-width: 54rem;
+  margin: 0 auto;
+}
+
+.rpai-conference-faq details {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rpai-line);
+}
+
+.rpai-conference-faq summary {
+  color: var(--rpai-ink);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rpai-conference-faq p {
+  margin: 0.65rem 0 0;
+  color: #4e5967;
+  line-height: 1.7;
+}
+
+@media (max-width: 767.98px) {
+  .rpai-conference-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .rpai-conference-details div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Library
+   A searchable shelf of the recordings and links the church already has.
+   The cards use the same white paper, hairline border and gold top rule as
+   the giving and gallery cards, so the library belongs to the same site.
+   --------------------------------------------------------------------------- */
+.rpai-library-toolbar {
+  padding: 1.25rem;
+  background: #fffdf7;
+  border: 1px solid var(--rpai-line);
+  border-top: 3px solid var(--rpai-gold);
+  border-radius: 6px;
+  box-shadow: 0 22px 48px -38px rgba(11, 34, 64, 0.5);
+}
+
+.rpai-library-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+.rpai-library-search-field {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.rpai-library-search-field label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--rpai-ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rpai-library-search-field input {
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.65rem 0.85rem;
+  color: var(--rpai-ink);
+  background: #fff;
+  border: 1px solid #aebbc9;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.rpai-library-search-field input:focus {
+  border-color: var(--rpai-gold-edge);
+  outline: 3px solid rgba(212, 175, 55, 0.35);
+  outline-offset: 1px;
+}
+
+.rpai-library-clear {
+  min-height: 2.9rem;
+  padding: 0.55rem 0.9rem;
+  color: var(--rpai-ink);
+  background: #fff;
+  border: 1px solid #aebbc9;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rpai-library-clear:hover,
+.rpai-library-clear:focus-visible {
+  background: var(--rpai-paper);
+}
+
+.rpai-library-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.rpai-library-filter {
+  min-height: 2.4rem;
+  padding: 0.4rem 0.8rem;
+  color: var(--rpai-ink);
+  background: #fff;
+  border: 1px solid #b9c6d6;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rpai-library-filter:hover,
+.rpai-library-filter:focus-visible {
+  border-color: var(--rpai-gold-edge);
+}
+
+.rpai-library-filter.is-active {
+  color: var(--rpai-ink);
+  background: var(--rpai-gold);
+  border-color: var(--rpai-gold-edge);
+}
+
+.rpai-library-count {
+  margin: 0.85rem 0 0;
+  color: #5c6875;
+  font-size: 0.82rem;
+}
+
+.rpai-library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+}
+
+.rpai-library-card {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  padding: 1.4rem;
+  background: #fff;
+  border: 1px solid var(--rpai-line);
+  border-top: 3px solid var(--rpai-gold);
+  border-radius: 4px;
+}
+
+.rpai-library-card[hidden] {
+  display: none !important;
+}
+
+.rpai-library-badge {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 0.65rem;
+  padding: 0.2rem 0.55rem;
+  color: var(--rpai-gold-label);
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.rpai-library-card h2,
+.rpai-library-card h3 {
+  margin: 0 0 0.45rem;
+  color: var(--rpai-ink);
+  font-family: 'Cinzel', serif;
+  font-size: 1.12rem;
+  line-height: 1.35;
+  text-align: left;
+}
+
+.rpai-library-meta {
+  margin: 0 0 0.75rem;
+  color: #5c6875;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.rpai-library-card p {
+  color: #4e5967;
+  line-height: 1.65;
+}
+
+.rpai-library-card .rpai-library-meta {
+  color: #5c6875;
+  line-height: 1.5;
+}
+
+.rpai-library-media {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.rpai-library-media audio {
+  display: block;
+  width: 100%;
+  height: 2.75rem;
+}
+
+.rpai-library-card .rpai-scripture {
+  margin: 0 0 1rem;
+  padding: 1rem 1.1rem;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.rpai-library-card .rpai-scripture cite {
+  margin-top: 0.45rem;
+  font-size: 0.8rem;
+}
+
+.rpai-library-card .rpai-library-meta.mt-3 {
+  margin-top: 1.1rem;
+}
+
+.rpai-library-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  margin-top: 0.85rem;
+}
+
+.rpai-library-actions .btn {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.82rem;
+}
+
+.rpai-library-download {
+  color: #1c4479;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.rpai-library-video {
+  margin-top: auto;
+}
+
+.rpai-library-video .rpai-media-video-link {
+  border: 1px solid var(--rpai-line);
+}
+
+.rpai-library-video .rpai-media-play {
+  background: rgba(7, 24, 43, 0.4);
+}
+
+.rpai-library-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 2rem 1rem;
+  color: #5c6875;
+  background: #f7f9fc;
+  border: 1px dashed #c6d0db;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.rpai-library-note {
+  max-width: 48rem;
+  margin: 2rem auto 0;
+  color: #5c6875;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  .rpai-library-toolbar {
+    padding: 1rem;
+  }
+
+  .rpai-library-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rpai-library-search-row {
+    display: block;
+  }
+
+  .rpai-library-clear {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+/* The header now carries eleven links. Tighten the spacing on desktop so the
+   whole menu stays on one line without shrinking the type to an unreadable
+   size. The 992-1199 rule already used this padding; this extends it. */
+@media (min-width: 992px) {
+  .site-nav .site-navigation .site-menu {
+    gap: 0.12rem;
+  }
+
+  .site-nav .site-navigation .site-menu > li > a {
+    padding-right: 0.55rem;
+    padding-left: 0.55rem;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .site-nav .site-navigation .site-menu > li > a {
+    font-size: 13px;
+  }
+}
