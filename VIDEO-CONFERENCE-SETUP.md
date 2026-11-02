@@ -21,7 +21,8 @@ be embedded inside the church page.
 - **No account** for the pastor or the congregation.
 - **No app** — it runs in the browser on a phone or computer.
 - **More than 5 people** — 5–20 people is well within its normal range.
-- **No per-meeting time limit** on the free public service.
+- **Up to 95 minutes per meeting** — the free public service introduced a
+  95-minute meeting limit on 9 October 2026.
 - **No Host button** — the room opens when the first person joins. The pastor
   can join first to welcome people and keep order, but the meeting does not
   depend on the pastor starting it.
@@ -29,12 +30,15 @@ be embedded inside the church page.
 
 The free public service is `meet.jit.si`. Its terms provide the service **as
 is**, with no uptime guarantee, and limit free use to **25 unique devices per
-calendar month**. For a church with roughly 5–20 regular online attendees this
-is normally enough. If the church grows past that, the options are a paid Jitsi
-service, self-hosting, or moving to Daily.co's free minutes.
+calendar month**. Meetings are also limited to **95 minutes** on the public
+service. For a church with roughly 5–20 regular online attendees and a meeting
+under 90 minutes, this is normally enough. For a longer Sunday service or a
+larger crowd, use the FreeConferenceCall backup or move to a paid/self-hosted
+Jitsi service.
 
 FreeConferenceCall is kept as an **optional backup link** for a very large
-service or if Jitsi is ever unavailable. It is not required for normal use.
+service, a service longer than 95 minutes, or if Jitsi is ever unavailable. It
+is not required for normal midweek meetings.
 
 ---
 
@@ -227,6 +231,7 @@ that nothing on it is a placeholder.
 | Registration form is closed | Jitsi room missing, email not configured, or registration switched off |
 | Test email fails | Provider key, verified domain, SMTP app password, and Render logs |
 | Jitsi room does not load inside the page | Press **open it in a new tab**; allow camera/microphone; try Chrome or Firefox |
+| Jitsi meeting ends at 95 minutes | The free public service limit. Use the backup FreeConferenceCall link for longer services, or clear the Jitsi room so the page uses the backup. |
 | Mobile camera does not work in the embedded room | Use the "open it in a new tab" link; some phone browsers restrict camera in iframes |
 | Room asks for a name and camera | That is the Jitsi prejoin screen; enter a name and press Join |
 | CORS error on the public page | Add the exact site origin to `ALLOWED_ORIGIN` on the API |
