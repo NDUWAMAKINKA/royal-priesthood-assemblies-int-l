@@ -43,6 +43,8 @@
   var submitButton = form ? form.querySelector('button[type="submit"]') : null;
   var formStatus = page.querySelector('[data-conference-form-status]');
   var formJoinEl = page.querySelector('[data-conference-form-join]');
+  var formHeading = page.querySelector('[data-conference-form-heading]');
+  var formIntro = page.querySelector('[data-conference-form-intro]');
 
   var currentMeeting = null;
   var jitsiApi = null;
@@ -182,6 +184,21 @@
     if (data.registrationOpen) {
       setStatus('Registration open', 'open');
       setFormEnabled(true);
+      if (formHeading) {
+        formHeading.textContent = data.emailConfigured
+          ? 'Receive the meeting link by email'
+          : 'Register and join now';
+      }
+      if (formIntro) {
+        formIntro.textContent = data.emailConfigured
+          ? 'Enter your name and email address. The link is sent automatically, so the pastor does not have to send it to you personally.'
+          : 'Enter your name and email address. Email delivery is being set up, so the room link will appear here after you submit.';
+      }
+      if (submitButton) {
+        submitButton.textContent = data.emailConfigured
+          ? 'Email me the link'
+          : 'Register and join';
+      }
       setFormStatus(
         data.emailConfigured
           ? 'Enter your email and the meeting room link will be sent to you automatically.'
@@ -428,7 +445,10 @@
       .then(function () {
         if (submitButton) {
           submitButton.disabled = false;
-          submitButton.textContent = 'Email me the link';
+          submitButton.textContent =
+            currentMeeting && currentMeeting.emailConfigured
+              ? 'Email me the link'
+              : 'Register and join';
         }
       });
   }
