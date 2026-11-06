@@ -85,7 +85,9 @@ https://royal-priesthood-assemblies-int-l.onrender.com/admin
 ### 3. Choose an email transport
 
 The Jitsi room itself needs no account. Email is only used to send the room
-link to people who request it. Registration stays closed until email works.
+link to people who request it. Registration also works without email: the page
+shows the room link immediately after the form is submitted. Email delivery is
+the nicer option, not a hard requirement.
 
 #### Option A — Resend (recommended on Render)
 
@@ -175,9 +177,11 @@ The form:
 - emails the Jitsi room link,
 - returns a friendly message either way.
 
-When email is not configured, or the room is missing, the registration form
-stays closed and the page says so. It does not collect addresses it cannot
-reply to.
+When email is not configured, the form still registers the person and shows
+the room link on the page so they can join immediately. The registration is
+stored with a note that email delivery was not configured. When a mail provider
+is added later, new registrations receive the link by email. Existing pending
+registrations can be resent from the admin page.
 
 The Jitsi room is embedded with the official External API:
 
@@ -228,7 +232,7 @@ that nothing on it is a placeholder.
 |---|---|
 | Admin page says "not configured" | `CONFERENCE_ADMIN_PASSWORD` is missing on Render |
 | Wrong password every time | The password was changed on Render; sign in again |
-| Registration form is closed | Jitsi room missing, email not configured, or registration switched off |
+| Registration form is closed | Jitsi room missing or registration switched off |
 | Test email fails | Provider key, verified domain, SMTP app password, and Render logs |
 | Jitsi room does not load inside the page | Press **open it in a new tab**; allow camera/microphone; try Chrome or Firefox |
 | Jitsi meeting ends at 95 minutes | The free public service limit. Use the backup FreeConferenceCall link for longer services, or clear the Jitsi room so the page uses the backup. |

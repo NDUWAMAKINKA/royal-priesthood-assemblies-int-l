@@ -42,6 +42,7 @@
   var form = page.querySelector('[data-conference-form]');
   var submitButton = form ? form.querySelector('button[type="submit"]') : null;
   var formStatus = page.querySelector('[data-conference-form-status]');
+  var formJoinEl = page.querySelector('[data-conference-form-join]');
 
   var currentMeeting = null;
   var jitsiApi = null;
@@ -182,7 +183,9 @@
       setStatus('Registration open', 'open');
       setFormEnabled(true);
       setFormStatus(
-        'Enter your email and the meeting room link will be sent to you automatically.'
+        data.emailConfigured
+          ? 'Enter your email and the meeting room link will be sent to you automatically.'
+          : 'Enter your email to register. Email delivery is being set up, so the room link will be shown here after you submit.'
       );
       return;
     }
@@ -369,6 +372,7 @@
     };
 
     var email = payload.email.trim();
+    if (formJoinEl) formJoinEl.hidden = true;
     if (submitButton) {
       submitButton.disabled = true;
       submitButton.textContent = 'Sending...';
@@ -396,8 +400,21 @@
             return body;
           });
       })
-      .then(function () {
+      .then(function (body) {
         form.reset();
+
+        if (body && body.emailSent === false) {
+          if (formJoinEl && body.joinUrl) {
+            formJoinEl.href = body.joinUrl;
+            formJoinEl.hidden = false;
+          }
+          setFormStatus(
+            'You are registered. Email delivery is not set up yet, so use the button below to join now.',
+            'success'
+          );
+          return;
+        }
+
         setFormStatus(
           'The room link is on its way to ' +
             email +

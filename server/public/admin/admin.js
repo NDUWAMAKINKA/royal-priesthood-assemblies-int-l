@@ -135,7 +135,7 @@
     var messages = [];
     if (!state.mail || !state.mail.configured) {
       messages.push(
-        'Email delivery is not configured. Add RESEND_API_KEY or the SMTP_* values on Render. Until then the public registration form stays closed.'
+        'Email delivery is not configured. People can still register and will see the room link on the page, but they will not receive an email. Add RESEND_API_KEY or the SMTP_* values on Render to enable email.'
       );
     }
     if (!state.settings.jitsiRoom && !state.settings.joinUrl) {

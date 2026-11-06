@@ -66,10 +66,11 @@ function publicSettings(settings) {
     accessCode: settings.accessCode,
     meetingReady: ready,
     emailConfigured: mail.configured,
-    // The page treats registration as open only when there is a room to send
-    // and a working way to send it.
+    // The page treats registration as open when there is a room to join. If
+    // email is not configured yet, the page shows the room link after the
+    // visitor registers instead of sending it.
     registrationOpen:
-      Boolean(settings.registrationOpen) && ready && mail.configured,
+      Boolean(settings.registrationOpen) && ready,
     updatedAt: settings.updatedAt,
   };
 }
@@ -151,18 +152,30 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    if (!mailStatus().configured) {
-      return res.status(503).json({
-        error: 'email_not_configured',
-        message:
-          'Email delivery is not available yet. Please contact the church office for the meeting link.',
-      });
-    }
-
     const registration = await upsertConferenceRegistration({
       name: input.name,
       email: input.email,
     });
+
+    const publicInfo = publicSettings(settings);
+    const roomUrl = publicInfo.jitsiUrl || publicInfo.joinUrl;
+    const mail = mailStatus();
+
+    // No email provider yet: keep the registration and show the room link on
+    // the page so the visitor can still join today.
+    if (!mail.configured) {
+      await markRegistrationEmail(registration.id, {
+        status: 'pending',
+        error: 'email_not_configured',
+      });
+      return res.json({
+        ok: true,
+        emailSent: false,
+        joinUrl: roomUrl,
+        message:
+          'You are registered. Email delivery is not set up yet, so use the button below to join now.',
+      });
+    }
 
     // If the same person just asked, do not send the same email twice.
     if (registration.sentAt) {
@@ -171,6 +184,7 @@ router.post('/register', async (req, res) => {
         await setRegistrationStatus(registration.id, 'sent');
         return res.json({
           ok: true,
+          emailSent: true,
           alreadySent: true,
           message:
             'That link was just sent. Check your inbox and your spam folder.',
@@ -188,6 +202,7 @@ router.post('/register', async (req, res) => {
 
       return res.json({
         ok: true,
+        emailSent: true,
         message: 'Check your inbox for the meeting link.',
       });
     } catch (err) {
