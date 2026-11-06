@@ -1,23 +1,26 @@
 # LLMS.TXT - AI Crawler Roadmap
 
 ## Organization Information
-- Name: [INSERT_CHURCH_NAME_HERE]
-- Mission: [INSERT_MISSION_STATEMENT_HERE]
-- Location: [INSERT_LOCATION_HERE]
-- Website: [INSERT_WEBSITE_URL_HERE]
+- Name: Royal Priesthood Assemblies International
+- Alternate name: RPAI
+- Mission: A church family in Lusaka, Zambia, helping people grow in faith, prayer and service.
+- Location: Otwa Events, Long Acres, Ndeke Road, Lusaka, Zambia
+- Website: https://royal-priesthood-assemblies-int-l-1.onrender.com/
+- Email: royalpriesthoodassembliesintl@gmail.com
+- Phone/WhatsApp: +260 767 716 936
 
 ## Key Pages
-- Home: [INSERT_WEBSITE_URL_HERE]/index.html
-- About: [INSERT_WEBSITE_URL_HERE]/about.html
-- Ministries: [INSERT_WEBSITE_URL_HERE]/ministry.html
-- Gallery: [INSERT_WEBSITE_URL_HERE]/gallery.html
-- Library: [INSERT_WEBSITE_URL_HERE]/library.html
-- Video Conference: [INSERT_WEBSITE_URL_HERE]/video-conference.html
-- Daily Devotional: [INSERT_WEBSITE_URL_HERE]/daily-devotional.html
-- Announcements: [INSERT_WEBSITE_URL_HERE]/announcements.html
-- Branches & Transport: [INSERT_WEBSITE_URL_HERE]/branches-transport.html
-- Give: [INSERT_WEBSITE_URL_HERE]/give.html
-- Contact: [INSERT_WEBSITE_URL_HERE]/contact.html
+- Home: https://royal-priesthood-assemblies-int-l-1.onrender.com/
+- About: https://royal-priesthood-assemblies-int-l-1.onrender.com/about.html
+- Ministries: https://royal-priesthood-assemblies-int-l-1.onrender.com/ministry.html
+- Gallery: https://royal-priesthood-assemblies-int-l-1.onrender.com/gallery.html
+- Library: https://royal-priesthood-assemblies-int-l-1.onrender.com/library.html
+- Daily Devotional: https://royal-priesthood-assemblies-int-l-1.onrender.com/daily-devotional.html
+- Announcements: https://royal-priesthood-assemblies-int-l-1.onrender.com/announcements.html
+- Branches & Transport: https://royal-priesthood-assemblies-int-l-1.onrender.com/branches-transport.html
+- Video Conference: https://royal-priesthood-assemblies-int-l-1.onrender.com/video-conference.html
+- Give: https://royal-priesthood-assemblies-int-l-1.onrender.com/give.html
+- Contact: https://royal-priesthood-assemblies-int-l-1.onrender.com/contact.html
 
 ## Content Focus
-This website contains information about church services, ministries, events, and giving opportunities. Content is primarily faith-based with focus on community outreach and worship services.
+This website contains information about church services, ministries, events, worship recordings, the church library and giving opportunities. Content is faith-based, with a focus on community outreach, discipleship and worship.

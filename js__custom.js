@@ -42,6 +42,7 @@
 	/* This section creates the sliding image and testimonial carousels. */
 	/* It helps the page show several items in a small space. */
 	var tinyslier = function() {
+		if (typeof tns !== 'function') return;
 
 		var heroSlider = document.querySelectorAll('.hero-slide');
 		var propertySlider = document.querySelectorAll('.property-slider');
@@ -291,6 +292,7 @@
 
 	/* This opens media in a popup lightbox so videos look nicer. */
 	var lightbox = function() {
+		if (typeof GLightbox !== 'function') return;
 		var lightboxVideo = GLightbox({
 			selector: '.glightbox'
 		});

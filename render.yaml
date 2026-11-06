@@ -80,6 +80,35 @@ services:
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      # Fingerprinted/versioned assets can be cached for longer. The HTML
+      # itself is left to Render's default revalidation so edits go live.
+      - path: /*.css
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.js
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.woff2
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*.webp
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.png
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.jpg
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.jpeg
+        name: Cache-Control
+        value: public, max-age=604800
       # deploy.py reads this file after every deploy. It must never be cached,
       # otherwise the check can report an old commit as live.
       - path: /deploy-info.json

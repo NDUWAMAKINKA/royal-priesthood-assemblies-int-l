@@ -1480,6 +1480,12 @@ iframe {
   object-fit: contain;
 }
 
+.site-navigation .logo picture {
+  display: block;
+  max-width: 100%;
+  line-height: 0;
+}
+
 .site-navigation .rpai-logo-tagline {
   display: block !important;
   width: 100%;
@@ -2093,6 +2099,14 @@ iframe {
   height: var(--rpai-band-h);
   background: none;
   background-image: url("hero-church.jpeg");
+  background-image: -webkit-image-set(
+    url("hero-church.webp") type("image/webp"),
+    url("hero-church.jpeg") type("image/jpeg")
+  );
+  background-image: image-set(
+    url("hero-church.webp") type("image/webp"),
+    url("hero-church.jpeg") type("image/jpeg")
+  );
   background-repeat: no-repeat;
   background-position: center 40%;
   background-size: cover;
@@ -3262,4 +3276,102 @@ body {
   .site-nav .site-navigation .site-menu > li > a {
     font-size: 13px;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Final polish: icons, hero stability, skip link and responsive images
+   ------------------------------------------------------------------------- */
+
+/* The theme shipped two large icon fonts for four icons. These small CSS
+   shapes and masks replace the fonts, removing a ~300 KiB download. */
+.icon-play::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 0.34em solid transparent;
+  border-bottom: 0.34em solid transparent;
+  border-left: 0.54em solid currentColor;
+}
+
+.rpai-media-play .icon-play::before {
+  margin-left: 0.16em;
+}
+
+.icon-home::before,
+.icon-leaf::before,
+.icon-book::before {
+  content: "";
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 auto;
+  background-color: currentColor;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.icon-home::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6 2 10.7V21a1 1 0 0 0 1 1h6v-7h6v7h6a1 1 0 0 0 1-1V10.7L12 2.6Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6 2 10.7V21a1 1 0 0 0 1 1h6v-7h6v7h6a1 1 0 0 0 1-1V10.7L12 2.6Z'/%3E%3C/svg%3E");
+}
+
+.icon-leaf::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.8 3.2C9.3 2.7 3 8.4 3 16.2c0 2.4.9 4.1 2.4 4.6 7.2 0 15.4-6.2 15.4-17.6ZM6.7 18.6c2.7-4.4 6.4-7.7 11-9.7-3.8 3.1-6.8 6.9-8.9 11.2l-2.1-1.5Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.8 3.2C9.3 2.7 3 8.4 3 16.2c0 2.4.9 4.1 2.4 4.6 7.2 0 15.4-6.2 15.4-17.6ZM6.7 18.6c2.7-4.4 6.4-7.7 11-9.7-3.8 3.1-6.8 6.9-8.9 11.2l-2.1-1.5Z'/%3E%3C/svg%3E");
+}
+
+.icon-book::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4.8A2.8 2.8 0 0 1 6.8 2H21v20H6.8A2.8 2.8 0 0 0 4 24V4.8Zm2.8-.8a.8.8 0 0 0-.8.8v13.5c.3-.1.6-.1.8-.1H19V4H6.8Z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 4.8A2.8 2.8 0 0 1 6.8 2H21v20H6.8A2.8 2.8 0 0 0 4 24V4.8Zm2.8-.8a.8.8 0 0 0-.8.8v13.5c.3-.1.6-.1.8-.1H19V4H6.8Z'/%3E%3C/svg%3E");
+}
+
+/* AOS must never delay the first screen. The hero is the LCP area; showing
+   it immediately removes the render delay while keeping animations below. */
+.hero [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.rpai-media-video-link picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.video-bg picture {
+  display: block;
+}
+
+.rpai-media-video-link picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Keyboard users can jump past the large header on every page. */
+.rpai-skip-link {
+  position: fixed;
+  top: -6rem;
+  left: 1rem;
+  z-index: 100000;
+  padding: 0.75rem 1rem;
+  color: var(--rpai-ink);
+  background: #fff;
+  border: 3px solid var(--rpai-gold);
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rpai-skip-link:focus {
+  top: 1rem;
+  outline: 3px solid var(--rpai-ink);
+  outline-offset: 2px;
 }

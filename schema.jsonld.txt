@@ -1,34 +1,25 @@
-<!-- Place this JSON-LD script in the <head> section of your HTML pages -->
+<!-- Structured data for search engines. The same Church record is embedded in index.html. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HouseOfWorship",
-  "name": "[INSERT_CHURCH_NAME_HERE]",
-  "alternateName": "[INSERT_ALTERNATE_NAME_HERE]",
-  "description": "[INSERT_CHURCH_DESCRIPTION_HERE]",
-  "url": "[INSERT_WEBSITE_URL_HERE]",
-  "logo": "[INSERT_WEBSITE_URL_HERE]/[INSERT_LOGO_PATH_HERE]",
-  "image": "[INSERT_WEBSITE_URL_HERE]/[INSERT_HERO_IMAGE_PATH_HERE]",
+  "@type": "Church",
+  "name": "Royal Priesthood Assemblies International",
+  "alternateName": "RPAI",
+  "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
+  "logo": "https://royal-priesthood-assemblies-int-l-1.onrender.com/logo-rpai.png",
+  "image": "https://royal-priesthood-assemblies-int-l-1.onrender.com/hero-church.jpeg",
+  "description": "A church family in Lusaka, Zambia. A place of love where everyone counts.",
+  "email": "royalpriesthoodassembliesintl@gmail.com",
+  "telephone": "+260767716936",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "[INSERT_ADDRESS_HERE]",
-    "addressLocality": "[INSERT_CITY_HERE]",
-    "addressRegion": "[INSERT_REGION_HERE]",
-    "postalCode": "[INSERT_POSTAL_CODE_HERE]",
-    "addressCountry": "[INSERT_COUNTRY_HERE]"
+    "streetAddress": "Otwa Events, Long Acres, Ndeke Road",
+    "addressLocality": "Lusaka",
+    "addressCountry": "ZM"
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "[INSERT_LATITUDE_HERE]",
-    "longitude": "[INSERT_LONGITUDE_HERE]"
-  },
-  "telephone": "[INSERT_PHONE_NUMBER_HERE]",
-  "email": "[INSERT_EMAIL_HERE]",
-  "openingHours": "[INSERT_OPENING_HOURS_HERE]",
   "sameAs": [
-    "[INSERT_FACEBOOK_URL_HERE]",
-    "[INSERT_YOUTUBE_URL_HERE]",
-    "[INSERT_INSTAGRAM_URL_HERE]"
+    "https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/",
+    "https://youtube.com/@royalpriesthoodassemblies"
   ]
 }
 </script>

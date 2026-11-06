@@ -86,6 +86,8 @@ var DICTIONARY = {
 			'nav.about': 'À propos',
 			'nav.ministries': 'Ministères',
 			'nav.gallery': 'Galerie',
+			'nav.library': 'Bibliothèque',
+			'nav.conference': 'Visioconférence',
 			'nav.devotional': 'Dévotion quotidienne',
 			'nav.announcements': 'Annonces',
 			'nav.branches': 'Antennes et transport',
@@ -117,6 +119,8 @@ var DICTIONARY = {
 			'nav.about': 'Über uns',
 			'nav.ministries': 'Dienste',
 			'nav.gallery': 'Galerie',
+			'nav.library': 'Bibliothek',
+			'nav.conference': 'Videokonferenz',
 			'nav.devotional': 'Tägliche Andacht',
 			'nav.announcements': 'Ankündigungen',
 			'nav.branches': 'Gemeinden und Transport',
@@ -148,6 +152,8 @@ var DICTIONARY = {
 			'nav.about': 'Chi siamo',
 			'nav.ministries': 'Ministeri',
 			'nav.gallery': 'Galleria',
+			'nav.library': 'Biblioteca',
+			'nav.conference': 'Videoconferenza',
 			'nav.devotional': 'Devozionale quotidiano',
 			'nav.announcements': 'Annunci',
 			'nav.branches': 'Sedi e trasporti',
@@ -179,6 +185,8 @@ var DICTIONARY = {
 			'nav.about': 'Sobre',
 			'nav.ministries': 'Ministérios',
 			'nav.gallery': 'Galeria',
+			'nav.library': 'Biblioteca',
+			'nav.conference': 'Videoconferência',
 			'nav.devotional': 'Devocional diário',
 			'nav.announcements': 'Anúncios',
 			'nav.branches': 'Filiais e transporte',
@@ -210,6 +218,8 @@ var DICTIONARY = {
 			'nav.about': 'О нас',
 			'nav.ministries': 'Служения',
 			'nav.gallery': 'Галерея',
+			'nav.library': 'Библиотека',
+			'nav.conference': 'Видеоконференция',
 			'nav.devotional': 'Ежедневное чтение',
 			'nav.announcements': 'Объявления',
 			'nav.branches': 'Отделения и транспорт',
@@ -241,6 +251,8 @@ var DICTIONARY = {
 			'nav.about': 'Acerca de',
 			'nav.ministries': 'Ministerios',
 			'nav.gallery': 'Galería',
+			'nav.library': 'Biblioteca',
+			'nav.conference': 'Videoconferencia',
 			'nav.devotional': 'Devocional diario',
 			'nav.announcements': 'Anuncios',
 			'nav.branches': 'Sedes y transporte',
@@ -272,6 +284,8 @@ var DICTIONARY = {
 			'nav.about': 'हमारे बारे में',
 			'nav.ministries': 'सेवाएँ',
 			'nav.gallery': 'गैलरी',
+			'nav.library': 'लाइब्रेरी',
+			'nav.conference': 'वीडियो कॉन्फ़रेंस',
 			'nav.devotional': 'दैनिक भक्ति',
 			'nav.announcements': 'घोषणाएँ',
 			'nav.branches': 'शाखाएँ और परिवहन',
@@ -303,6 +317,8 @@ var DICTIONARY = {
 			'nav.about': 'Pa ifwe',
 			'nav.ministries': 'Imilimo ya Lesa',
 			'nav.gallery': 'Ifikope',
+			'nav.library': 'Library',
+			'nav.conference': 'Video Conference',
 			'nav.devotional': 'Icipusho ca bushiku',
 			'nav.announcements': 'Ifyebo',
 			'nav.branches': 'Amasamba no Lwendo',
@@ -334,6 +350,8 @@ var DICTIONARY = {
 			'nav.about': 'Za ife',
 			'nav.ministries': 'Ntchito za Mulungu',
 			'nav.gallery': 'Zithunzi',
+			'nav.library': 'Library',
+			'nav.conference': 'Video Conference',
 			'nav.devotional': 'Za tsiku ndi tsiku',
 			'nav.announcements': 'Zolengeza',
 			'nav.branches': 'Magawo ndi Mayendedwe',
@@ -365,6 +383,8 @@ var DICTIONARY = {
 			'nav.about': 'Za ndiswe',
 			'nav.ministries': 'Milingo ya Leza',
 			'nav.gallery': 'Zifaniso',
+			'nav.library': 'Library',
+			'nav.conference': 'Video Conference',
 			'nav.devotional': 'Cilongololo ca buzuba',
 			'nav.announcements': 'Makani',
 			'nav.branches': 'Matabi a Zilwendo',
@@ -396,6 +416,8 @@ var DICTIONARY = {
 			'nav.about': 'Ka za luna',
 			'nav.ministries': 'Misebezi ya Mulimu',
 			'nav.gallery': 'Lifaniso',
+			'nav.library': 'Library',
+			'nav.conference': 'Video Conference',
 			'nav.devotional': 'Za lika ni lika',
 			'nav.announcements': 'Makande',
 			'nav.branches': 'Mafelo ni Lwendo',
@@ -427,6 +449,8 @@ var DICTIONARY = {
 			'nav.about': 'Za ise',
 			'nav.ministries': 'Ntchito za Chiuta',
 			'nav.gallery': 'Vithuzi',
+			'nav.library': 'Library',
+			'nav.conference': 'Video Conference',
 			'nav.devotional': 'Vya zuva na zuva',
 			'nav.announcements': 'Makani',
 			'nav.branches': 'Vigaŵa na Mayendedwe',
@@ -459,6 +483,32 @@ var DICTIONARY = {
 	LANGUAGES.forEach(function (language) { byCode[language.code] = language; });
 
 	var LOCAL_TEXT = window.RPAI_LOCAL_TEXT || {};
+	var localTextPromise = null;
+
+	function loadLocalText() {
+		if (window.RPAI_LOCAL_TEXT) {
+			LOCAL_TEXT = window.RPAI_LOCAL_TEXT;
+			return Promise.resolve();
+		}
+		if (localTextPromise) return localTextPromise;
+
+		localTextPromise = new Promise(function (resolve, reject) {
+			var script = document.createElement('script');
+			script.src = 'js__local-text.js?v=11';
+			script.async = true;
+			script.onload = function () {
+				LOCAL_TEXT = window.RPAI_LOCAL_TEXT || {};
+				resolve();
+			};
+			script.onerror = function () {
+				localTextPromise = null;
+				reject(new Error('The language text could not be loaded.'));
+			};
+			document.head.appendChild(script);
+		});
+
+		return localTextPromise;
+	}
 
 	function isLocalLanguage(lang) {
 		return !!(LOCAL_TEXT[lang] && typeof LOCAL_TEXT[lang] === 'object');
@@ -780,10 +830,26 @@ var DICTIONARY = {
 		localiseSliderRegions(lang);
 
 		/* English is already in the markup. Every other language is applied
-		   from its complete local map without a network request. */
-		if (lang !== 'en' && isLocalLanguage(lang)) {
-			applyLocalPage(lang);
-			startLocalObserver(lang);
+		   from its complete local map. The large local-text file is loaded on
+		   demand, so visitors who never change language never download it. */
+		if (lang !== 'en') {
+			if (isLocalLanguage(lang)) {
+				applyLocalPage(lang);
+				startLocalObserver(lang);
+			} else {
+				var requested = lang;
+				loadLocalText()
+					.then(function () {
+						if (currentLanguage !== requested || !isLocalLanguage(requested)) return;
+						applyLocalPage(requested);
+						startLocalObserver(requested);
+					})
+					.catch(function (error) {
+						if (window.console && typeof window.console.warn === 'function') {
+							window.console.warn('[RPAI] Language text unavailable.', error);
+						}
+					});
+			}
 		}
 	}
 
