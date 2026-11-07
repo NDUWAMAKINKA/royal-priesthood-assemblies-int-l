@@ -3588,53 +3588,43 @@ body {
 /* Each interior page gets its own photograph while keeping the common hero
    layout, so the site feels like a family of pages rather than one template. */
 .hero.overlay.rpai-home-hero.rpai-page-hero--about::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-about.webp") type("image/webp"));
+  background-image: url("photos/hero-about.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--ministry::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-ministry.webp") type("image/webp"));
+  background-image: url("photos/hero-ministry.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--library::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-library.webp") type("image/webp"));
+  background-image: url("photos/hero-library.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--devotional::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-devotional.webp") type("image/webp"));
+  background-image: url("photos/hero-devotional.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--announcements::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-announcements.webp") type("image/webp"));
+  background-image: url("photos/hero-announcements.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--branches::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-branches.webp") type("image/webp"));
+  background-image: url("photos/hero-branches.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--give::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-give.webp") type("image/webp"));
+  background-image: url("photos/hero-give.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--contact::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-contact.webp") type("image/webp"));
+  background-image: url("photos/hero-contact.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--conference::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-conference.webp") type("image/webp"));
+  background-image: url("photos/hero-conference.webp");
 }
 
 .hero.overlay.rpai-home-hero.rpai-page-hero--gallery::before {
-  background-image: url("hero-church.jpeg");
-  background-image: image-set(url("photos/hero-gallery.webp") type("image/webp"));
+  background-image: url("photos/hero-gallery.webp");
 }
 
 @media (max-width: 1199.98px) {
