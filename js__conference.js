@@ -15,7 +15,7 @@
     window.RPAI_API_BASE ||
       (isLocal ? '' : 'https://royal-priesthood-assemblies-int-l.onrender.com')
   ).replace(/\/+$/, '');
-  var TIMEOUT_MS = 12000;
+  var TIMEOUT_MS = 15000;
   var JITSI_DOMAIN = 'meet.jit.si';
 
   var page = document.querySelector('[data-conference-page]');
@@ -256,7 +256,8 @@
     }
   }
 
-  function loadMeeting() {
+  function loadMeeting(attempt) {
+    attempt = attempt || 0;
     if (typeof window.fetch !== 'function') {
       showOffline();
       return;
@@ -283,6 +284,15 @@
         applyMeeting(data || {});
       })
       .catch(function (error) {
+        /* Render's free API can take a little longer than the first request
+           allows when it has been idle. Try once more before giving up, so a
+           cold start does not make the page look unavailable. */
+        if (attempt < 1) {
+          window.setTimeout(function () {
+            loadMeeting(attempt + 1);
+          }, 1500);
+          return;
+        }
         if (window.console && typeof window.console.warn === 'function') {
           window.console.warn('[RPAI] Could not load the meeting details.', error);
         }
