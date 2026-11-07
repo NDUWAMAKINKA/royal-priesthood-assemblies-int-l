@@ -350,3 +350,47 @@
 
 
 })()
+
+/* Rotating photos behind the navigation bar, shared by every page. */
+(function () {
+  var nav = document.querySelector('.site-nav');
+  if (!nav) return;
+  var photos = [
+    'hero-church.webp',
+    'photos/hero-about.webp',
+    'photos/hero-devotional.webp',
+    'photos/hero-branches.webp',
+    'photos/hero-give.webp',
+    'photos/hero-contact.webp',
+    'photos/hero-gallery.webp',
+    'photos/hero-ministry.webp',
+    'photos/hero-library.webp',
+    'photos/hero-announcements.webp',
+    'photos/hero-conference.webp'
+  ];
+  var index = 0;
+  var preload = document.querySelector('link[rel="preload"][as="image"][href*="hero"]');
+  if (preload) {
+    var found = photos.indexOf(preload.getAttribute('href'));
+    if (found > -1) index = found;
+  }
+  function show(i) {
+    nav.style.setProperty('--rpai-nav-photo', 'url("' + photos[i] + '")');
+  }
+  function preloadNext(i) {
+    var img = new Image();
+    img.src = photos[(i + 1) % photos.length];
+  }
+  show(index);
+  preloadNext(index);
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  window.setInterval(function () {
+    nav.style.setProperty('--rpai-nav-photo-opacity', '0');
+    window.setTimeout(function () {
+      index = (index + 1) % photos.length;
+      show(index);
+      nav.style.setProperty('--rpai-nav-photo-opacity', '1');
+      preloadNext(index);
+    }, 700);
+  }, 6500);
+})();
