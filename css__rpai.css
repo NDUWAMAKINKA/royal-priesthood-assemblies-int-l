@@ -3375,3 +3375,301 @@ body {
   outline: 3px solid var(--rpai-ink);
   outline-offset: 2px;
 }
+
+/* ---------------------------------------------------------------------------
+   Photo-first sections and page-specific heroes
+   ------------------------------------------------------------------------- */
+
+.rpai-quick-section {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.rpai-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.rpai-quick-card {
+  position: relative;
+  display: flex;
+  min-height: 19rem;
+  align-items: flex-end;
+  overflow: hidden;
+  color: #fff;
+  background: #07182b;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.rpai-quick-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.rpai-quick-card::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, rgba(7, 24, 43, 0.02) 10%, rgba(7, 24, 43, 0.9) 100%);
+}
+
+.rpai-quick-card-body {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  padding: 1.2rem;
+}
+
+.rpai-quick-card small {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--rpai-gold-bright);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rpai-quick-card strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #fff;
+  font-family: Cinzel, serif;
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.rpai-quick-card-text {
+  display: block;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.rpai-quick-card:focus-visible,
+.rpai-photo-card:focus-visible {
+  outline: 3px solid var(--rpai-gold);
+  outline-offset: 3px;
+}
+
+.rpai-quick-card:hover img,
+.rpai-quick-card:focus-visible img {
+  transform: scale(1.045);
+}
+
+.rpai-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.rpai-photo-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rpai-photo-grid--four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.rpai-photo-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  color: #fff;
+  background: #07182b;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.rpai-photo-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.rpai-photo-card::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, rgba(7, 24, 43, 0) 35%, rgba(7, 24, 43, 0.88) 100%);
+}
+
+.rpai-photo-card-body {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  padding: 1rem;
+}
+
+.rpai-photo-card-label {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--rpai-gold-bright);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.rpai-photo-card strong {
+  display: block;
+  color: #fff;
+  font-family: Cinzel, serif;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.rpai-photo-card:hover img,
+.rpai-photo-card:focus-visible img {
+  transform: scale(1.045);
+}
+
+.rpai-feature-photo {
+  margin: 0;
+  overflow: hidden;
+  background: #07182b;
+  border-top: 4px solid var(--rpai-gold);
+}
+
+.rpai-feature-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.rpai-feature-photo figcaption {
+  padding: 0.9rem 1.1rem;
+  color: #59636e;
+  background: #fff;
+  border: 1px solid var(--rpai-line);
+  border-top: 0;
+  font-size: 0.88rem;
+}
+
+.rpai-pillar-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 1.25rem;
+  object-fit: cover;
+  border-bottom: 3px solid var(--rpai-gold);
+}
+
+.rpai-library-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 1rem;
+  object-fit: cover;
+  border-bottom: 3px solid var(--rpai-gold);
+}
+
+/* Each interior page gets its own photograph while keeping the common hero
+   layout, so the site feels like a family of pages rather than one template. */
+.hero.overlay.rpai-home-hero.rpai-page-hero--about::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-about.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--ministry::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-ministry.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--library::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-library.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--devotional::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-devotional.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--announcements::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-announcements.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--branches::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-branches.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--give::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-give.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--contact::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-contact.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--conference::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-conference.webp") type("image/webp"));
+}
+
+.hero.overlay.rpai-home-hero.rpai-page-hero--gallery::before {
+  background-image: url("hero-church.jpeg");
+  background-image: image-set(url("photos/hero-gallery.webp") type("image/webp"));
+}
+
+@media (max-width: 1199.98px) {
+  .rpai-quick-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991.98px) {
+  .rpai-photo-grid--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .rpai-quick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rpai-quick-card {
+    min-height: 15rem;
+  }
+
+  .rpai-photo-grid,
+  .rpai-photo-grid--four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rpai-quick-grid,
+  .rpai-photo-grid,
+  .rpai-photo-grid--two,
+  .rpai-photo-grid--four {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rpai-quick-card {
+    min-height: 13rem;
+  }
+}

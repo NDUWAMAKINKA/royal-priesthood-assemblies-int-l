@@ -24,10 +24,10 @@
 	<meta name="twitter:image" content="https://royal-priesthood-assemblies-int-l-1.onrender.com/hero-church.jpeg">
 	<link rel="preload" href="fonts__allura__Allura-Regular.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts__inter__Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="hero-church.webp" as="image" type="image/webp" fetchpriority="high">
+	<link rel="preload" href="photos/hero-conference.webp" as="image" type="image/webp" fetchpriority="high">
 	<link rel="preload" href="logo-rpai.webp" as="image" type="image/webp" fetchpriority="high">
 	<link rel="icon" type="image/png" sizes="64x64" href="favicon-rpai.png?v=1">
-	<link rel="stylesheet" href="css__site.min.css?v=1">
+	<link rel="stylesheet" href="css__site.min.css?v=2">
 	<title>Video Conference | Royal Priesthood Assemblies International</title>
 </head>
 <body data-conference-page>
@@ -98,7 +98,7 @@
 			</div>
 		</nav>
 
-		<header class="hero overlay rpai-home-hero rpai-gallery-hero rpai-conference-hero">
+		<header class="hero overlay rpai-home-hero rpai-gallery-hero rpai-conference-hero rpai-page-hero--conference">
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-lg-8 intro-text" data-aos="fade-up">
@@ -112,7 +112,29 @@
 	</div>
 
 	<main id="main-content">
-		<section class="section bg-white">
+	<section class="section bg-secondary" aria-labelledby="conference-welcome-heading">
+		<div class="container">
+			<div class="row align-items-center g-5">
+				<div class="col-lg-6">
+					<figure class="rpai-feature-photo">
+						<img src="photos/card-choir.webp" alt="Worship team leading the church in praise" width="1100" height="531" loading="lazy" decoding="async">
+						<figcaption>Worship with the RPAI family from wherever you are.</figcaption>
+					</figure>
+				</div>
+				<div class="col-lg-6">
+					<span class="subheading mb-4 d-block text-white">Online with RPAI</span>
+					<h2 class="heading text-white" id="conference-welcome-heading">You don't have to miss church</h2>
+					<p class="text-white">Join the meeting from your phone, tablet or computer. No app and no account are needed — just a quiet space and a heart ready to worship.</p>
+					<div class="d-flex flex-wrap gap-2 mt-4">
+						<a class="btn btn-primary" href="#register">Request the meeting link</a>
+						<a class="btn btn-primary" href="#meeting">See the meeting details</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+		<section class="section bg-white" id="meeting">
 			<div class="container">
 				<div class="rpai-section-intro mb-4 text-center mx-auto">
 					<span class="subheading mb-4 d-block">Online meeting</span>
@@ -275,6 +297,32 @@
 				</div>
 			</div>
 		</section>
+	<section class="section bg-white" aria-labelledby="conference-prep-heading">
+		<div class="container">
+			<div class="row align-items-end mb-4">
+				<div class="col-lg-8">
+					<span class="subheading mb-4 d-block">Before you join</span>
+					<h2 class="heading" id="conference-prep-heading">A few simple things help</h2>
+					<p class="mb-0">Find a quiet space, bring your Bible and notebook, and invite someone to join you.</p>
+				</div>
+			</div>
+			<div class="rpai-photo-grid rpai-photo-grid--three">
+				<a class="rpai-photo-card" href="contact.html#prayer-request">
+					<img src="photos/card-prayer.webp" alt="A worshipper lifting her hands in prayer" width="900" height="1071" loading="lazy" decoding="async">
+					<span class="rpai-photo-card-body"><span class="rpai-photo-card-label">Prepare</span><strong>Find a quiet space</strong></span>
+				</a>
+				<a class="rpai-photo-card" href="library.html">
+					<img src="photos/card-word.webp" alt="Congregation listening to the Word of God" width="900" height="653" loading="lazy" decoding="async">
+					<span class="rpai-photo-card-body"><span class="rpai-photo-card-label">Bring</span><strong>Your Bible and notes</strong></span>
+				</a>
+				<a class="rpai-photo-card" href="contact.html#connect-card">
+					<img src="photos/card-fellowship.webp" alt="Church members sharing fellowship" width="617" height="973" loading="lazy" decoding="async">
+					<span class="rpai-photo-card-body"><span class="rpai-photo-card-label">Invite</span><strong>Bring a friend</strong></span>
+				</a>
+			</div>
+		</div>
+	</section>
+
 	</main>
 
 	<footer class="site-footer bg-white">
