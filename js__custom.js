@@ -352,7 +352,7 @@
 })()
 
 /* Rotating photos behind the navigation bar, shared by every page. */
-(function () {
+;(function () {
   var nav = document.querySelector('.site-nav');
   if (!nav) return;
   var photos = [
