@@ -1232,6 +1232,10 @@ h6 {
 .rpai-media-card img {
   display: block;
   width: 100%;
+  /* Override the HTML width/height attributes so every slide keeps the same
+     4:3 frame. Without this the image's own height (often 1080px) wins and
+     the slideshow becomes thousands of pixels tall. */
+  height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   transition: transform 0.3s ease;
