@@ -4,17 +4,23 @@
 - Name: Royal Priesthood Assemblies International
 - Alternate name: RPAI
 - Mission: A church family in Lusaka, Zambia, helping people grow in faith, prayer and service.
+- Motto: A place of love where everyone counts.
+- Founder and General Overseer: Apostle Dr. Mighty Zunga
 - Location: Otwa Events, Long Acres, Ndeke Road, Lusaka, Zambia
+- Sunday Divine Service: 09:00 AM CAT
+- Midweek Interactive Fellowship: Wednesdays at 05:30 PM CAT, virtual and cell locations
 - Website: https://royal-priesthood-assemblies-int-l-1.onrender.com/
 - Email: royalpriesthoodassembliesintl@gmail.com
 - Phone/WhatsApp: +260 767 716 936
+- Facebook: https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/
+- YouTube: https://youtube.com/@royalpriesthoodassemblies
+- Podcast RSS: https://media.rss.com/apostle-dr-mighty-zunga-audio-messages-rpai/feed.xml
 
 ## Key Pages
 - Home: https://royal-priesthood-assemblies-int-l-1.onrender.com/
 - About: https://royal-priesthood-assemblies-int-l-1.onrender.com/about.html
 - Ministries: https://royal-priesthood-assemblies-int-l-1.onrender.com/ministry.html
 - Gallery: https://royal-priesthood-assemblies-int-l-1.onrender.com/gallery.html
-- Library: https://royal-priesthood-assemblies-int-l-1.onrender.com/library.html
 - Daily Devotional: https://royal-priesthood-assemblies-int-l-1.onrender.com/daily-devotional.html
 - Announcements: https://royal-priesthood-assemblies-int-l-1.onrender.com/announcements.html
 - Branches & Transport: https://royal-priesthood-assemblies-int-l-1.onrender.com/branches-transport.html
@@ -23,4 +29,4 @@
 - Contact: https://royal-priesthood-assemblies-int-l-1.onrender.com/contact.html
 
 ## Content Focus
-This website contains information about church services, ministries, events, worship recordings, the church library and giving opportunities. Content is faith-based, with a focus on community outreach, discipleship and worship.
+This website contains information about church services, ministries, events, worship recordings, audio messages and giving opportunities. Content is faith-based, with a focus on community outreach, discipleship and worship.

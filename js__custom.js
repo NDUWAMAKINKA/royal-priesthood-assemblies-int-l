@@ -305,9 +305,6 @@
 	var countdown = function() {
 		var el = document.querySelectorAll('.js-countdown');
 
-		console.log(el.length);
-
-
 
 		if ( el.length > 0 ) {
 
@@ -355,25 +352,16 @@
 ;(function () {
   var nav = document.querySelector('.site-nav');
   if (!nav) return;
+  /* The same five photos, in the same order, starting on the same photo,
+     on every page. */
   var photos = [
     'hero-church.webp',
     'photos/hero-about.webp',
     'photos/hero-devotional.webp',
     'photos/hero-branches.webp',
-    'photos/hero-give.webp',
-    'photos/hero-contact.webp',
-    'photos/hero-gallery.webp',
-    'photos/hero-ministry.webp',
-    'photos/hero-library.webp',
-    'photos/hero-announcements.webp',
-    'photos/hero-conference.webp'
+    'photos/hero-give.webp'
   ];
   var index = 0;
-  var preload = document.querySelector('link[rel="preload"][as="image"][href*="hero"]');
-  if (preload) {
-    var found = photos.indexOf(preload.getAttribute('href'));
-    if (found > -1) index = found;
-  }
   function show(i) {
     nav.style.setProperty('--rpai-nav-photo', 'url("' + photos[i] + '")');
   }

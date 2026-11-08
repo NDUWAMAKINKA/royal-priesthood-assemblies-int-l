@@ -494,7 +494,7 @@ var DICTIONARY = {
 
 		localTextPromise = new Promise(function (resolve, reject) {
 			var script = document.createElement('script');
-			script.src = 'js__local-text.js?v=11';
+			script.src = 'js__local-text.js?v=15';
 			script.async = true;
 			script.onload = function () {
 				LOCAL_TEXT = window.RPAI_LOCAL_TEXT || {};
@@ -627,6 +627,13 @@ var DICTIONARY = {
 		};
 	}
 
+	/* Text nodes can contain line breaks and repeated spaces from the HTML
+	   source. Map keys are stored with single spaces, so both sides are
+	   normalised before lookup. */
+	function lookupKey(value) {
+		return (value || '').replace(/\s+/g, ' ').trim();
+	}
+
 	/* Every visible string is collected once. The originals are kept so the
 	   page can switch languages (or return to English) without a reload. */
 	function collectSources() {
@@ -645,10 +652,10 @@ var DICTIONARY = {
 			items.push({ node: node, source: originalNodes.get(node) });
 		}
 
-		document.querySelectorAll('[placeholder], [title], [aria-label]').forEach(function (element) {
+		document.querySelectorAll('[placeholder], [title], [aria-label], [alt]').forEach(function (element) {
 			if (element.closest(SKIP_SELECTOR)) return;
 			var saved = originalAttrs.get(element) || {};
-			['placeholder', 'title', 'aria-label'].forEach(function (attribute) {
+			['placeholder', 'title', 'aria-label', 'alt'].forEach(function (attribute) {
 				if (!element.hasAttribute(attribute)) return;
 				if (!(attribute in saved)) saved[attribute] = element.getAttribute(attribute);
 				if (hasTranslatableText(saved[attribute])) {
@@ -773,12 +780,15 @@ var DICTIONARY = {
 			var sourceEdge = splitEdges(item.source);
 			if (!currentEdge.text) return;
 
+			var currentKey = lookupKey(currentEdge.text);
+			var sourceKey = lookupKey(sourceEdge.text);
+
 			/* JavaScript can replace a label after the first pass. Treat the
 			   new English label as the source and refresh the saved original,
 			   so returning to English also restores the correct label. */
-			var source = sourceEdge.text;
-			if (currentEdge.text !== sourceEdge.text && table[currentEdge.text]) {
-				source = currentEdge.text;
+			var source = sourceKey;
+			if (currentKey !== sourceKey && table[currentKey]) {
+				source = currentKey;
 				if (item.node) {
 					originalNodes.set(item.node, current);
 				} else {
@@ -794,8 +804,20 @@ var DICTIONARY = {
 				   text node can begin with a new four-digit year. Keep the year
 				   and translate the rest of the sentence. */
 				var dated = source.match(/^(\d{4})\s+([\s\S]+)$/);
-				if (dated && table[dated[2]]) {
-					translated = dated[1] + ' ' + table[dated[2]];
+				if (dated) {
+					var restKey = lookupKey(dated[2]);
+					if (table[restKey]) translated = dated[1] + ' ' + table[restKey];
+				}
+			}
+
+			/* New gallery photographs get a generated label such as
+			   "View photograph gallery-tall-2". Translate the prefix and keep
+			   the file name, so adding a photograph does not require a new
+			   translation entry. */
+			if (!translated && source.indexOf('View photograph ') === 0) {
+				var viewPrefix = table['View photograph'];
+				if (viewPrefix) {
+					translated = viewPrefix + ' ' + source.slice('View photograph '.length);
 				}
 			}
 			if (!translated || translated === currentEdge.text) return;

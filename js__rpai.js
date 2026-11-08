@@ -55,6 +55,47 @@
 	syncGalleryInert();
 	document.addEventListener('rpai:gallery-rebuilt', syncGalleryInert);
 
+	/* A direct WhatsApp contact button on every page. It is added here so the
+	   existing page markup does not need to be repeated or changed. */
+	var rpaiWhatsApp = function () {
+		if (document.querySelector('.rpai-whatsapp-float')) return;
+		var link = document.createElement('a');
+		link.className = 'rpai-whatsapp-float';
+		link.href = 'https://wa.me/260767716936?text=' + encodeURIComponent('Hello RPAI, I would like to know more about the church.');
+		link.target = '_blank';
+		link.rel = 'noopener noreferrer';
+		link.setAttribute('aria-label', 'Chat with Royal Priesthood Assemblies International on WhatsApp');
+		link.innerHTML = '<img src="icon-whatsapp.svg?v=1" width="28" height="28" loading="lazy" decoding="async" alt="">';
+		document.body.appendChild(link);
+	};
+
+	rpaiWhatsApp();
+
+	/* Back-to-top control, revealed after the visitor has read a little. */
+	var rpaiBackToTop = function () {
+		var button = document.querySelector('.rpai-back-to-top');
+		if (!button) {
+			button = document.createElement('button');
+			button.type = 'button';
+			button.className = 'rpai-back-to-top';
+			button.setAttribute('aria-label', 'Back to top');
+			button.innerHTML = '&uarr;';
+			button.addEventListener('click', function () {
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+			});
+			document.body.appendChild(button);
+		}
+
+		var toggle = function () {
+			button.classList.toggle('is-visible', window.scrollY > 600);
+		};
+
+		window.addEventListener('scroll', toggle, { passive: true });
+		toggle();
+	};
+
+	rpaiBackToTop();
+
 	/* --- Mobile menu -------------------------------------------------------
 	   The theme's own menu script toggles the off-canvas menu but leaves three
 	   things undone: the close control is a bare <span> that no keyboard can
