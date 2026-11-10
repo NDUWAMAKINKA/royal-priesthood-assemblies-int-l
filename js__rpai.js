@@ -3,6 +3,17 @@
 
 	var churchEmail = 'royalpriesthoodassembliesintl@gmail.com';
 
+	/* Keep the footer copyright current without document.write. The markup ships
+	   with the current year, so the page is still correct when JavaScript is off. */
+	var rpaiYear = function () {
+		var year = String(new Date().getFullYear());
+		document.querySelectorAll('[data-rpai-year]').forEach(function (element) {
+			element.textContent = year;
+		});
+	};
+
+	rpaiYear();
+
 	/* The gallery uses tiny-slider, which marks the off-screen slides with
 	   aria-hidden="true" but leaves their links focusable. That traps keyboard
 	   and screen-reader users, so mirror aria-hidden with the inert attribute.
