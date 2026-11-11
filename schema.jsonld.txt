@@ -10,7 +10,7 @@
   "image": "https://royal-priesthood-assemblies-int-l-1.onrender.com/hero-church.jpeg",
   "description": "A church family in Lusaka, Zambia. A place of love where everyone counts.",
   "email": "royalpriesthoodassembliesintl@gmail.com",
-  "telephone": "+260767716936",
+  "telephone": "+260977490080",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Otwa Events, Long Acres, Ndeke Road",

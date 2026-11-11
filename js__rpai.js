@@ -72,7 +72,7 @@
 		if (document.querySelector('.rpai-whatsapp-float')) return;
 		var link = document.createElement('a');
 		link.className = 'rpai-whatsapp-float';
-		link.href = 'https://wa.me/260767716936?text=' + encodeURIComponent('Hello RPAI, I would like to know more about the church.');
+		link.href = 'https://wa.me/260977490080?text=' + encodeURIComponent('Hello RPAI, I would like to know more about the church.');
 		link.target = '_blank';
 		link.rel = 'noopener noreferrer';
 		link.setAttribute('aria-label', 'Chat with Royal Priesthood Assemblies International on WhatsApp');

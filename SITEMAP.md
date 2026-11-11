@@ -101,7 +101,7 @@ These jump from one page straight into a specific block on another.
 | Purpose | Link | Where used |
 |---------|------|-----------|
 | Church email | `mailto:royalpriesthoodassembliesintl@gmail.com` | All 9 footers + "email the church" on Give |
-| Church phone | `tel:+260767716936` | Give, Branches & Transport |
+| Church phone | `tel:+260977490080` | Give, Branches & Transport |
 
 ---
 
@@ -114,7 +114,7 @@ These jump from one page straight into a specific block on another.
 | `facebook.com/p/ROYAL-Priesthood-100064645061857/` | Main church Facebook page |
 | `youtube.com/@royalpriesthoodassemblies` | Church YouTube channel |
 | `instagram.com/explore/search/...` | Church Instagram |
-| `wa.me/260767716936?text=...` | WhatsApp — fastest reply channel for visitors |
+| `wa.me/260977490080?text=...` | WhatsApp — fastest reply channel for visitors |
 
 ### Purpose-specific external links
 
@@ -177,7 +177,7 @@ before anything is deployed; its secrets remain server-side only.
 key) in this site. Only a hosted payment link may appear in a page.
 
 **Consistent phone numbers:** resolved. The site uses one number only:
-**+260 767 716 936** (also used for WhatsApp).
+**+260 977 490 080** (also used for WhatsApp).
 
 ---
 
