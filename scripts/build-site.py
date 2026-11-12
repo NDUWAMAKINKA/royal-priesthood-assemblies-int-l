@@ -1662,68 +1662,93 @@ GIVE_BODY = f"""
 
 <section class="section" id="ways">
   <div class="container">
-    {section_head("Ways to give", "Give simply and securely.", "Choose a channel below. Please contact the church office for the current active account or mobile-money details before sending a gift.")}
+    <div class="section-head reveal">
+      <p class="eyebrow">Ways to give</p>
+      <h2 class="h2">Giving details</h2>
+      <p class="lead">Give directly to any of our Zambian bank accounts. Please use your name as the reference so the church can acknowledge your gift.</p>
+    </div>
 
-    <div class="give-stack">
-      <article class="give-box give-box--airtel reveal">
-        <div class="give-box__bg" aria-hidden="true">Airtel</div>
-        <div class="give-box__content">
-          <span class="card__label">Mobile money</span>
-          <h3 class="h3 mt-2">Airtel Money</h3>
-          <div class="form-grid mt-2">
-            <div class="form-field"><label>Number</label><input type="text" value="Ask the office for the active number" readonly></div>
-            <div class="form-field"><label>Name</label><input type="text" value="Royal Priesthood Assemblies International" readonly></div>
-          </div>
-          <div class="card__foot mt-2"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20Airtel%20Money%20giving%20details.">Send your money</a></div>
-        </div>
+    <h3 class="h3 mt-3 reveal">Mobile Money</h3>
+    <div class="grid grid-3 mt-2">
+      <article class="card card--pad card--hover reveal" style="text-align:center">
+        <div class="give-logo"><img src="https://cdn.simpleicons.org/airtel/EB1C24" alt="Airtel Mobile Money" width="80" height="80" loading="lazy" decoding="async"></div>
+        <h4 class="h3 mt-2">AIRTEL MOBILE MONEY</h4>
+        <p class="rpai-bank-pending">To be confirmed</p>
       </article>
-
-      <article class="give-box give-box--mtn reveal">
-        <div class="give-box__bg" aria-hidden="true">MTN</div>
-        <div class="give-box__content">
-          <span class="card__label">Mobile money</span>
-          <h3 class="h3 mt-2">MTN MoMo</h3>
-          <div class="form-grid mt-2">
-            <div class="form-field"><label>Number</label><input type="text" value="Ask the office for the active number" readonly></div>
-            <div class="form-field"><label>Name</label><input type="text" value="Royal Priesthood Assemblies International" readonly></div>
-          </div>
-          <div class="card__foot mt-2"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20MTN%20MoMo%20giving%20details.">Send your money</a></div>
-        </div>
+      <article class="card card--pad card--hover reveal" data-delay="1" style="text-align:center">
+        <div class="give-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN Mobile Money" width="80" height="80" loading="lazy" decoding="async"></div>
+        <h4 class="h3 mt-2">MTN MOBILE MONEY</h4>
+        <p class="rpai-bank-pending">To be confirmed</p>
       </article>
-
-      <article class="give-box give-box--zamtel reveal">
-        <div class="give-box__bg" aria-hidden="true"><img src="payment-zamtel.png" alt="" aria-hidden="true"></div>
-        <div class="give-box__content">
-          <span class="card__label">Mobile money</span>
-          <h3 class="h3 mt-2">Zamtel Kwacha</h3>
-          <div class="form-grid mt-2">
-            <div class="form-field"><label>Number</label><input type="text" value="Ask the office for the active number" readonly></div>
-            <div class="form-field"><label>Name</label><input type="text" value="Royal Priesthood Assemblies International" readonly></div>
-          </div>
-          <div class="card__foot mt-2"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20Zamtel%20giving%20details.">Send your money</a></div>
-        </div>
+      <article class="card card--pad card--hover reveal" data-delay="2" style="text-align:center">
+        <div class="give-logo"><img src="payment-zamtel.png" alt="Zamtel Mobile Money" width="80" height="80" loading="lazy" decoding="async" style="object-fit:contain"></div>
+        <h4 class="h3 mt-2">ZAMTEL MOBILE MONEY</h4>
+        <p class="rpai-bank-pending">To be confirmed</p>
       </article>
     </div>
 
-    <div class="footer-marquee mt-4" aria-hidden="true">
-      <div class="marquee">
-        <div class="marquee__group">
-          <img src="bank-zanaco.png" alt="Zanaco" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-absa.png" alt="Absa Bank" width="48" height="48" loading="lazy" decoding="async">
-          <img src="bank-fnb.png" alt="First National Bank" width="96" height="54" loading="lazy" decoding="async">
-          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="150" height="59" loading="lazy" decoding="async">
-          <img src="payment-zamtel.png" alt="Zamtel" width="96" height="40" loading="lazy" decoding="async">
-        </div>
-        <div class="marquee__group">
-          <img src="bank-zanaco.png" alt="Zanaco" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-absa.png" alt="Absa Bank" width="48" height="48" loading="lazy" decoding="async">
-          <img src="bank-fnb.png" alt="First National Bank" width="96" height="54" loading="lazy" decoding="async">
-          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="150" height="59" loading="lazy" decoding="async">
-          <img src="payment-zamtel.png" alt="Zamtel" width="96" height="40" loading="lazy" decoding="async">
-        </div>
-      </div>
+    <h3 class="h3 mt-4 reveal">Zambian banks</h3>
+    <div class="grid grid-2 mt-2">
+      <article class="card card--pad reveal">
+        <div class="give-logo give-logo--wide"><img src="bank-zanaco.png" alt="Zanaco logo" width="2433" height="648" loading="lazy" decoding="async"></div>
+        <h3 class="h3 mt-2">Zanaco</h3>
+        <p class="small muted">Zambia National Commercial Bank</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Account name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+          <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
+        </dl>
+      </article>
+      <article class="card card--pad reveal" data-delay="1">
+        <div class="give-logo give-logo--wide"><img src="bank-stanbic.svg" alt="Stanbic Bank logo" width="195" height="53" loading="lazy" decoding="async"></div>
+        <h3 class="h3 mt-2">Stanbic Bank</h3>
+        <p class="small muted">Stanbic Bank Zambia</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Account name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+          <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
+        </dl>
+      </article>
+      <article class="card card--pad reveal">
+        <div class="give-logo"><img src="bank-absa.png" alt="Absa Bank logo" width="539" height="540" loading="lazy" decoding="async"></div>
+        <h3 class="h3 mt-2">Absa Bank</h3>
+        <p class="small muted">Absa Bank Zambia</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Account name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+          <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
+        </dl>
+      </article>
+      <article class="card card--pad reveal" data-delay="1">
+        <div class="give-logo give-logo--wide"><img src="bank-fnb.png" alt="First National Bank logo" width="406" height="226" loading="lazy" decoding="async"></div>
+        <h3 class="h3 mt-2">First National Bank</h3>
+        <p class="small muted">FNB Zambia</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Account name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+          <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
+        </dl>
+      </article>
+      <article class="card card--pad reveal">
+        <div class="give-logo give-logo--wide"><img src="bank-standard-chartered.svg" alt="Standard Chartered logo" width="560" height="220" loading="lazy" decoding="async"></div>
+        <h3 class="h3 mt-2">Standard Chartered</h3>
+        <p class="small muted">Standard Chartered Zambia</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Account number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Account name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+          <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <h3 class="h3 mt-4 reveal">International giving</h3>
+    <div class="card card--pad reveal mt-2">
+      <p>Giving from outside Zambia? Use our only international gateway, PayPal.</p>
+      <dl class="detail-list mt-2">
+        <div><dt>PayPal email</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+        <div><dt>Account name</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+      </dl>
+      <p class="form-note mt-2">For help with any of these details, contact the church office.</p>
     </div>
 
     <div class="note-box mt-4 reveal"><strong>Important:</strong> The church will never ask you to send money to a personal account. If you are unsure about any giving detail, please confirm directly with the church office before sending anything.</div>
