@@ -1395,7 +1395,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .story-card__link { margin-top: 14px; }
 
 /* Sticky season cards */
-.year-section { position: relative; padding-block: 64px 30px; }
+.year-section { position: relative; padding-block: 64px 30px; background: linear-gradient(180deg, #f5f9fc 0%, #e8f0f6 45%, #dde8f2 100%); }
 
 .year-stack {
   display: grid;
@@ -1412,8 +1412,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   border: 1px solid var(--hair);
   border-radius: var(--radius);
   background:
-    radial-gradient(90% 100% at 100% 0%, rgba(135, 206, 235, .18), transparent 55%),
-    #e8f1f7;
+    radial-gradient(90% 100% at 100% 0%, rgba(135, 206, 235, .22), transparent 55%),
+    linear-gradient(180deg, #fafcfe 0%, #f0f6fa 100%);
   box-shadow: 0 -10px 40px -20px rgba(0, 0, 0, .9);
 }
 
