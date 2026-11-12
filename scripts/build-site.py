@@ -222,7 +222,6 @@ def footer(marquee: bool = True) -> str:
           <h2>Take part</h2>
           <div class="footer-links">
             {take_part}
-            <a href="contact.html">Contact Us</a>
           </div>
         </div>
 
@@ -1090,7 +1089,7 @@ HOME_BODY = f"""
       <p>Join us this Sunday at 09:00 AM — or tell someone about the place where you found love, faith and family.</p>
       <div class="cta-card__actions">
         {button("Plan your visit", "branches-transport.html")}
-        {button("I Am Attending", "attend.html", "btn-outline")}
+        {button("I am visiting church on Sunday", "attend.html", "btn-outline")}
       </div>
       {share_row()}
     </div>
@@ -1377,7 +1376,7 @@ GALLERY_BODY = f"""
       <p>Come and worship with us this Sunday, or invite someone who needs a family.</p>
       <div class="cta-card__actions">
         {button("Plan your visit", "branches-transport.html")}
-        {button("I Am Attending", "attend.html", "btn-outline")}
+        {button("I am visiting church on Sunday", "attend.html", "btn-outline")}
       </div>
       {share_row()}
     </div>
@@ -1600,7 +1599,7 @@ VISIT_BODY = f"""
       <h2 class="h2">Your first Sunday starts here.</h2>
       <p>Tell us you are coming, or simply arrive at 09:00 AM. Either way, you are welcome.</p>
       <div class="cta-card__actions">
-        {button("I Am Attending", "attend.html")}
+        {button("I am visiting church on Sunday", "attend.html")}
         {button("Contact us", "contact.html", "btn-outline")}
       </div>
       {share_row()}
