@@ -188,7 +188,7 @@ def site_header(page: str) -> str:
 """
 
 
-def footer(marquee: bool = True) -> str:
+def footer(marquee: bool = False) -> str:
     marquee_photos = [
         ("photos/card-worship.webp", "Worship at RPAI"),
         ("photos/card-word.webp", "The Word at RPAI"),

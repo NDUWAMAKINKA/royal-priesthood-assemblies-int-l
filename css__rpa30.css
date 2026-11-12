@@ -2959,7 +2959,7 @@ html.js .reveal[data-delay="3"] { transition-delay: .24s; }
   .feature__media { min-height: 380px; }
   .card-run__stage { aspect-ratio: 390 / 520; max-width: 900px; }
   .run-card { border-radius: 16px; }
-  .run-phone { width: 30%; }
+  .run-phone { width: 40%; }
   .profile { grid-template-columns: .85fr 1.15fr; }
   .profile__media { min-height: 100%; }
   .profile__body { padding: 30px; }
@@ -3010,7 +3010,7 @@ html.js .reveal[data-delay="3"] { transition-delay: .24s; }
   .run-card--2 { right: 5.5%; top: 13%; }
   .run-card--3 { left: 13.5%; bottom: 4%; }
   .run-card--4 { right: 13.5%; bottom: 13%; }
-  .run-phone { width: 19.5%; max-width: 228px; border-radius: 30px; }
+  .run-phone { width: 34%; max-width: 420px; border-radius: 12px 12px 0 0; }
   .run-phone__screen { border-radius: 25px; }
   .run-phone__card { padding: 20px 15px 18px; }
   .run-phone__brand img { width: 28px; height: 28px; }
