@@ -236,9 +236,9 @@ def footer(marquee: bool = True) -> str:
             <span>Sunday Divine Service · 09:00 AM CAT</span>
           </div>
           <div class="footer-social">
-            <a href="{WHATSAPP}" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="icon-whatsapp.svg" alt="" width="15" height="15"></a>
-            <a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook"><img src="icon-facebook.svg" alt="" width="15" height="15"></a>
-            <a href="{YOUTUBE}" target="_blank" rel="noopener" aria-label="YouTube"><img src="icon-youtube.svg" alt="" width="15" height="15"></a>
+            <a href="{WHATSAPP}" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="" width="18" height="18"></a>
+            <a href="{FACEBOOK}" target="_blank" rel="noopener" aria-label="Facebook"><img src="https://cdn.simpleicons.org/facebook/ffffff" alt="" width="18" height="18"></a>
+            <a href="{YOUTUBE}" target="_blank" rel="noopener" aria-label="YouTube"><img src="https://cdn.simpleicons.org/youtube/ffffff" alt="" width="18" height="18"></a>
           </div>
         </div>
 
