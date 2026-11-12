@@ -138,6 +138,38 @@ def site_header(page: str) -> str:
     </nav>
 
     <div class="nav-actions">
+      <div class="rpai-lang-switcher notranslate" data-rpai-lang-switcher translate="no">
+      					<button type="button" class="rpai-lang-toggle" data-rpai-lang-toggle aria-expanded="false" aria-haspopup="listbox" aria-controls="rpai-lang-menu" aria-label="Select language">
+      						<span class="rpai-lang-globe" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z"/></svg></span>
+      						<span class="rpai-lang-current" data-rpai-lang-current>English</span>
+      						<span class="rpai-lang-chevron" aria-hidden="true"></span>
+      					</button>
+      					<div class="rpai-lang-menu" id="rpai-lang-menu" data-rpai-lang-menu role="listbox" aria-label="Select language" hidden>
+      						<p class="rpai-lang-group" role="presentation"><img src="flag-zm.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> <span data-i18n="lang.zambian">Zambian languages</span></p>
+      						<button type="button" role="option" data-lang="bem" aria-selected="false"> Bemba</button>
+      						<button type="button" role="option" data-lang="nya" aria-selected="false"> Nyanja</button>
+      						<button type="button" role="option" data-lang="toi" aria-selected="false"> Tonga</button>
+      						<button type="button" role="option" data-lang="loz" aria-selected="false"> Lozi</button>
+      						<button type="button" role="option" data-lang="tum" aria-selected="false"> Tumbuka</button>
+      						<p class="rpai-lang-group" role="presentation" data-i18n="lang.world">World languages</p>
+      					<button type="button" role="option" data-lang="en" aria-selected="true"><img src="flag-gb.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> English</button>
+      
+      <button type="button" role="option" data-lang="hi" aria-selected="false"><img src="flag-in.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Hindi</button>
+      
+      <button type="button" role="option" data-lang="fr" aria-selected="false"><img src="flag-fr.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> French</button>
+      
+      <button type="button" role="option" data-lang="de" aria-selected="false"><img src="flag-de.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> German</button>
+      
+      <button type="button" role="option" data-lang="it" aria-selected="false"><img src="flag-it.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Italian</button>
+      
+      <button type="button" role="option" data-lang="pt" aria-selected="false"><img src="flag-pt.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Portuguese</button>
+      
+      <button type="button" role="option" data-lang="ru" aria-selected="false"><img src="flag-ru.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Russian</button>
+      
+      <button type="button" role="option" data-lang="es" aria-selected="false"><img src="flag-es.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Spanish</button>
+      
+      </div>
+      				</div>
       <a class="btn btn-primary btn-sm nav-cta" href="attend.html">I am visiting church on Sunday</a>
       <button class="nav-burger" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-panel" aria-label="Open menu">
         <span class="nav-burger__box" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -290,6 +322,7 @@ BASE = """<!doctype html>
   {{footer}}
   <script src="js__rpa30.js?v=1" defer></script>
   <script src="js__rpai.js?v=64" defer></script>
+  <script src="js__i18n.js?v=1" defer></script>
   {{scripts_extra}}
 </body>
 </html>
@@ -1613,7 +1646,7 @@ GIVE_BODY = f"""
     "Give",
     "Worship through generosity.",
     "Giving is an act of worship. It supports the ministry of the Word, prayer, discipleship and practical care for people in our church family and community.",
-    f'<div class="page-hero__actions">{button("Talk to the church office", WHATSAPP + "?text=Hello%20RPAI%2C%20I%20would%20like%20to%20give%20and%20need%20the%20current%20giving%20details.")}{button("Why we give", "#why", "btn-outline")}</div>',
+    f'<div class="page-hero__actions">{button("Talk to the church office", WHATSAPP + "?text=Hello%20RPAI%2C%20I%20would%20like%20to%20give%20and%20need%20the%20current%20giving%20details.")}{button("Why we give", "#ways", "btn-outline")}</div>',
     image="photos/hero-give.webp",
 )}
 
@@ -1621,93 +1654,92 @@ GIVE_BODY = f"""
   <div class="container">
     <div class="year-card year-card--quote reveal" style="position:relative;top:auto">
       <span class="year-card__era">A word for the giver</span>
-      <p class="scripture">“Honour the Lord with your possessions, and with the firstfruits of all your increase.”</p>
+      <p class="scripture">"Honour the Lord with your possessions, and with the firstfruits of all your increase."</p>
       <p class="scripture"><cite>Proverbs 3:9</cite></p>
     </div>
   </div>
 </section>
 
-<section class="section" id="why">
+<section class="section" id="ways">
   <div class="container">
-    <div class="split split--wide">
-      <div class="split__body reveal">
-        <p class="eyebrow">Why we give</p>
-        <h2 class="h2">Generosity builds the family.</h2>
-        <p class="lead">Every gift is an act of worship and a partnership in the work of the Gospel.</p>
-        <p>Your giving helps make room for teaching, prayer, discipleship and practical care. It supports the everyday work of the church — from the Sunday gathering to home cells and community outreach.</p>
-        <p>Thank you for partnering with what God is doing at Royal Priesthood Assemblies International. Please give prayerfully, cheerfully and according to what you have.</p>
-        <div class="row mt-2">{button("Ask for giving details", WHATSAPP + "?text=Hello%20RPAI%2C%20please%20send%20me%20the%20current%20giving%20details.")}{button("Contact the office", "contact.html", "btn-ghost")}</div>
-      </div>
-      <div class="split__media reveal" data-delay="1">
-        <img src="photos/card-celebration.webp" alt="The RPAI family celebrating together" width="900" height="700" loading="lazy" decoding="async" style="min-height:390px">
+    {section_head("Ways to give", "Give simply and securely.", "Choose a channel below. Please contact the church office for the current active account or mobile-money details before sending a gift.")}
+    <div class="grid grid-3">
+      <article class="give-box give-box--airtel reveal">
+        <div class="give-box__bg" aria-hidden="true">Airtel</div>
+        <div class="give-box__content">
+          <span class="card__label">Mobile money</span>
+          <h3 class="h3 mt-2">Airtel Money</h3>
+          <p class="card__text">Send your gift through Airtel Money. Ask the office for the active merchant number.</p>
+          <div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20Airtel%20Money%20giving%20details.">Ask for Airtel details</a></div>
+        </div>
+      </article>
+      <article class="give-box give-box--mtn reveal" data-delay="1">
+        <div class="give-box__bg" aria-hidden="true">MTN</div>
+        <div class="give-box__content">
+          <span class="card__label">Mobile money</span>
+          <h3 class="h3 mt-2">MTN MoMo</h3>
+          <p class="card__text">Send your gift through MTN Mobile Money. Ask the office for the active merchant number.</p>
+          <div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20MTN%20MoMo%20giving%20details.">Ask for MTN details</a></div>
+        </div>
+      </article>
+      <article class="give-box give-box--zamtel reveal" data-delay="2">
+        <div class="give-box__bg" aria-hidden="true"><img src="payment-zamtel.png" alt="" aria-hidden="true"></div>
+        <div class="give-box__content">
+          <span class="card__label">Mobile money</span>
+          <h3 class="h3 mt-2">Zamtel Kwacha</h3>
+          <p class="card__text">Send your gift through Zamtel Kwacha. Ask the office for the active merchant number.</p>
+          <div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20Zamtel%20giving%20details.">Ask for Zamtel details</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="give-box give-box--bank reveal mt-3">
+      <div class="give-box__content">
+        <span class="card__label">Bank transfer</span>
+        <h3 class="h3 mt-2">Zambian banks</h3>
+        <p class="card__text">Account name: Royal Priesthood Assemblies International. Banks include Zanaco, Stanbic, Absa, FNB and Standard Chartered. Ask the office for the current account number and branch.</p>
+        <p class="card__text mt-2">International giving: ask the office for the current PayPal details before sending a gift.</p>
+        <div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20bank%20giving%20details.">Ask for bank details</a></div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="section section--flush-top">
-  <div class="container">
-    {section_head("Ways to give", "Give simply and securely.", "Giving details are being updated. Please contact the church office for the current active account or mobile-money details before sending a gift.")}
-    <div class="grid grid-3">
-      <article class="card card--pad card--hover reveal">
-        <span class="card__label">Mobile money</span>
-        <h3 class="h3 mt-2">Airtel · MTN · Zamtel</h3>
-        <p class="card__text">Mobile-money giving is available through the church’s current merchant details. Message the office and we will send the active number.</p>
-        <div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20mobile%20money%20giving%20details.">Ask for mobile-money details</a></div>
-      </article>
-      <article class="card card--pad card--hover reveal" data-delay="1">
-        <span class="card__label">Zambian banks</span>
-        <h3 class="h3 mt-2">Bank transfer</h3>
-        <p class="card__text">Give directly to the church’s Zambian bank account. Account name: Royal Priesthood Assemblies International. Banks include Zanaco, Stanbic, Absa, FNB and Standard Chartered. Please contact the office for the current account number and branch.
-        <p class="card__text mt-2">International giving: ask the office for the current PayPal details before sending a gift.</p></p>
-        <div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20please%20send%20me%20the%20bank%20giving%20details.">Ask for bank details</a></div>
-      </article>
-      <article class="card card--pad card--hover reveal" data-delay="2">
+    <div class="give-box give-box--inperson reveal mt-3">
+      <div class="give-box__content">
         <span class="card__label">In person</span>
         <h3 class="h3 mt-2">During the service</h3>
         <p class="card__text">You can also give during the Sunday gathering. Speak to a member of the finance or welcome team if you need help.</p>
         <div class="card__foot"><a class="link-arrow" href="branches-transport.html">Plan your visit</a></div>
-      </article>
-    </div>
-    <div class="reveal mt-4">
-      <p class="eyebrow">Our giving channels</p>
-      <div class="row mt-2" style="align-items:center;gap:18px;flex-wrap:wrap">
-        <img src="bank-zanaco.png" alt="Zanaco" width="120" height="32" loading="lazy" decoding="async">
-        <img src="bank-stanbic.svg" alt="Stanbic Bank" width="120" height="32" loading="lazy" decoding="async">
-        <img src="bank-absa.png" alt="Absa Bank" width="48" height="48" loading="lazy" decoding="async">
-        <img src="bank-fnb.png" alt="First National Bank" width="96" height="54" loading="lazy" decoding="async">
-        <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="150" height="59" loading="lazy" decoding="async">
-        <img src="payment-zamtel.png" alt="Zamtel" width="96" height="40" loading="lazy" decoding="async">
       </div>
-      <p class="form-note mt-2">Airtel Money and MTN MoMo are also available. Ask the office for the active numbers.</p>
     </div>
+
+    <div class="footer-marquee mt-4" aria-hidden="true">
+      <div class="marquee">
+        <div class="marquee__group">
+          <img src="bank-zanaco.png" alt="Zanaco" width="120" height="32" loading="lazy" decoding="async">
+          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="120" height="32" loading="lazy" decoding="async">
+          <img src="bank-absa.png" alt="Absa Bank" width="48" height="48" loading="lazy" decoding="async">
+          <img src="bank-fnb.png" alt="First National Bank" width="96" height="54" loading="lazy" decoding="async">
+          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="150" height="59" loading="lazy" decoding="async">
+          <img src="payment-zamtel.png" alt="Zamtel" width="96" height="40" loading="lazy" decoding="async">
+        </div>
+        <div class="marquee__group">
+          <img src="bank-zanaco.png" alt="Zanaco" width="120" height="32" loading="lazy" decoding="async">
+          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="120" height="32" loading="lazy" decoding="async">
+          <img src="bank-absa.png" alt="Absa Bank" width="48" height="48" loading="lazy" decoding="async">
+          <img src="bank-fnb.png" alt="First National Bank" width="96" height="54" loading="lazy" decoding="async">
+          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="150" height="59" loading="lazy" decoding="async">
+          <img src="payment-zamtel.png" alt="Zamtel" width="96" height="40" loading="lazy" decoding="async">
+        </div>
+      </div>
+    </div>
+
     <div class="note-box mt-4 reveal"><strong>Important:</strong> The church will never ask you to send money to a personal account. If you are unsure about any giving detail, please confirm directly with the church office before sending anything.</div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    {section_head("Your giving at work", "More than a transaction.", "Every gift is invested in people and in the mission of the church.")}
-    <div class="grid grid-4">
-      <article class="card card--pad reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">The Word</h3><p class="card__text">Teaching, preaching and discipleship that helps people grow in Christ.</p></article>
-      <article class="card card--pad reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Prayer</h3><p class="card__text">Space and support for prayer, pastoral care and follow-up.</p></article>
-      <article class="card card--pad reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">People</h3><p class="card__text">Practical care for families and neighbours in need.</p></article>
-      <article class="card card--pad reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">The next generation</h3><p class="card__text">Children, teens and youth ministry that helps young people follow Jesus.</p></article>
-    </div>
-  </div>
-</section>
-
-<section class="section section--flush-top">
-  <div class="container">
-    <div class="cta-card reveal">
-      <p class="eyebrow" style="justify-self:center">Thank you</p>
-      <h2 class="h2">Your generosity makes room for someone.</h2>
-      <p>If you need help with giving, or would like to speak to the church office, we are here.</p>
-      <div class="cta-card__actions">
-        {button("Talk to the church office", WHATSAPP + "?text=Hello%20RPAI%2C%20I%20would%20like%20to%20speak%20about%20giving.")}
+    <div class="reveal mt-4" style="text-align:center">
+      <p class="small">Questions about giving? Contact the church office.</p>
+      <div class="row mt-2" style="justify-content:center">
+        {button("WhatsApp the office", WHATSAPP, "btn-primary")}
         {button("Contact us", "contact.html", "btn-outline")}
       </div>
-      {share_row()}
     </div>
   </div>
 </section>

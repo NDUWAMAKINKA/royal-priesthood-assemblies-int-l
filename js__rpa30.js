@@ -115,6 +115,18 @@
 
     if (prev) prev.addEventListener('click', function () { step(-1); });
     if (next) next.addEventListener('click', function () { step(1); });
+
+    if (!reduceMotion) {
+      var auto = window.setInterval(function () {
+        if (rail.matches(':hover') || document.activeElement === rail) return;
+        if (rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4) {
+          rail.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          step(1);
+        }
+      }, 4200);
+      rail.addEventListener('mouseenter', function () { window.clearInterval(auto); });
+    }
   });
 
   /* ------------------------------------------------------------------------
