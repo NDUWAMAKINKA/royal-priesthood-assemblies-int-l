@@ -1737,6 +1737,11 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   font-weight: 500;
 }
 
+.share-btn[data-share="whatsapp"] { color: #25d366; background: rgba(37, 211, 102, .12); }
+.share-btn[data-share="facebook"] { color: #1877f2; background: rgba(24, 119, 242, .12); }
+.share-btn[data-share="x"] { color: #111; background: rgba(0, 0, 0, .08); }
+.share-btn[data-share="email"] { color: #ea4335; background: rgba(234, 67, 53, .12); }
+.share-btn[data-share="copy"] { color: #0b2240; background: rgba(11, 34, 64, .08); }
 .share-btn {
   display: grid;
   place-items: center;
