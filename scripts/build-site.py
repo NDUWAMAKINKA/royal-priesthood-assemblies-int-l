@@ -513,17 +513,17 @@ ABOUT_BODY = f"""
   <div class="container">
     {section_head("What we are building", "Rooted in faith. United in fellowship.", "Our mission, vision and values are simple enough to remember and strong enough to build a life on.")}
     <div class="grid grid-3">
-      <article class="card card--pad card--hover reveal">
+      <article class="reveal">
         <span class="card__label">Our mission</span>
         <h3 class="h3 mt-2">Faith in word and action.</h3>
         <p class="card__text">To proclaim the Gospel, encourage spiritual growth through Scripture and prayer, and serve our neighbours with compassion.</p>
       </article>
-      <article class="card card--pad card--hover reveal" data-delay="1">
+      <article class="reveal" data-delay="1">
         <span class="card__label">Our vision</span>
         <h3 class="h3 mt-2">A community strengthened by hope.</h3>
         <p class="card__text">To see people and communities strengthened by the hope of Christ and equipped to live out their faith in everyday life.</p>
       </article>
-      <article class="card card--pad card--hover reveal" data-delay="2">
+      <article class="reveal" data-delay="2">
         <span class="card__label">Our goal</span>
         <h3 class="h3 mt-2">Connecting people with God and one another.</h3>
         <p class="card__text">To make room for worship, belonging and service — so that no one has to walk through life alone.</p>
@@ -536,10 +536,10 @@ ABOUT_BODY = f"""
   <div class="container">
     {section_head("What matters to us", "Faith lived together.", "Four commitments shape the rhythm of our life as a church.")}
     <div class="grid grid-4">
-      <article class="card card--pad reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">Worship</h3><p class="card__text">We gather to honour God and make room for prayer, praise and gratitude.</p></article>
-      <article class="card card--pad reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Growing in faith</h3><p class="card__text">We build a life of faith through Scripture, prayer and encouragement.</p></article>
-      <article class="card card--pad reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">Fellowship</h3><p class="card__text">We welcome one another, share life and serve our community with care.</p></article>
-      <article class="card card--pad reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Service</h3><p class="card__text">We put love into action, especially where there is practical need.</p></article>
+      <article class="reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">Worship</h3><p class="card__text">We gather to honour God and make room for prayer, praise and gratitude.</p></article>
+      <article class="reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Growing in faith</h3><p class="card__text">We build a life of faith through Scripture, prayer and encouragement.</p></article>
+      <article class="reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">Fellowship</h3><p class="card__text">We welcome one another, share life and serve our community with care.</p></article>
+      <article class="reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Service</h3><p class="card__text">We put love into action, especially where there is practical need.</p></article>
     </div>
   </div>
 </section>
@@ -641,10 +641,10 @@ PASTOR_BODY = f"""
   <div class="container">
     {section_head("What he has given his life to", "Four things that never move.", "The priorities that shape his leadership and our life together.")}
     <div class="grid grid-4">
-      <article class="card card--pad card--hover reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">The Word</h3><p class="card__text">Clear, faithful teaching that helps people know Jesus and live what they believe.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Prayer</h3><p class="card__text">Making room for God to speak, heal and guide — personally and as a church.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">People</h3><p class="card__text">Pastoring the family, celebrating milestones and standing with people in hard seasons.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Raising leaders</h3><p class="card__text">Helping sons and daughters grow into their calling and take their place in the house.</p></article>
+      <article class="reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">The Word</h3><p class="card__text">Clear, faithful teaching that helps people know Jesus and live what they believe.</p></article>
+      <article class="reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Prayer</h3><p class="card__text">Making room for God to speak, heal and guide — personally and as a church.</p></article>
+      <article class="reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">People</h3><p class="card__text">Pastoring the family, celebrating milestones and standing with people in hard seasons.</p></article>
+      <article class="reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Raising leaders</h3><p class="card__text">Helping sons and daughters grow into their calling and take their place in the house.</p></article>
     </div>
   </div>
 </section>
@@ -1249,9 +1249,9 @@ MINISTRIES_BODY = f"""
   <div class="container">
     {section_head("The rhythm", "Three doors into the life of the house.", "Whether you are new or have been here for years, these are the easiest next steps.")}
     <div class="grid grid-3">
-      <article class="card card--pad reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">Sunday Divine Service</h3><p class="card__text">Worship, the Word and prayer at 09:00 AM at Otwa Events, Long Acres.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html">Plan your visit</a></div></article>
-      <article class="card card--pad reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Midweek fellowship</h3><p class="card__text">Wednesday at 05:30 PM — a smaller space for teaching, questions and prayer.</p><div class="card__foot"><a class="link-arrow" href="contact.html">Contact us</a></div></article>
-      <article class="card card--pad reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">A home cell near you</h3><p class="card__text">Share life, study Scripture and pray with people who live close to you.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html#cells">Find a home cell</a></div></article>
+      <article class="reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">Sunday Divine Service</h3><p class="card__text">Worship, the Word and prayer at 09:00 AM at Otwa Events, Long Acres.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html">Plan your visit</a></div></article>
+      <article class="reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Midweek fellowship</h3><p class="card__text">Wednesday at 05:30 PM — a smaller space for teaching, questions and prayer.</p><div class="card__foot"><a class="link-arrow" href="contact.html">Contact us</a></div></article>
+      <article class="reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">A home cell near you</h3><p class="card__text">Share life, study Scripture and pray with people who live close to you.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html#cells">Find a home cell</a></div></article>
     </div>
   </div>
 </section>
@@ -1453,12 +1453,12 @@ IMPACT_BODY = f"""
   <div class="container">
     {section_head("Where it shows", "Faith made visible.", "The fruit of grace is not only in what we say, but in how we live.")}
     <div class="grid grid-3">
-      <article class="card card--pad card--hover reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">Worship</h3><p class="card__text">A church learning to honour God with whole lives — Sunday and every day.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Discipleship</h3><p class="card__text">People growing in Scripture, prayer and obedience, not simply attending services.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">Fellowship</h3><p class="card__text">Relationships where people are known, carried and encouraged through hard seasons.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Service</h3><p class="card__text">Practical care that meets needs and shows the love of Christ in action.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="4"><span class="story-card__num">05</span><h3 class="h3 mt-2">Next generation</h3><p class="card__text">Children and youth given room to grow, ask questions and take their place.</p></article>
-      <article class="card card--pad card--hover reveal" data-delay="5"><span class="story-card__num">06</span><h3 class="h3 mt-2">Community</h3><p class="card__text">A church that looks beyond its walls and seeks the good of the city.</p></article>
+      <article class="reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">Worship</h3><p class="card__text">A church learning to honour God with whole lives — Sunday and every day.</p></article>
+      <article class="reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Discipleship</h3><p class="card__text">People growing in Scripture, prayer and obedience, not simply attending services.</p></article>
+      <article class="reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">Fellowship</h3><p class="card__text">Relationships where people are known, carried and encouraged through hard seasons.</p></article>
+      <article class="reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Service</h3><p class="card__text">Practical care that meets needs and shows the love of Christ in action.</p></article>
+      <article class="reveal" data-delay="4"><span class="story-card__num">05</span><h3 class="h3 mt-2">Next generation</h3><p class="card__text">Children and youth given room to grow, ask questions and take their place.</p></article>
+      <article class="reveal" data-delay="5"><span class="story-card__num">06</span><h3 class="h3 mt-2">Community</h3><p class="card__text">A church that looks beyond its walls and seeks the good of the city.</p></article>
     </div>
   </div>
 </section>
@@ -1593,9 +1593,9 @@ VISIT_BODY = f"""
   <div class="container">
     {section_head("Fellowship locations", "Find a church community near you.", "RPAI gathers in homes and branch fellowships, including gatherings in Chalala. Contact the church for current meeting locations, schedules and details about other branches.")}
     <div class="grid grid-3">
-      <article class="card card--pad reveal"><span class="card__label">Sunday</span><h3 class="h3 mt-2">Main gathering</h3><p class="card__text">Otwa Events, Long Acres, Ndeke Road, Lusaka. Sunday at 09:00 AM.</p><div class="card__foot"><a class="link-arrow" href="{MAP_URL}" target="_blank" rel="noopener">Directions</a></div></article>
-      <article class="card card--pad reveal" data-delay="1"><span class="card__label">Home cell</span><h3 class="h3 mt-2">Chalala fellowship</h3><p class="card__text">A local gathering for prayer, Bible study and friendship. Contact us for the current meeting details.</p><div class="card__foot"><a class="link-arrow" href="contact.html">Ask about Chalala</a></div></article>
-      <article class="card card--pad reveal" data-delay="2"><span class="card__label">Transport</span><h3 class="h3 mt-2">Need a ride?</h3><p class="card__text">Ask about current Sunday transport availability, pickup points and arrangements.</p><div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20I%20would%20like%20to%20ask%20about%20Sunday%20transport.">Ask on WhatsApp</a></div></article>
+      <article class="reveal"><span class="card__label">Sunday</span><h3 class="h3 mt-2">Main gathering</h3><p class="card__text">Otwa Events, Long Acres, Ndeke Road, Lusaka. Sunday at 09:00 AM.</p><div class="card__foot"><a class="link-arrow" href="{MAP_URL}" target="_blank" rel="noopener">Directions</a></div></article>
+      <article class="reveal" data-delay="1"><span class="card__label">Home cell</span><h3 class="h3 mt-2">Chalala fellowship</h3><p class="card__text">A local gathering for prayer, Bible study and friendship. Contact us for the current meeting details.</p><div class="card__foot"><a class="link-arrow" href="contact.html">Ask about Chalala</a></div></article>
+      <article class="reveal" data-delay="2"><span class="card__label">Transport</span><h3 class="h3 mt-2">Need a ride?</h3><p class="card__text">Ask about current Sunday transport availability, pickup points and arrangements.</p><div class="card__foot"><a class="link-arrow" href="{WHATSAPP}?text=Hello%20RPAI%2C%20I%20would%20like%20to%20ask%20about%20Sunday%20transport.">Ask on WhatsApp</a></div></article>
     </div>
   </div>
 </section>
@@ -1604,10 +1604,10 @@ VISIT_BODY = f"""
   <div class="container">
     {section_head("What to expect", "A warm welcome. A living Word.", "You do not need to have it all together to come. Just come.", center=True)}
     <div class="grid grid-4">
-      <article class="card card--pad reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">A welcome</h3><p class="card__text">Someone will greet you, help you find a seat and answer your questions.</p></article>
-      <article class="card card--pad reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Worship</h3><p class="card__text">Songs, prayer and space to meet with God — no performance required.</p></article>
-      <article class="card card--pad reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">The Word</h3><p class="card__text">A practical message from Scripture that speaks to everyday life.</p></article>
-      <article class="card card--pad reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Family</h3><p class="card__text">Children and teens are welcome. Ask us about NextGen and children’s activities.</p></article>
+      <article class="reveal"><span class="story-card__num">01</span><h3 class="h3 mt-2">A welcome</h3><p class="card__text">Someone will greet you, help you find a seat and answer your questions.</p></article>
+      <article class="reveal" data-delay="1"><span class="story-card__num">02</span><h3 class="h3 mt-2">Worship</h3><p class="card__text">Songs, prayer and space to meet with God — no performance required.</p></article>
+      <article class="reveal" data-delay="2"><span class="story-card__num">03</span><h3 class="h3 mt-2">The Word</h3><p class="card__text">A practical message from Scripture that speaks to everyday life.</p></article>
+      <article class="reveal" data-delay="3"><span class="story-card__num">04</span><h3 class="h3 mt-2">Family</h3><p class="card__text">Children and teens are welcome. Ask us about NextGen and children’s activities.</p></article>
     </div>
   </div>
 </section>
@@ -1670,15 +1670,15 @@ GIVE_BODY = f"""
 
     <h3 class="h3 mt-3 reveal">Mobile Money</h3>
     <div class="grid grid-3 mt-2">
-      <article class="card card--pad card--hover reveal" style="text-align:center">
+      <article class="reveal" style="text-align:center">
         <h4 class="h3 mt-2">AIRTEL MOBILE MONEY</h4>
         <p class="rpai-bank-pending">To be confirmed</p>
       </article>
-      <article class="card card--pad card--hover reveal" data-delay="1" style="text-align:center">
+      <article class="reveal" data-delay="1" style="text-align:center">
         <h4 class="h3 mt-2">MTN MOBILE MONEY</h4>
         <p class="rpai-bank-pending">To be confirmed</p>
       </article>
-      <article class="card card--pad card--hover reveal" data-delay="2" style="text-align:center">
+      <article class="reveal" data-delay="2" style="text-align:center">
         <h4 class="h3 mt-2">ZAMTEL MOBILE MONEY</h4>
         <p class="rpai-bank-pending">To be confirmed</p>
       </article>
@@ -1686,7 +1686,7 @@ GIVE_BODY = f"""
 
     <h3 class="h3 mt-4 reveal">Zambian banks</h3>
     <div class="grid grid-2 mt-2">
-      <article class="card card--pad reveal">
+      <article class="reveal">
         <h3 class="h3 mt-2">Zanaco</h3>
         <p class="small muted">Zambia National Commercial Bank</p>
         <dl class="detail-list mt-2">
@@ -1695,7 +1695,7 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="card card--pad reveal" data-delay="1">
+      <article class="reveal" data-delay="1">
         <h3 class="h3 mt-2">Stanbic Bank</h3>
         <p class="small muted">Stanbic Bank Zambia</p>
         <dl class="detail-list mt-2">
@@ -1704,7 +1704,7 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="card card--pad reveal">
+      <article class="reveal">
         <h3 class="h3 mt-2">Absa Bank</h3>
         <p class="small muted">Absa Bank Zambia</p>
         <dl class="detail-list mt-2">
@@ -1713,7 +1713,7 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="card card--pad reveal" data-delay="1">
+      <article class="reveal" data-delay="1">
         <h3 class="h3 mt-2">First National Bank</h3>
         <p class="small muted">FNB Zambia</p>
         <dl class="detail-list mt-2">
@@ -1722,7 +1722,7 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="card card--pad reveal">
+      <article class="reveal">
         <h3 class="h3 mt-2">Standard Chartered</h3>
         <p class="small muted">Standard Chartered Zambia</p>
         <dl class="detail-list mt-2">
@@ -1875,9 +1875,9 @@ ANNOUNCEMENTS_BODY = f"""
   <div class="container">
     {section_head("Also good to know", "A few standing notices.", "These are the regular rhythms and reminders for the church family.")}
     <div class="grid grid-3">
-      <article class="card card--pad reveal"><span class="card__label">Sunday</span><h3 class="h3 mt-2">Divine Service</h3><p class="card__text">Join us every Sunday at 09:00 AM CAT at Otwa Events, Long Acres, Ndeke Road, Lusaka.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html">Plan your visit</a></div></article>
-      <article class="card card--pad reveal" data-delay="1"><span class="card__label">Wednesday</span><h3 class="h3 mt-2">Midweek fellowship</h3><p class="card__text">Interactive fellowship at 05:30 PM CAT. Join us in person or online.</p><div class="card__foot"><a class="link-arrow" href="contact.html">Contact us</a></div></article>
-      <article class="card card--pad reveal" data-delay="2"><span class="card__label">Home cells</span><h3 class="h3 mt-2">Fellowship near you</h3><p class="card__text">Home cells gather across Lusaka, including Chalala. Ask us for the group nearest to you.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html#cells">Find a home cell</a></div></article>
+      <article class="reveal"><span class="card__label">Sunday</span><h3 class="h3 mt-2">Divine Service</h3><p class="card__text">Join us every Sunday at 09:00 AM CAT at Otwa Events, Long Acres, Ndeke Road, Lusaka.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html">Plan your visit</a></div></article>
+      <article class="reveal" data-delay="1"><span class="card__label">Wednesday</span><h3 class="h3 mt-2">Midweek fellowship</h3><p class="card__text">Interactive fellowship at 05:30 PM CAT. Join us in person or online.</p><div class="card__foot"><a class="link-arrow" href="contact.html">Contact us</a></div></article>
+      <article class="reveal" data-delay="2"><span class="card__label">Home cells</span><h3 class="h3 mt-2">Fellowship near you</h3><p class="card__text">Home cells gather across Lusaka, including Chalala. Ask us for the group nearest to you.</p><div class="card__foot"><a class="link-arrow" href="branches-transport.html#cells">Find a home cell</a></div></article>
     </div>
   </div>
 </section>
