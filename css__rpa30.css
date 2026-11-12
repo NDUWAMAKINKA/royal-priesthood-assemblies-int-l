@@ -1514,8 +1514,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   width: 142px;
   height: 190px;
   margin: -95px 0 0 -71px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, .16);
+  border: 1px solid rgba(11, 34, 64, .16);
   border-radius: 12px;
   background: #f0f2f2;
   box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .95);
@@ -2970,7 +2969,7 @@ html.js .reveal[data-delay="3"] { transition-delay: .24s; }
   .quote-card { padding: 24px; }
   .cta-card { padding: 52px 32px; }
   .ring-wrap { height: 360px; }
-  .ring__item { width: 158px; height: 212px; margin: -106px 0 0 -79px; transform: rotateY(calc(var(--i) * 36deg)) translateZ(300px); }
+  .ring__item { width: 170px; height: 228px; margin: -114px 0 0 -85px; transform: rotateY(calc(var(--i) * 36deg)) translateZ(320px); }
   .year-section { padding-block: 80px 40px; }
   .year-card { padding: 28px; }
   .gallery-grid { columns: 3; column-gap: 14px; }
@@ -3027,7 +3026,7 @@ html.js .reveal[data-delay="3"] { transition-delay: .24s; }
   .cta-card { padding: 64px 40px; }
   .gallery-grid { columns: 4; }
   .ring-wrap { height: 430px; }
-  .ring__item { width: 186px; height: 248px; margin: -124px 0 0 -93px; transform: rotateY(calc(var(--i) * 36deg)) translateZ(380px); }
+  .ring__item { width: 196px; height: 262px; margin: -131px 0 0 -98px; transform: rotateY(calc(var(--i) * 36deg)) translateZ(380px); }
 }
 
 @media (min-width: 1200px) {
