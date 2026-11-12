@@ -309,7 +309,7 @@ BASE = """<!doctype html>
   <link rel="apple-touch-icon" href="logo-rpai.png">
   <link rel="preload" href="photos/{{og_image}}" as="image" type="image/webp">
   <link rel="stylesheet" href="css__fonts.css">
-  <link rel="stylesheet" href="css__rpa30.css?v=1">
+  <link rel="stylesheet" href="css__rpa30.css?v=2">
   <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
   {{head_extra}}
 </head>
@@ -320,7 +320,7 @@ BASE = """<!doctype html>
     {{body}}
   </main>
   {{footer}}
-  <script src="js__rpa30.js?v=1" defer></script>
+  <script src="js__rpa30.js?v=2" defer></script>
   <script src="js__rpai.js?v=64" defer></script>
   <script src="js__i18n.js?v=1" defer></script>
   {{scripts_extra}}
