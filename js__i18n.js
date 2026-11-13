@@ -839,34 +839,30 @@ var DICTIONARY = {
 	}
 
 
-	/* Map our language codes to Google Translate codes. */
-	var GT_MAP = {
-		en: 'en', bem: 'bem', nya: 'ny', toi: 'to', loz: 'loz', tum: 'tum',
-		hi: 'hi', fr: 'fr', de: 'de', it: 'it', pt: 'pt', ru: 'ru', es: 'es'
-	};
 
 	function apply(lang) {
 		if (!byCode[lang]) lang = 'en';
 		currentLanguage = lang;
+
+		document.documentElement.setAttribute('lang', byCode[lang].htmlLang);
 		updateSwitcher(lang);
 
-		/* Translate the entire page with Google Translate so every word is
-		   covered, not just the nav and a handful of common strings. We set
-		   the googtrans cookie and reload; the widget (loaded in the page
-		   head) honours it and renders the fully translated page. */
-		var gtLang = GT_MAP[lang] || lang;
-		if (lang === 'en') {
-			document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-			document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + location.hostname;
-			var combo = document.querySelector('.goog-te-combo');
-			if (combo) { combo.value = 'en'; combo.dispatchEvent(new Event('change')); }
-		} else {
-			document.cookie = 'googtrans=/en/' + gtLang + '; path=/;';
-			document.cookie = 'googtrans=/en/' + gtLang + '; path=/; domain=' + location.hostname;
-			var combo = document.querySelector('.goog-te-combo');
-			if (combo) { combo.value = gtLang; combo.dispatchEvent(new Event('change')); }
-			else { window.location.reload(); }
+		stopLocalObserver();
+		restoreOriginalText();
+		applyDictionary(lang, true);
+		markUntranslatable();
+		localiseSliderRegions(lang);
+
+		/* English is already in the markup. Every other language is applied
+		   from its complete local map, which covers the whole page. */
+		if (lang !== 'en') {
+			loadLocalText().then(function () {
+				if (currentLanguage !== lang) return;
+				applyLocalPage(lang);
+				startLocalObserver(lang);
+			}).catch(function () {});
 		}
+
 		try { if (window.localStorage) localStorage.setItem('rpai_lang', lang); } catch (e) {}
 	}
 
