@@ -575,7 +575,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   padding: 8px;
   border: 1px solid rgba(11, 34, 64, .12);
   border-radius: 16px;
-  background: rgba(13, 13, 13, .98);
+  background: rgba(255, 255, 255, .98);
   box-shadow: var(--shadow);
   visibility: hidden;
   opacity: 0;
@@ -2700,7 +2700,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
     #ffffff;
 }
 
-.footer-marquee img { object-fit: contain; object-position: center; border-radius: 0; }
+.footer-marquee img { object-fit: contain; object-position: center; border-radius: 0; height: 80px; width: auto; }
 .footer-marquee {
   position: relative;
   overflow: hidden;
