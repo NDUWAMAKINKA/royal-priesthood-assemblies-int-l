@@ -894,34 +894,6 @@ HOME_BODY = f"""
   </div>
 </section>
 
-<section class="section" data-rail-section>
-  <div class="container">
-    <div class="rail-head">
-      <div class="section-head reveal" style="margin-bottom:0">
-        <p class="eyebrow">Life at RPAI</p>
-        <h2 class="h2">Taking the gospel to our city.</h2>
-        <p class="lead">A glimpse of what God is doing in our family — from Sunday worship to home cells, prayer and practical care.</p>
-      </div>
-      <div class="rail-arrows" aria-hidden="true">
-        <button class="rail-arrow" type="button" data-rail-prev aria-label="Previous photographs">{ICONS['left']}</button>
-        <button class="rail-arrow" type="button" data-rail-next aria-label="Next photographs">{ICONS['right']}</button>
-      </div>
-    </div>
-    <div class="rail" data-rail tabindex="0" aria-label="Church life photographs">
-      <figure class="rail-card"><img src="photos/card-praise.webp" alt="Praise at RPAI" loading="lazy" decoding="async"><figcaption><span>Worship</span>Lifting one voice</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-word.webp" alt="The Word at RPAI" loading="lazy" decoding="async"><figcaption><span>The Word</span>Rooted and built up</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-prayer.webp" alt="Prayer at RPAI" loading="lazy" decoding="async"><figcaption><span>Prayer</span>Seeking His face</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-youth.webp" alt="NextGen youth at RPAI" loading="lazy" decoding="async"><figcaption><span>NextGen</span>A faith of their own</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-women.webp" alt="Virtuous Women's Ministry" loading="lazy" decoding="async"><figcaption><span>Women</span>Strong, kind, together</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-men.webp" alt="Royal Men's Fellowship" loading="lazy" decoding="async"><figcaption><span>Men</span>The Pillars</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-fellowship.webp" alt="Home cell fellowship" loading="lazy" decoding="async"><figcaption><span>Home cells</span>Church beyond Sunday</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-community.webp" alt="Community care at RPAI" loading="lazy" decoding="async"><figcaption><span>Community</span>Love in action</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-choir.webp" alt="The RPAI choir" loading="lazy" decoding="async"><figcaption><span>Choir</span>Songs of the Lord</figcaption></figure>
-      <figure class="rail-card"><img src="photos/card-celebration.webp" alt="Celebration at RPAI" loading="lazy" decoding="async"><figcaption><span>Family</span>Moments of grace</figcaption></figure>
-    </div>
-  </div>
-</section>
-
 <section class="section section--flush-top">
   <div class="container">
     <div class="feature reveal">
