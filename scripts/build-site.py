@@ -488,7 +488,7 @@ ABOUT_BODY = f"""
       <div class="split__media reveal">
         <div class="profile" style="border-radius:var(--radius-lg)">
           <figure class="profile__media" style="grid-column:1/-1;min-height:420px">
-            <img src="photos/card-community.webp" alt="Love in action at RPAI" width="800" height="900" loading="lazy" decoding="async">
+            <img src="photos/card-family.webp" alt="A family at RPAI" width="800" height="900" loading="lazy" decoding="async">
             <figcaption><strong>Apostle Dr. Mighty Zunga</strong><span>Founder &amp; General Overseer</span></figcaption>
           </figure>
         </div>
@@ -881,11 +881,11 @@ HOME_BODY = f"""
       <div class="split__media reveal" data-delay="1">
         <div class="media-stack">
           <figure>
-            <img src="photos/card-community.webp" alt="Love in action at RPAI" width="600" height="750" loading="lazy" decoding="async">
+            <img src="photos/card-family.webp" alt="A family at RPAI" width="600" height="750" loading="lazy" decoding="async">
             <figcaption><span>Our shepherd</span>Apostle Dr. Mighty Zunga</figcaption>
           </figure>
           <figure>
-            <img src="photos/card-family.webp" alt="The RPAI church family" width="480" height="640" loading="lazy" decoding="async">
+            <img src="photos/card-community.webp" alt="Love in action at RPAI" width="480" height="640" loading="lazy" decoding="async">
             <figcaption><span>One family</span>Every generation</figcaption>
           </figure>
         </div>
