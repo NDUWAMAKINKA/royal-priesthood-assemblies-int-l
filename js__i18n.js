@@ -597,7 +597,7 @@ var DICTIONARY = {
 		});
 
 		/* The header menu and the cloned mobile menu share the same routes. */
-		document.querySelectorAll('.site-menu a, .site-mobile-menu a').forEach(function (link) {
+		document.querySelectorAll('.nav-primary a, .nav-panel a, .nav-more__menu a').forEach(function (link) {
 			var key = NAV_KEYS[normaliseHref(link.getAttribute('href'))];
 			if (key) link.textContent = translate(lang, key);
 		});
