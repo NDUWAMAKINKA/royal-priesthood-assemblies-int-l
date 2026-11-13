@@ -768,7 +768,8 @@ var DICTIONARY = {
 
 	function applyLocalPage(lang) {
 		var table = LOCAL_TEXT[lang];
-		if (!table) return;
+		if (!table) { console.warn('no table for', lang); return; }
+		console.log('applyLocalPage', lang, 'table size', Object.keys(table).length);
 
 		localiseSliderRegions(lang);
 
@@ -860,7 +861,7 @@ var DICTIONARY = {
 				if (currentLanguage !== lang) return;
 				applyLocalPage(lang);
 				startLocalObserver(lang);
-			}).catch(function () {});
+			}).catch(function (e) { console.warn('loadLocalText failed', e); });
 		}
 
 		try { if (window.localStorage) localStorage.setItem('rpai_lang', lang); } catch (e) {}
