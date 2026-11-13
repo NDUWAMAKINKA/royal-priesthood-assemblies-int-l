@@ -188,7 +188,7 @@ def site_header(page: str) -> str:
 """
 
 
-def footer(marquee: bool = False) -> str:
+def footer(marquee: bool = True) -> str:
     marquee_photos = [
         ("photos/card-worship.webp", "Worship at RPAI"),
         ("photos/card-word.webp", "The Word at RPAI"),
@@ -322,7 +322,6 @@ BASE = """<!doctype html>
   {{footer}}
   <script src="js__rpa30.js?v=2" defer></script>
   <script src="js__rpai.js?v=64" defer></script>
-  <script src="js__i18n.js?v=1" defer></script>
   {{scripts_extra}}
 </body>
 </html>
