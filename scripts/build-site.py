@@ -948,32 +948,6 @@ HOME_BODY = f"""
     </div>
   </div>
 </section>
-
-<section class="section section--tight">
-  <div class="container">
-    {section_head("Coming this Sunday?", "Let us make room for you.", "Tell people you are coming, find us on the map, or ask about transport from your area.")}
-    <div class="visit-grid">
-      <article class="visit-card visit-card--feature reveal">
-        <div>
-          <p class="eyebrow">Your welcome card</p>
-          <h3 class="h3">Tell people you’re coming.</h3>
-          <p class="small mt-1">Add your name and photo, then download a card to share with family and friends. Your photo stays on your device.</p>
-        </div>
-        <div class="visit-card__preview" aria-hidden="true">
-          <div class="mini-card"><div class="mini-card__screen"><span><strong>I am attending</strong>Sunday · 09:00 AM<br>Otwa Events, Lusaka</span></div></div>
-        </div>
-        <a class="link-arrow" href="attend.html">Make your card</a>
-      </article>
-      <article class="visit-card reveal" data-delay="1">
-        <span class="feature__icon">{ICONS['pin']}</span>
-        <div>
-          <h3 class="h3">Where to find us</h3>
-          <p class="small mt-1">Otwa Events, Long Acres, Ndeke Road, Lusaka. We meet every Sunday at 09:00 AM.</p>
-        </div>
-        <a class="link-arrow" href="{MAP_URL}" target="_blank" rel="noopener">Open directions</a>
-      </article>
-      <article class="visit-card reveal" data-delay="2">
-        <span class="feature__icon">{ICONS['phone']}</span>
         <div>
           <h3 class="h3">Coming from outside Lusaka?</h3>
           <p class="small mt-1">Let us know you are coming and we will help with transport, directions and a warm welcome.</p>
