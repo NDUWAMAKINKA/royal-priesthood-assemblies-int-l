@@ -6,20 +6,25 @@
   <title>Royal Priesthood Assemblies International | A place of love where everyone counts</title>
   <meta name="description" content="A church family in Lusaka, Zambia, gathered around the Word, prayer and one another. Sunday Divine Service at 09:00 AM.">
   <link rel="canonical" href="https://royal-priesthood-assemblies-int-l-1.onrender.com/">
-  <meta name="theme-color" content="#080808">
+  <meta name="theme-color" content="#0b2240">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Royal Priesthood Assemblies International">
   <meta property="og:title" content="Royal Priesthood Assemblies International | A place of love where everyone counts">
   <meta property="og:description" content="A church family in Lusaka, Zambia, gathered around the Word, prayer and one another. Sunday Divine Service at 09:00 AM.">
   <meta property="og:url" content="https://royal-priesthood-assemblies-int-l-1.onrender.com/">
-  <meta property="og:image" content="https://royal-priesthood-assemblies-int-l-1.onrender.com/photos/hero-about.webp">
+  <meta property="og:image" content="https://royal-priesthood-assemblies-int-l-1.onrender.com/og-rpai.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@royalpriesthood">
+  <meta name="theme-color" content="#0b2240">
   <meta name="twitter:title" content="Royal Priesthood Assemblies International | A place of love where everyone counts">
   <meta name="twitter:description" content="A church family in Lusaka, Zambia, gathered around the Word, prayer and one another. Sunday Divine Service at 09:00 AM.">
-  <meta name="twitter:image" content="https://royal-priesthood-assemblies-int-l-1.onrender.com/photos/hero-about.webp">
+  <meta name="twitter:image" content="https://royal-priesthood-assemblies-int-l-1.onrender.com/og-rpai.jpg">
   <link rel="icon" type="image/png" href="logo-rpai.png">
-  <link rel="apple-touch-icon" href="logo-rpai.png">
-  <link rel="preload" href="photos/hero-about.webp" as="image" type="image/webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="logo-rpai.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="photos/hero-about-960.webp" as="image" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="css__fonts.css">
   <link rel="stylesheet" href="css__rpa30.css?v=2">
   <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
@@ -27,46 +32,103 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Church",
-  "name": "Royal Priesthood Assemblies International",
-  "slogan": "A place of love where everyone counts.",
-  "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
-  "logo": "https://royal-priesthood-assemblies-int-l-1.onrender.com/logo-rpai.png",
-  "image": "https://royal-priesthood-assemblies-int-l-1.onrender.com/photos/hero-about.webp",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Otwa Events, Long Acres, Ndeke Road",
-    "addressLocality": "Lusaka",
-    "addressCountry": "ZM"
-  },
-  "telephone": "+260977490080",
-  "email": "royalpriesthoodassembliesintl@gmail.com",
-  "sameAs": [
-    "https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/",
-    "https://www.youtube.com/@royalpriesthoodassemblies"
-  ],
-  "event": {
-    "@type": "Event",
-    "name": "Sunday Divine Service",
-    "startDate": "2026-11-15T09:00:00+02:00",
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": "Sunday",
-      "startTime": "09:00",
-      "repeatFrequency": "P1W"
+  "@graph": [
+    {
+      "@type": "Church",
+      "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church",
+      "name": "Royal Priesthood Assemblies International",
+      "alternateName": "RPAI",
+      "slogan": "A place of love where everyone counts.",
+      "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/logo-rpai.png"
+      },
+      "image": "https://royal-priesthood-assemblies-int-l-1.onrender.com/og-rpai.jpg",
+      "description": "A church family in Lusaka, Zambia, gathered around the Word, prayer and one another. Sunday Divine Service at 09:00 AM.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Otwa Events, Long Acres, Ndeke Road",
+        "addressLocality": "Lusaka",
+        "addressCountry": "ZM"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -15.3875,
+        "longitude": 28.3228
+      },
+      "telephone": "+260977490080",
+      "email": "royalpriesthoodassembliesintl@gmail.com",
+      "priceRange": "Free",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "09:00",
+          "closes": "12:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Wednesday",
+          "opens": "17:30",
+          "closes": "20:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/",
+        "https://www.youtube.com/@royalpriesthoodassemblies"
+      ]
     },
-    "location": {
-      "@type": "Place",
-      "name": "Otwa Events, Long Acres",
-      "address": "Ndeke Road, Lusaka, Zambia"
+    {
+      "@type": "WebSite",
+      "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#website",
+      "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
+      "name": "Royal Priesthood Assemblies International",
+      "publisher": { "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Event",
+      "name": "Sunday Divine Service",
+      "startDate": "2026-11-15T09:00:00+02:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "organizer": { "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church" },
+      "eventSchedule": {
+        "@type": "Schedule",
+        "byDay": "Sunday",
+        "startTime": "09:00",
+        "repeatFrequency": "P1W"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "Otwa Events, Long Acres",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Otwa Events, Long Acres, Ndeke Road",
+          "addressLocality": "Lusaka",
+          "addressCountry": "ZM"
+        }
+      }
     }
-  }
+  ]
 }
 </script>
 
 </head>
 <body data-page="index" >
   <a class="skip-link" href="#main">Skip to main content</a>
+  
+<div class="service-bar">
+  <div class="container service-bar__inner">
+    <span><strong>Sunday Divine Service</strong> 09:00 AM CAT &middot; Otwa Events, Long Acres, Lusaka</span>
+    <span class="service-bar__links">
+      <a href="https://www.google.com/maps/search/?api=1&query=Otwa+Events%2C+Long+Acres%2C+Ndeke+Road%2C+Lusaka%2C+Zambia" target="_blank" rel="noopener">Get directions</a>
+      <a href="tel:+260977490080">+260 977 490 080</a>
+    </span>
+  </div>
+</div>
+
   
 <header class="site-header" data-site-header>
   <div class="nav-shell">
@@ -163,7 +225,7 @@
     
 
 <section class="hero hero--home">
-  <img class="hero__bg" src="photos/hero-about.webp" alt="" aria-hidden="true" width="1600" height="900" fetchpriority="high" decoding="async">
+  <img class="hero__bg" src="photos/hero-about-960.webp" srcset="photos/hero-about-960.webp 960w, photos/hero-about.webp 1280w" sizes="(max-width: 640px) 100vw, 1280px" alt="" aria-hidden="true" width="1280" height="720" fetchpriority="high" decoding="async">
   <span class="hero__ticks" aria-hidden="true"></span>
   <div class="container">
     <div class="hero__inner reveal">
@@ -176,23 +238,45 @@
 </section>
 
 
+<section class="section section--tight">
+  <div class="container">
+    <div class="expect-card reveal">
+      <div class="expect-card__head">
+        <p class="eyebrow">First time?</p>
+        <h2 class="h2">What to expect on your first Sunday.</h2>
+        <p class="lead">You are welcome the moment you walk in. Here is the whole Sunday in four simple steps.</p>
+      </div>
+      <ol class="expect-steps">
+        <li><span>01</span><div><strong>Arrive</strong><p>Come a few minutes early. Our welcome team will greet you and show you where to sit.</p></div></li>
+        <li><span>02</span><div><strong>Worship</strong><p>Songs, prayer and a time to honour God, together with the whole family.</p></div></li>
+        <li><span>03</span><div><strong>The Word</strong><p>A practical message from Scripture that speaks to everyday life.</p></div></li>
+        <li><span>04</span><div><strong>Family</strong><p>Stay for a word with someone. Ask about a home cell and how to get involved.</p></div></li>
+      </ol>
+      <div class="row mt-3">
+        <a class="btn btn-primary" href="branches-transport.html">Plan your visit</a>
+        <a class="btn btn-outline" href="announcements.html">See service times</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="card-run" aria-label="Life at Royal Priesthood Assemblies International">
   <div class="container">
     <div class="card-run__stage">
       <figure class="run-card run-card--1">
-        <img src="photos/card-worship.webp" alt="Worship at Royal Priesthood Assemblies International" width="440" height="550" loading="lazy" decoding="async">
+        <img src="photos/thumb-worship.webp" srcset="photos/quick-worship.webp 420w, photos/thumb-worship.webp 640w, photos/card-worship.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Worship at Royal Priesthood Assemblies International" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>Sunday</span>Worship together</figcaption>
       </figure>
       <figure class="run-card run-card--2">
-        <img src="photos/card-word.webp" alt="The Word being taught at RPAI" width="440" height="550" loading="lazy" decoding="async">
+        <img src="photos/thumb-word.webp" srcset="photos/quick-word.webp 420w, photos/thumb-word.webp 640w, photos/card-word.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The Word being taught at RPAI" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>The Word</span>Truth for every season</figcaption>
       </figure>
       <figure class="run-card run-card--3">
-        <img src="photos/card-prayer.webp" alt="Prayer at RPAI" width="440" height="550" loading="lazy" decoding="async">
+<img src="photos/thumb-prayer.webp" srcset="photos/quick-prayer.webp 420w, photos/thumb-prayer.webp 640w, photos/card-prayer.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Prayer at RPAI" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>Prayer</span>Seeking Him together</figcaption>
       </figure>
       <figure class="run-card run-card--4">
-        <img src="photos/card-family.webp" alt="The church family at RPAI" width="440" height="550" loading="lazy" decoding="async">
+        <img src="photos/thumb-family.webp" srcset="photos/quick-family.webp 420w, photos/thumb-family.webp 640w, photos/card-family.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The church family at RPAI" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>Family</span>Everyone counts</figcaption>
       </figure>
 
@@ -222,7 +306,7 @@
       </div>
       <div class="split__media reveal" data-delay="1">
         <figure class="media-single">
-          <img src="photos/card-congregation.webp" alt="The RPAI church family gathered together" width="900" height="600" loading="lazy" decoding="async">
+          <img src="photos/thumb-congregation.webp" srcset="photos/quick-congregation.webp 420w, photos/thumb-congregation.webp 640w, photos/card-congregation.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The RPAI church family gathered together" width="900" height="600" loading="lazy" decoding="async">
           <figcaption><span>Our family</span>Everyone counts</figcaption>
         </figure>
       </div>
@@ -251,7 +335,7 @@
         </div>
       </div>
       <div class="feature__media">
-        <img src="photos/card-congregation.webp" alt="The congregation at Royal Priesthood Assemblies International" width="900" height="700" loading="lazy" decoding="async">
+        <img src="photos/thumb-praise.webp" srcset="photos/quick-praise.webp 420w, photos/thumb-praise.webp 640w, photos/card-praise.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The congregation at Royal Priesthood Assemblies International" width="900" height="700" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
@@ -374,7 +458,7 @@
   <div class="container">
     <div class="split split--wide card card--lg" style="padding:18px">
       <div class="split__media">
-        <img src="photos/card-prayer.webp" alt="A moment of prayer at RPAI" width="800" height="600" loading="lazy" decoding="async">
+<img src="photos/thumb-welcome.webp" srcset="photos/quick-welcome.webp 420w, photos/thumb-welcome.webp 640w, photos/card-welcome.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="A moment of prayer at RPAI" width="800" height="600" loading="lazy" decoding="async">
       </div>
       <div class="split__body" style="padding:14px">
         <p class="eyebrow">Your story matters</p>
@@ -430,7 +514,7 @@
 <section class="section section--flush-top">
   <div class="container">
     <div class="cta-card reveal">
-      <img src="photos/card-community.webp" alt="The RPAI family" width="900" height="500" loading="lazy" decoding="async" style="width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-bottom:18px">
+      <img src="photos/thumb-graduation.webp" srcset="photos/quick-graduation.webp 420w, photos/thumb-graduation.webp 640w, photos/card-graduation.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px"" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The RPAI family" width="900" height="500" loading="lazy" decoding="async" style="width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-bottom:18px">
       <p class="eyebrow" style="justify-self:center">You’re part of this story</p>
       <h2 class="h2">Come and see what God is doing.</h2>
       <p>Join us this Sunday at 09:00 AM — or tell someone about the place where you found love, faith and family.</p>
@@ -456,29 +540,29 @@
   </main>
   
 <footer class="site-footer">
-  <div class="footer-marquee" aria-hidden="true"><div class="marquee"><div class="marquee__group"><img src="photos/card-worship.webp" alt="Worship at RPAI" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-word.webp" alt="The Word at RPAI" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-family.webp" alt="The RPAI family" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-prayer.webp" alt="Prayer at RPAI" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-youth.webp" alt="NextGen youth" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-men.webp" alt="Royal Men's Fellowship" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-women.webp" alt="Virtuous Women's Ministry" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-choir.webp" alt="The choir" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-community.webp" alt="Community care" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-celebration.webp" alt="Celebration" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-preaching.webp" alt="The Word" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-fellowship.webp" alt="Fellowship" width="160" height="105" loading="lazy" decoding="async"></div><div class="marquee__group"><img src="photos/card-worship.webp" alt="Worship at RPAI" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-word.webp" alt="The Word at RPAI" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-family.webp" alt="The RPAI family" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-prayer.webp" alt="Prayer at RPAI" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-youth.webp" alt="NextGen youth" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-men.webp" alt="Royal Men's Fellowship" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-women.webp" alt="Virtuous Women's Ministry" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-choir.webp" alt="The choir" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-community.webp" alt="Community care" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-celebration.webp" alt="Celebration" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-preaching.webp" alt="The Word" width="160" height="105" loading="lazy" decoding="async">
-<img src="photos/card-fellowship.webp" alt="Fellowship" width="160" height="105" loading="lazy" decoding="async"></div></div></div>
+  <div class="footer-marquee" aria-hidden="true"><div class="marquee"><div class="marquee__group"><img src="photos/thumb-worship.webp" alt="Worship at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-worship.webp 640w" sizes="160px">
+<img src="photos/thumb-word.webp" alt="The Word at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-word.webp 640w" sizes="160px">
+<img src="photos/thumb-family.webp" alt="The RPAI family" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-family.webp 640w" sizes="160px">
+<img src="photos/thumb-prayer.webp" alt="Prayer at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-prayer.webp 640w" sizes="160px">
+<img src="photos/thumb-youth.webp" alt="NextGen youth at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-youth.webp 640w" sizes="160px">
+<img src="photos/thumb-men.webp" alt="Royal Men's Fellowship" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-men.webp 640w" sizes="160px">
+<img src="photos/thumb-women.webp" alt="Virtuous Women's Ministry" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-women.webp 640w" sizes="160px">
+<img src="photos/thumb-choir.webp" alt="The RPAI choir" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-choir.webp 640w" sizes="160px">
+<img src="photos/thumb-community.webp" alt="Community care at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-community.webp 640w" sizes="160px">
+<img src="photos/thumb-celebration.webp" alt="Celebration at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-celebration.webp 640w" sizes="160px">
+<img src="photos/thumb-music.webp" alt="Music at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-music.webp 640w" sizes="160px">
+<img src="photos/thumb-worship-leader.webp" alt="Worship leader" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-worship-leader.webp 640w" sizes="160px"></div><div class="marquee__group"><img src="photos/thumb-worship.webp" alt="Worship at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-worship.webp 640w" sizes="160px">
+<img src="photos/thumb-word.webp" alt="The Word at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-word.webp 640w" sizes="160px">
+<img src="photos/thumb-family.webp" alt="The RPAI family" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-family.webp 640w" sizes="160px">
+<img src="photos/thumb-prayer.webp" alt="Prayer at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-prayer.webp 640w" sizes="160px">
+<img src="photos/thumb-youth.webp" alt="NextGen youth at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-youth.webp 640w" sizes="160px">
+<img src="photos/thumb-men.webp" alt="Royal Men's Fellowship" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-men.webp 640w" sizes="160px">
+<img src="photos/thumb-women.webp" alt="Virtuous Women's Ministry" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-women.webp 640w" sizes="160px">
+<img src="photos/thumb-choir.webp" alt="The RPAI choir" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-choir.webp 640w" sizes="160px">
+<img src="photos/thumb-community.webp" alt="Community care at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-community.webp 640w" sizes="160px">
+<img src="photos/thumb-celebration.webp" alt="Celebration at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-celebration.webp 640w" sizes="160px">
+<img src="photos/thumb-music.webp" alt="Music at RPAI" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-music.webp 640w" sizes="160px">
+<img src="photos/thumb-worship-leader.webp" alt="Worship leader" width="160" height="105" loading="lazy" decoding="async" srcset="photos/thumb-worship-leader.webp 640w" sizes="160px"></div></div></div>
 
   <div class="footer-main">
     <div class="container">

@@ -79,21 +79,41 @@ ALL_NAV = NAV + MORE
 
 PAGE_META = {
     "index": ("Royal Priesthood Assemblies International | A place of love where everyone counts", "A church family in Lusaka, Zambia, gathered around the Word, prayer and one another. Sunday Divine Service at 09:00 AM.", "hero-about.webp"),
-    "about": ("Our Story | Royal Priesthood Assemblies International", "The story of Royal Priesthood Assemblies International: a people of faith, rooted in the Word and growing together in Lusaka, Zambia.", "hero-about.webp"),
-    "pastor": ("Our Senior Pastor | Apostle Dr. Mighty Zunga", "Meet Apostle Dr. Mighty Zunga, Founder and General Overseer of Royal Priesthood Assemblies International.", "card-pastor.webp"),
-    "testimonies": ("Testimonies | Royal Priesthood Assemblies International", "Stories of God's faithfulness from the Royal Priesthood family, and a place to share what He has done for you.", "hero-about.webp"),
+    "about": ("Our Story | Royal Priesthood Assemblies International", "The story of Royal Priesthood Assemblies International: a people of faith, rooted in the Word and growing together in Lusaka, Zambia.", "hero-story.webp"),
+    "pastor": ("Our Senior Pastor | Apostle Dr. Mighty Zunga", "Meet Apostle Dr. Mighty Zunga, Founder and General Overseer of Royal Priesthood Assemblies International.", "hero-pastor.webp"),
+    "testimonies": ("Testimonies | Royal Priesthood Assemblies International", "Stories of God's faithfulness from the Royal Priesthood family, and a place to share what He has done for you.", "hero-testimonies.webp"),
     "ministries": ("Ministries & Fellowships | Royal Priesthood Assemblies International", "Royal Men's Fellowship, Virtuous Women's Ministry, NextGen Youth & Teen Ministry, and Home Cell & Branch Fellowships.", "hero-ministry.webp"),
     "gallery": ("Media Gallery | Royal Priesthood Assemblies International", "Photographs, worship and messages from the life of Royal Priesthood Assemblies International.", "hero-gallery.webp"),
-    "impact": ("Our Impact | Royal Priesthood Assemblies International", "Grace that reaches beyond the walls: worship, discipleship, fellowship and practical care in Lusaka and beyond.", "hero-about.webp"),
+    "impact": ("Our Impact | Royal Priesthood Assemblies International", "Grace that reaches beyond the walls: worship, discipleship, fellowship and practical care in Lusaka and beyond.", "hero-impact.webp"),
     "visit": ("Plan Your Visit | Royal Priesthood Assemblies International", "Service times, directions, transport and a warm welcome at Otwa Events, Long Acres, Lusaka.", "hero-branches.webp"),
     "give": ("Give | Royal Priesthood Assemblies International", "Partner with the ministry of the Word, prayer, discipleship and practical care at RPAI.", "hero-give.webp"),
     "devotional": ("Daily Devotional | Royal Priesthood Assemblies International", "Start today with God's Word. A daily devotional rhythm from Royal Priesthood Assemblies International.", "hero-devotional.webp"),
     "announcements": ("Announcements | Royal Priesthood Assemblies International", "The latest news and notices from the Royal Priesthood family.", "hero-announcements.webp"),
     "contact": ("Contact Us | Royal Priesthood Assemblies International", "Talk to us, send a prayer request, or find directions to Otwa Events, Long Acres, Lusaka.", "hero-contact.webp"),
-    "attend": ("I Am Attending | Royal Priesthood Assemblies International", "Make your own I Am Attending card, then join us this Sunday at 09:00 AM in Lusaka.", "card-welcome.webp"),
-    "privacy": ("Privacy | Royal Priesthood Assemblies International", "How Royal Priesthood Assemblies International handles personal information.", "hero-contact.webp"),
-    "terms": ("Terms of Use | Royal Priesthood Assemblies International", "Terms of use for the Royal Priesthood Assemblies International website.", "hero-contact.webp"),
+    "attend": ("I Am Attending | Royal Priesthood Assemblies International", "Make your own I Am Attending card, then join us this Sunday at 09:00 AM in Lusaka.", "hero-attend.webp"),
+    "privacy": ("Privacy | Royal Priesthood Assemblies International", "How Royal Priesthood Assemblies International handles personal information.", "hero-library.webp"),
+    "terms": ("Terms of Use | Royal Priesthood Assemblies International", "Terms of use for the Royal Priesthood Assemblies International website.", "hero-conference.webp"),
 }
+
+# The hero image each page actually paints, so preload and artwork always agree.
+PAGE_HERO = {
+    "index": "photos/hero-about.webp",
+    "about": "photos/hero-story.webp",
+    "pastor": "photos/hero-pastor.webp",
+    "testimonies": "photos/hero-testimonies.webp",
+    "ministries": "photos/hero-ministry.webp",
+    "gallery": "photos/hero-gallery.webp",
+    "impact": "photos/hero-impact.webp",
+    "visit": "photos/hero-branches.webp",
+    "give": "photos/hero-give.webp",
+    "devotional": "photos/hero-devotional.webp",
+    "announcements": "photos/hero-announcements.webp",
+    "contact": "photos/hero-contact.webp",
+    "attend": "photos/hero-attend.webp",
+    "privacy": "photos/hero-library.webp",
+    "terms": "photos/hero-conference.webp",
+}
+
 
 MORE_KEYS = {item[2] for item in MORE}
 
@@ -188,7 +208,37 @@ def site_header(page: str) -> str:
 """
 
 
-def footer(marquee: bool = True) -> str:
+def service_bar() -> str:
+    return f"""
+<div class="service-bar">
+  <div class="container service-bar__inner">
+    <span><strong>Sunday Divine Service</strong> 09:00 AM CAT &middot; Otwa Events, Long Acres, Lusaka</span>
+    <span class="service-bar__links">
+      <a href="{MAP_URL}" target="_blank" rel="noopener">Get directions</a>
+      <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a>
+    </span>
+  </div>
+</div>
+"""
+
+
+FOOTER_STRIP = [
+    ("photos/thumb-worship.webp", "Worship at RPAI"),
+    ("photos/thumb-word.webp", "The Word at RPAI"),
+    ("photos/thumb-family.webp", "The RPAI family"),
+    ("photos/thumb-prayer.webp", "Prayer at RPAI"),
+    ("photos/thumb-youth.webp", "NextGen youth at RPAI"),
+    ("photos/thumb-men.webp", "Royal Men's Fellowship"),
+    ("photos/thumb-women.webp", "Virtuous Women's Ministry"),
+    ("photos/thumb-choir.webp", "The RPAI choir"),
+    ("photos/thumb-community.webp", "Community care at RPAI"),
+    ("photos/thumb-celebration.webp", "Celebration at RPAI"),
+    ("photos/thumb-music.webp", "Music at RPAI"),
+    ("photos/thumb-worship-leader.webp", "Worship leader"),
+]
+
+
+def footer(marquee: bool = True, page: str = "index") -> str:
     marquee_photos = [
         ("photos/card-worship.webp", "Worship at RPAI"),
         ("photos/card-word.webp", "The Word at RPAI"),
@@ -203,9 +253,18 @@ def footer(marquee: bool = True) -> str:
         ("photos/card-preach.webp", "The Word"),
         ("photos/card-fellowship.webp", "Fellowship"),
     ]
-    # card-preach may not exist; fall back to card-preaching.
-    marquee_photos = [(("photos/card-preaching.webp" if src.endswith("card-preach.webp") else src), alt) for src, alt in marquee_photos]
-    group = "\n".join(f'<img src="{src}" alt="{alt}" width="160" height="105" loading="lazy" decoding="async">' for src, alt in marquee_photos)
+    # Each page gets a different slice of the strip so no photo leads twice.
+    try:
+        offset = [k for k, _, _ in ALL_NAV].index(page) * 2
+    except ValueError:
+        offset = 0
+    strip = FOOTER_STRIP[offset:] + FOOTER_STRIP[:offset]
+    marquee_photos = strip
+    group = "\n".join(
+        f'<img src="{src}" alt="{alt}" width="160" height="105" loading="lazy" decoding="async" '
+        f'srcset="{src} 640w" sizes="160px">'
+        for src, alt in marquee_photos
+    )
     explore = "\n".join(f'<a href="{href}">{label}</a>' for href, label, _ in NAV[:5])
     take_part = "\n".join(f'<a href="{href}">{label}</a>' for href, label, _ in MORE[:6])
     if marquee:
@@ -294,20 +353,25 @@ BASE = """<!doctype html>
   <title>{{title}}</title>
   <meta name="description" content="{{description}}">
   <link rel="canonical" href="{{canonical}}">
-  <meta name="theme-color" content="#080808">
+  <meta name="theme-color" content="#0b2240">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{church}}">
   <meta property="og:title" content="{{title}}">
   <meta property="og:description" content="{{description}}">
   <meta property="og:url" content="{{canonical}}">
-  <meta property="og:image" content="{{site}}/photos/{{og_image}}">
+  <meta property="og:image" content="{{site}}/og-rpai.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@royalpriesthood">
+  <meta name="theme-color" content="#0b2240">
   <meta name="twitter:title" content="{{title}}">
   <meta name="twitter:description" content="{{description}}">
-  <meta name="twitter:image" content="{{site}}/photos/{{og_image}}">
+  <meta name="twitter:image" content="{{site}}/og-rpai.jpg">
   <link rel="icon" type="image/png" href="logo-rpai.png">
-  <link rel="apple-touch-icon" href="logo-rpai.png">
-  <link rel="preload" href="photos/{{og_image}}" as="image" type="image/webp">
+  <link rel="apple-touch-icon" sizes="180x180" href="logo-rpai.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="preload" href="photos/{{hero_file}}-960.webp" as="image" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="css__fonts.css">
   <link rel="stylesheet" href="css__rpa30.css?v=2">
   <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
@@ -315,6 +379,7 @@ BASE = """<!doctype html>
 </head>
 <body data-page="{{page}}" {{body_attrs}}>
   <a class="skip-link" href="#main">Skip to main content</a>
+  {{servicebar}}
   {{header}}
   <main id="main">
     {{body}}
@@ -330,9 +395,12 @@ BASE = """<!doctype html>
 
 def hero(eyebrow, title, lead, actions="", image="photos/hero-about.webp", home=False):
     klass = "hero hero--home" if home else "page-hero"
+    base = image.rsplit("/", 1)[-1].replace(".webp", "")
+    srcset = f"photos/{base}-960.webp 960w, {image} 1280w"
+    sizes = "(max-width: 640px) 100vw, 1280px"
     return f"""
 <section class="{klass}">
-  <img class="{'hero__bg' if home else 'page-hero__bg'}" src="{image}" alt="" aria-hidden="true" width="1600" height="900" fetchpriority="high" decoding="async">
+  <img class="{'hero__bg' if home else 'page-hero__bg'}" src="photos/{base}-960.webp" srcset="{srcset}" sizes="{sizes}" alt="" aria-hidden="true" width="1280" height="720" fetchpriority="high" decoding="async">
   <span class="{'hero__ticks' if home else 'page-hero__ticks'}" aria-hidden="true"></span>
   <div class="container">
     <div class="{'hero__inner' if home else 'page-hero__inner'} reveal">
@@ -409,6 +477,7 @@ PAGE_FILES = {
 def write_page(key, body, head_extra="", scripts_extra="", body_attrs="", marquee=True):
     title, description, og_image = PAGE_META[key]
     filename = PAGE_FILES[key]
+    hero_file = PAGE_HERO[key].rsplit("/", 1)[-1].replace(".webp", "")
     canonical = f"{SITE}/" if key == "index" else f"{SITE}/{filename}"
     html = (
         BASE.replace("{{title}}", title)
@@ -417,12 +486,14 @@ def write_page(key, body, head_extra="", scripts_extra="", body_attrs="", marque
         .replace("{{church}}", CHURCH)
         .replace("{{site}}", SITE)
         .replace("{{og_image}}", og_image)
+        .replace("{{hero_file}}", hero_file)
         .replace("{{page}}", key)
         .replace("{{body_attrs}}", body_attrs)
         .replace("{{head_extra}}", head_extra)
+        .replace("{{servicebar}}", service_bar())
         .replace("{{header}}", site_header(key))
         .replace("{{body}}", body)
-        .replace("{{footer}}", footer(marquee=marquee))
+        .replace("{{footer}}", footer(marquee=marquee, page=key))
         .replace("{{scripts_extra}}", scripts_extra)
     )
     (ROOT / filename).write_text(html, encoding="utf-8")
@@ -439,7 +510,7 @@ ABOUT_BODY = f"""
     "A story of love, faith and family.",
     "Royal Priesthood Assemblies International began with a call to gather God’s people in Lusaka — to teach His Word, make room for His presence, and love one another well.",
     f'<div class="page-hero__actions">{button("Meet our shepherd", "senior-pastor.html")}{button("Our ministries", "ministry.html", "btn-outline")}</div>',
-    image="photos/hero-about.webp",
+    image="photos/hero-story.webp",
 )}
 
 <section class="section">
@@ -488,7 +559,7 @@ ABOUT_BODY = f"""
       <div class="split__media reveal">
         <div class="profile" style="border-radius:var(--radius-lg)">
           <figure class="profile__media" style="grid-column:1/-1;min-height:420px">
-            <img src="photos/card-family.webp" alt="A family at RPAI" width="800" height="900" loading="lazy" decoding="async">
+            <img src="photos/thumb-family.webp" srcset="photos/quick-family.webp 420w, photos/thumb-family.webp 640w, photos/card-family.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="A family at RPAI" width="800" height="900" loading="lazy" decoding="async">
             <figcaption><strong>Apostle Dr. Mighty Zunga</strong><span>Founder &amp; General Overseer</span></figcaption>
           </figure>
         </div>
@@ -587,14 +658,14 @@ PASTOR_BODY = f"""
     "A shepherd’s heart. A father’s faith.",
     "Apostle Dr. Mighty Zunga leads Royal Priesthood Assemblies International with a clear commitment to the Word, prayer and the care of people.",
     f'<div class="page-hero__actions">{button("Watch and listen", YOUTUBE)}{button("Meet the church", "about.html", "btn-outline")}</div>',
-    image="photos/hero-about.webp",
+    image="photos/hero-pastor.webp",
 )}
 
 <section class="section">
   <div class="container">
     <div class="profile reveal">
       <figure class="profile__media">
-        <img src="photos/card-pastor.webp" alt="Apostle Dr. Mighty Zunga" width="900" height="1000" loading="lazy" decoding="async">
+        <img src="photos/thumb-pastor.webp" srcset="photos/quick-pastor.webp 420w, photos/thumb-pastor.webp 640w, photos/card-pastor.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Apostle Dr. Mighty Zunga" width="900" height="1000" loading="lazy" decoding="async">
         <figcaption><strong>Apostle Dr. Mighty Zunga</strong><span>Founder &amp; General Overseer</span></figcaption>
       </figure>
       <div class="profile__body">
@@ -630,7 +701,7 @@ PASTOR_BODY = f"""
         </blockquote>
       </div>
       <div class="split__media reveal" data-delay="1">
-        <img src="photos/card-preaching.webp" alt="Apostle Dr. Mighty Zunga teaching the Word" width="900" height="1000" loading="lazy" decoding="async" style="min-height:430px">
+        <img src="photos/thumb-preaching.webp" srcset="photos/quick-preaching.webp 420w, photos/thumb-preaching.webp 640w, photos/card-preaching.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Apostle Dr. Mighty Zunga teaching the Word" width="900" height="1000" loading="lazy" decoding="async" style="min-height:430px">
       </div>
     </div>
   </div>
@@ -652,7 +723,7 @@ PASTOR_BODY = f"""
   <div class="container">
     <div class="split split--wide">
       <div class="split__media reveal">
-        <img src="photos/card-leadership.webp" alt="The RPAI leadership family" width="900" height="650" loading="lazy" decoding="async">
+        <img src="photos/thumb-leadership.webp" srcset="photos/quick-leadership.webp 420w, photos/thumb-leadership.webp 640w, photos/card-leadership.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The RPAI leadership family" width="900" height="650" loading="lazy" decoding="async">
       </div>
       <div class="split__body reveal" data-delay="1">
         <p class="eyebrow">He and the church</p>
@@ -727,7 +798,7 @@ TESTIMONIES_BODY = f"""
     "Stories of His faithfulness.",
     "God is still at work in ordinary lives. These are a few words from the Royal Priesthood family — and an invitation to share your own.",
     f'<div class="page-hero__actions">{button("Share your testimony", "#share")}{button("Plan a visit", "branches-transport.html", "btn-outline")}</div>',
-    image="photos/hero-about.webp",
+    image="photos/hero-testimonies.webp",
 )}
 
 <section class="section">
@@ -819,23 +890,45 @@ HOME_BODY = f"""
     home=True,
 )}
 
+<section class="section section--tight">
+  <div class="container">
+    <div class="expect-card reveal">
+      <div class="expect-card__head">
+        <p class="eyebrow">First time?</p>
+        <h2 class="h2">What to expect on your first Sunday.</h2>
+        <p class="lead">You are welcome the moment you walk in. Here is the whole Sunday in four simple steps.</p>
+      </div>
+      <ol class="expect-steps">
+        <li><span>01</span><div><strong>Arrive</strong><p>Come a few minutes early. Our welcome team will greet you and show you where to sit.</p></div></li>
+        <li><span>02</span><div><strong>Worship</strong><p>Songs, prayer and a time to honour God, together with the whole family.</p></div></li>
+        <li><span>03</span><div><strong>The Word</strong><p>A practical message from Scripture that speaks to everyday life.</p></div></li>
+        <li><span>04</span><div><strong>Family</strong><p>Stay for a word with someone. Ask about a home cell and how to get involved.</p></div></li>
+      </ol>
+      <div class="row mt-3">
+        {button("Plan your visit", "branches-transport.html")}
+        {button("See service times", "announcements.html", "btn-outline")}
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="card-run" aria-label="Life at Royal Priesthood Assemblies International">
   <div class="container">
     <div class="card-run__stage">
       <figure class="run-card run-card--1">
-        <img src="photos/card-worship.webp" alt="Worship at Royal Priesthood Assemblies International" width="440" height="550" loading="lazy" decoding="async">
+        <img src="photos/thumb-worship.webp" srcset="photos/quick-worship.webp 420w, photos/thumb-worship.webp 640w, photos/card-worship.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Worship at Royal Priesthood Assemblies International" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>Sunday</span>Worship together</figcaption>
       </figure>
       <figure class="run-card run-card--2">
-        <img src="photos/card-word.webp" alt="The Word being taught at RPAI" width="440" height="550" loading="lazy" decoding="async">
+        <img src="photos/thumb-word.webp" srcset="photos/quick-word.webp 420w, photos/thumb-word.webp 640w, photos/card-word.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The Word being taught at RPAI" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>The Word</span>Truth for every season</figcaption>
       </figure>
       <figure class="run-card run-card--3">
-        <img src="photos/card-prayer.webp" alt="Prayer at RPAI" width="440" height="550" loading="lazy" decoding="async">
+<img src="photos/thumb-prayer.webp" srcset="photos/quick-prayer.webp 420w, photos/thumb-prayer.webp 640w, photos/card-prayer.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Prayer at RPAI" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>Prayer</span>Seeking Him together</figcaption>
       </figure>
       <figure class="run-card run-card--4">
-        <img src="photos/card-family.webp" alt="The church family at RPAI" width="440" height="550" loading="lazy" decoding="async">
+        <img src="photos/thumb-family.webp" srcset="photos/quick-family.webp 420w, photos/thumb-family.webp 640w, photos/card-family.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The church family at RPAI" width="440" height="550" loading="lazy" decoding="async">
         <figcaption><span>Family</span>Everyone counts</figcaption>
       </figure>
 
@@ -865,7 +958,7 @@ HOME_BODY = f"""
       </div>
       <div class="split__media reveal" data-delay="1">
         <figure class="media-single">
-          <img src="photos/card-congregation.webp" alt="The RPAI church family gathered together" width="900" height="600" loading="lazy" decoding="async">
+          <img src="photos/thumb-congregation.webp" srcset="photos/quick-congregation.webp 420w, photos/thumb-congregation.webp 640w, photos/card-congregation.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The RPAI church family gathered together" width="900" height="600" loading="lazy" decoding="async">
           <figcaption><span>Our family</span>Everyone counts</figcaption>
         </figure>
       </div>
@@ -894,7 +987,7 @@ HOME_BODY = f"""
         </div>
       </div>
       <div class="feature__media">
-        <img src="photos/card-congregation.webp" alt="The congregation at Royal Priesthood Assemblies International" width="900" height="700" loading="lazy" decoding="async">
+        <img src="photos/thumb-praise.webp" srcset="photos/quick-praise.webp 420w, photos/thumb-praise.webp 640w, photos/card-praise.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The congregation at Royal Priesthood Assemblies International" width="900" height="700" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
@@ -996,7 +1089,7 @@ HOME_BODY = f"""
   <div class="container">
     <div class="split split--wide card card--lg" style="padding:18px">
       <div class="split__media">
-        <img src="photos/card-prayer.webp" alt="A moment of prayer at RPAI" width="800" height="600" loading="lazy" decoding="async">
+<img src="photos/thumb-welcome.webp" srcset="photos/quick-welcome.webp 420w, photos/thumb-welcome.webp 640w, photos/card-welcome.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="A moment of prayer at RPAI" width="800" height="600" loading="lazy" decoding="async">
       </div>
       <div class="split__body" style="padding:14px">
         <p class="eyebrow">Your story matters</p>
@@ -1041,7 +1134,7 @@ HOME_BODY = f"""
 <section class="section section--flush-top">
   <div class="container">
     <div class="cta-card reveal">
-      <img src="photos/card-community.webp" alt="The RPAI family" width="900" height="500" loading="lazy" decoding="async" style="width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-bottom:18px">
+      <img src="photos/thumb-graduation.webp" srcset="photos/quick-graduation.webp 420w, photos/thumb-graduation.webp 640w, photos/card-graduation.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px"" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The RPAI family" width="900" height="500" loading="lazy" decoding="async" style="width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-bottom:18px">
       <p class="eyebrow" style="justify-self:center">You’re part of this story</p>
       <h2 class="h2">Come and see what God is doing.</h2>
       <p>Join us this Sunday at 09:00 AM — or tell someone about the place where you found love, faith and family.</p>
@@ -1059,40 +1152,86 @@ HOME_HEAD = """
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Church",
-  "name": "Royal Priesthood Assemblies International",
-  "slogan": "A place of love where everyone counts.",
-  "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
-  "logo": "https://royal-priesthood-assemblies-int-l-1.onrender.com/logo-rpai.png",
-  "image": "https://royal-priesthood-assemblies-int-l-1.onrender.com/photos/hero-about.webp",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Otwa Events, Long Acres, Ndeke Road",
-    "addressLocality": "Lusaka",
-    "addressCountry": "ZM"
-  },
-  "telephone": "+260977490080",
-  "email": "royalpriesthoodassembliesintl@gmail.com",
-  "sameAs": [
-    "https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/",
-    "https://www.youtube.com/@royalpriesthoodassemblies"
-  ],
-  "event": {
-    "@type": "Event",
-    "name": "Sunday Divine Service",
-    "startDate": "2026-11-15T09:00:00+02:00",
-    "eventSchedule": {
-      "@type": "Schedule",
-      "byDay": "Sunday",
-      "startTime": "09:00",
-      "repeatFrequency": "P1W"
+  "@graph": [
+    {
+      "@type": "Church",
+      "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church",
+      "name": "Royal Priesthood Assemblies International",
+      "alternateName": "RPAI",
+      "slogan": "A place of love where everyone counts.",
+      "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/logo-rpai.png"
+      },
+      "image": "https://royal-priesthood-assemblies-int-l-1.onrender.com/og-rpai.jpg",
+      "description": "A church family in Lusaka, Zambia, gathered around the Word, prayer and one another. Sunday Divine Service at 09:00 AM.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Otwa Events, Long Acres, Ndeke Road",
+        "addressLocality": "Lusaka",
+        "addressCountry": "ZM"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -15.3875,
+        "longitude": 28.3228
+      },
+      "telephone": "+260977490080",
+      "email": "royalpriesthoodassembliesintl@gmail.com",
+      "priceRange": "Free",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "09:00",
+          "closes": "12:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Wednesday",
+          "opens": "17:30",
+          "closes": "20:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/",
+        "https://www.youtube.com/@royalpriesthoodassemblies"
+      ]
     },
-    "location": {
-      "@type": "Place",
-      "name": "Otwa Events, Long Acres",
-      "address": "Ndeke Road, Lusaka, Zambia"
+    {
+      "@type": "WebSite",
+      "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#website",
+      "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
+      "name": "Royal Priesthood Assemblies International",
+      "publisher": { "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "Event",
+      "name": "Sunday Divine Service",
+      "startDate": "2026-11-15T09:00:00+02:00",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "organizer": { "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church" },
+      "eventSchedule": {
+        "@type": "Schedule",
+        "byDay": "Sunday",
+        "startTime": "09:00",
+        "repeatFrequency": "P1W"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "Otwa Events, Long Acres",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Otwa Events, Long Acres, Ndeke Road",
+          "addressLocality": "Lusaka",
+          "addressCountry": "ZM"
+        }
+      }
     }
-  }
+  ]
 }
 </script>
 """
@@ -1120,7 +1259,7 @@ MINISTRIES_BODY = f"""
         </blockquote>
       </div>
       <div class="split__media reveal" data-delay="1">
-        <img src="photos/card-fellowship.webp" alt="Fellowship at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:390px">
+        <img src="photos/thumb-fellowship.webp" srcset="photos/quick-fellowship.webp 420w, photos/thumb-fellowship.webp 640w, photos/card-fellowship.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Fellowship at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:390px">
       </div>
     </div>
   </div>
@@ -1131,7 +1270,7 @@ MINISTRIES_BODY = f"""
     {section_head("Our ministries", "Find your people.", "Four communities, one family. Each one is a doorway into deeper fellowship and service.")}
     <div class="grid grid-2">
       <article class="card card--hover reveal">
-        <div class="card__media card__media--wide"><img src="photos/card-men.webp" alt="Royal Men's Fellowship" width="900" height="560" loading="lazy" decoding="async"></div>
+        <div class="card__media card__media--wide"><img src="photos/thumb-men.webp" srcset="photos/quick-men.webp 420w, photos/thumb-men.webp 640w, photos/card-men.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Royal Men's Fellowship" width="900" height="560" loading="lazy" decoding="async"></div>
         <div class="card__body">
           <span class="card__label">Men</span>
           <h3 class="h3 mt-1">Royal Men’s Fellowship <span class="muted">(The Pillars)</span></h3>
@@ -1140,7 +1279,7 @@ MINISTRIES_BODY = f"""
         </div>
       </article>
       <article class="card card--hover reveal" data-delay="1">
-        <div class="card__media card__media--wide"><img src="photos/card-women.webp" alt="Virtuous Women's Ministry" width="900" height="560" loading="lazy" decoding="async"></div>
+        <div class="card__media card__media--wide"><img src="photos/thumb-women.webp" srcset="photos/quick-women.webp 420w, photos/thumb-women.webp 640w, photos/card-women.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Virtuous Women's Ministry" width="900" height="560" loading="lazy" decoding="async"></div>
         <div class="card__body">
           <span class="card__label">Women</span>
           <h3 class="h3 mt-1">Virtuous Women’s Ministry</h3>
@@ -1149,7 +1288,7 @@ MINISTRIES_BODY = f"""
         </div>
       </article>
       <article class="card card--hover reveal" data-delay="2">
-        <div class="card__media card__media--wide"><img src="photos/card-youth.webp" alt="NextGen Youth and Teen Ministry" width="900" height="560" loading="lazy" decoding="async"></div>
+        <div class="card__media card__media--wide"><img src="photos/thumb-youth.webp" srcset="photos/quick-youth.webp 420w, photos/thumb-youth.webp 640w, photos/card-youth.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="NextGen Youth and Teen Ministry" width="900" height="560" loading="lazy" decoding="async"></div>
         <div class="card__body">
           <span class="card__label">Next generation</span>
           <h3 class="h3 mt-1">NextGen Youth &amp; Teen Ministry</h3>
@@ -1158,7 +1297,7 @@ MINISTRIES_BODY = f"""
         </div>
       </article>
       <article class="card card--hover reveal" data-delay="3">
-        <div class="card__media card__media--wide"><img src="photos/card-fellowship.webp" alt="Home cell and branch fellowships" width="900" height="560" loading="lazy" decoding="async"></div>
+        <div class="card__media card__media--wide"><img src="photos/thumb-leadership.webp" srcset="photos/quick-leadership.webp 420w, photos/thumb-leadership.webp 640w, photos/card-leadership.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Home cell and branch fellowships" width="900" height="560" loading="lazy" decoding="async"></div>
         <div class="card__body">
           <span class="card__label">Home cells</span>
           <h3 class="h3 mt-1">Home Cell &amp; Branch Fellowships</h3>
@@ -1185,7 +1324,7 @@ MINISTRIES_BODY = f"""
   <div class="container">
     <div class="split split--wide">
       <div class="split__media reveal">
-        <img src="photos/card-community.webp" alt="Serving the community at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:390px">
+        <img src="photos/thumb-community.webp" srcset="photos/quick-community.webp 420w, photos/thumb-community.webp 640w, photos/card-community.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Serving the community at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:390px">
       </div>
       <div class="split__body reveal" data-delay="1">
         <p class="eyebrow">Serve with us</p>
@@ -1301,7 +1440,7 @@ GALLERY_BODY = f"""
         </div>
       </div>
       <a class="video-card reveal" data-delay="1" href="{YOUTUBE}" target="_blank" rel="noopener" aria-label="Watch RPAI on YouTube">
-        <img src="photos/card-choir.webp" alt="Worship at RPAI" width="900" height="600" loading="lazy" decoding="async">
+        <img src="photos/thumb-music.webp" srcset="photos/quick-music.webp 420w, photos/thumb-music.webp 640w, photos/card-music.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Worship at RPAI" width="900" height="600" loading="lazy" decoding="async">
         <span class="video-card__play"><span>{ICONS['play']}</span></span>
         <span class="video-card__label">Watch worship and messages on YouTube</span>
       </a>
@@ -1360,7 +1499,7 @@ IMPACT_BODY = f"""
     "Grace that reaches beyond the walls.",
     "What happens on Sunday is meant to shape Monday. We measure impact by lives being formed, families being strengthened and love being carried into the community.",
     f'<div class="page-hero__actions">{button("Share your story", "testimonies.html#share")}{button("Our story", "about.html", "btn-outline")}</div>',
-    image="photos/hero-about.webp",
+    image="photos/hero-impact.webp",
 )}
 
 <section class="section section--tight">
@@ -1402,7 +1541,7 @@ IMPACT_BODY = f"""
         </ul>
         <div class="row">{button("Send a prayer request", "contact.html#prayer")}{button("Plan your visit", "branches-transport.html", "btn-ghost")}</div>
       </div>
-      <div class="feature__media"><img src="photos/card-prayer.webp" alt="Prayer at RPAI" width="900" height="700" loading="lazy" decoding="async"></div>
+      <div class="feature__media"><img src="photos/thumb-welcome.webp" srcset="photos/quick-welcome.webp 420w, photos/thumb-welcome.webp 640w, photos/card-welcome.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Prayer at RPAI" width="900" height="700" loading="lazy" decoding="async"></div>
     </div>
   </div>
 </section>
@@ -1422,7 +1561,7 @@ IMPACT_BODY = f"""
         <div class="row mt-2">{button("Plan your visit", "branches-transport.html")}{button("Find a home cell", "branches-transport.html#cells", "btn-ghost")}</div>
       </div>
       <div class="split__media reveal" data-delay="1">
-        <img src="photos/card-congregation.webp" alt="The congregation gathered at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:390px">
+        <img src="photos/thumb-congregation.webp" srcset="photos/quick-congregation.webp 420w, photos/thumb-congregation.webp 640w, photos/card-congregation.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="The congregation gathered at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:390px">
       </div>
     </div>
   </div>
@@ -1593,25 +1732,38 @@ GIVE_BODY = f"""
       <p class="lead">Give directly to any of our Zambian bank accounts. Please use your name as the reference so the church can acknowledge your gift.</p>
     </div>
 
-    <h3 class="h3 mt-3 reveal">Mobile Money</h3>
+    <h3 class="h3 mt-4 reveal">Mobile Money</h3>
     <div class="grid grid-3 mt-2">
-      <article class="reveal" style="text-align:center">
+      <article class="pay-card reveal">
+        <div class="pay-card__logo"><img src="https://cdn.simpleicons.org/airtel/EB1C24" alt="Airtel Mobile Money" width="72" height="72" loading="lazy" decoding="async"></div>
         <h4 class="h3 mt-2">AIRTEL MOBILE MONEY</h4>
-        <p class="rpai-bank-pending">To be confirmed</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+        </dl>
       </article>
-      <article class="reveal" data-delay="1" style="text-align:center">
+      <article class="pay-card reveal" data-delay="1">
+        <div class="pay-card__logo"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN Mobile Money" width="72" height="72" loading="lazy" decoding="async"></div>
         <h4 class="h3 mt-2">MTN MOBILE MONEY</h4>
-        <p class="rpai-bank-pending">To be confirmed</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+        </dl>
       </article>
-      <article class="reveal" data-delay="2" style="text-align:center">
+      <article class="pay-card reveal" data-delay="2">
+        <div class="pay-card__logo"><img src="payment-zamtel.png" alt="Zamtel Mobile Money" width="72" height="72" loading="lazy" decoding="async"></div>
         <h4 class="h3 mt-2">ZAMTEL MOBILE MONEY</h4>
-        <p class="rpai-bank-pending">To be confirmed</p>
+        <dl class="detail-list mt-2">
+          <div><dt>Number</dt><dd class="rpai-bank-pending">To be confirmed</dd></div>
+          <div><dt>Name</dt><dd>Royal Priesthood Assemblies International</dd></div>
+        </dl>
       </article>
     </div>
 
     <h3 class="h3 mt-4 reveal">Zambian banks</h3>
     <div class="grid grid-2 mt-2">
-      <article class="reveal">
+      <article class="pay-card reveal">
+        <div class="pay-card__logo pay-card__logo--wide"><img src="bank-zanaco.png" alt="Zanaco logo" width="120" height="32" loading="lazy" decoding="async"></div>
         <h3 class="h3 mt-2">Zanaco</h3>
         <p class="small muted">Zambia National Commercial Bank</p>
         <dl class="detail-list mt-2">
@@ -1620,7 +1772,8 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="reveal" data-delay="1">
+      <article class="pay-card reveal" data-delay="1">
+        <div class="pay-card__logo pay-card__logo--wide"><img src="bank-stanbic.svg" alt="Stanbic Bank logo" width="120" height="32" loading="lazy" decoding="async"></div>
         <h3 class="h3 mt-2">Stanbic Bank</h3>
         <p class="small muted">Stanbic Bank Zambia</p>
         <dl class="detail-list mt-2">
@@ -1629,7 +1782,8 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="reveal">
+      <article class="pay-card reveal">
+        <div class="pay-card__logo"><img src="bank-absa.png" alt="Absa Bank logo" width="64" height="64" loading="lazy" decoding="async"></div>
         <h3 class="h3 mt-2">Absa Bank</h3>
         <p class="small muted">Absa Bank Zambia</p>
         <dl class="detail-list mt-2">
@@ -1638,7 +1792,8 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="reveal" data-delay="1">
+      <article class="pay-card reveal" data-delay="1">
+        <div class="pay-card__logo pay-card__logo--wide"><img src="bank-fnb.png" alt="First National Bank logo" width="110" height="60" loading="lazy" decoding="async"></div>
         <h3 class="h3 mt-2">First National Bank</h3>
         <p class="small muted">FNB Zambia</p>
         <dl class="detail-list mt-2">
@@ -1647,7 +1802,8 @@ GIVE_BODY = f"""
           <div><dt>Centre</dt><dd>Lusaka Main Centre</dd></div>
         </dl>
       </article>
-      <article class="reveal">
+      <article class="pay-card reveal">
+        <div class="pay-card__logo pay-card__logo--wide"><img src="bank-standard-chartered.svg" alt="Standard Chartered logo" width="130" height="51" loading="lazy" decoding="async"></div>
         <h3 class="h3 mt-2">Standard Chartered</h3>
         <p class="small muted">Standard Chartered Zambia</p>
         <dl class="detail-list mt-2">
@@ -1668,27 +1824,27 @@ GIVE_BODY = f"""
       <p class="form-note mt-2">For help with any of these details, contact the church office.</p>
     </div>
 
-    <div class="footer-marquee mt-4" aria-hidden="true">
+    <div class="logo-strip mt-4" aria-hidden="true">
       <div class="marquee">
         <div class="marquee__group">
-          <img src="https://cdn.simpleicons.org/airtel/EB1C24" alt="Airtel" width="80" height="80" loading="lazy" decoding="async">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN" width="80" height="80" loading="lazy" decoding="async">
-          <img src="payment-zamtel.png" alt="Zamtel" width="80" height="80" loading="lazy" decoding="async">
-          <img src="bank-zanaco.png" alt="Zanaco" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-absa.png" alt="Absa Bank" width="48" height="48" loading="lazy" decoding="async">
-          <img src="bank-fnb.png" alt="First National Bank" width="96" height="54" loading="lazy" decoding="async">
-          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="150" height="59" loading="lazy" decoding="async">
+          <img src="https://cdn.simpleicons.org/airtel/EB1C24" alt="Airtel" width="56" height="56" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN" width="56" height="56" loading="lazy" decoding="async">
+          <img src="payment-zamtel.png" alt="Zamtel" width="56" height="56" loading="lazy" decoding="async">
+          <img src="bank-zanaco.png" alt="Zanaco" width="150" height="40" loading="lazy" decoding="async">
+          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="150" height="40" loading="lazy" decoding="async">
+          <img src="bank-absa.png" alt="Absa Bank" width="56" height="56" loading="lazy" decoding="async">
+          <img src="bank-fnb.png" alt="First National Bank" width="110" height="60" loading="lazy" decoding="async">
+          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="160" height="63" loading="lazy" decoding="async">
         </div>
         <div class="marquee__group">
-          <img src="https://cdn.simpleicons.org/airtel/EB1C24" alt="Airtel" width="80" height="80" loading="lazy" decoding="async">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN" width="80" height="80" loading="lazy" decoding="async">
-          <img src="payment-zamtel.png" alt="Zamtel" width="80" height="80" loading="lazy" decoding="async">
-          <img src="bank-zanaco.png" alt="Zanaco" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="120" height="32" loading="lazy" decoding="async">
-          <img src="bank-absa.png" alt="Absa Bank" width="48" height="48" loading="lazy" decoding="async">
-          <img src="bank-fnb.png" alt="First National Bank" width="96" height="54" loading="lazy" decoding="async">
-          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="150" height="59" loading="lazy" decoding="async">
+          <img src="https://cdn.simpleicons.org/airtel/EB1C24" alt="Airtel" width="56" height="56" loading="lazy" decoding="async">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/MTN_Logo.svg" alt="MTN" width="56" height="56" loading="lazy" decoding="async">
+          <img src="payment-zamtel.png" alt="Zamtel" width="56" height="56" loading="lazy" decoding="async">
+          <img src="bank-zanaco.png" alt="Zanaco" width="150" height="40" loading="lazy" decoding="async">
+          <img src="bank-stanbic.svg" alt="Stanbic Bank" width="150" height="40" loading="lazy" decoding="async">
+          <img src="bank-absa.png" alt="Absa Bank" width="56" height="56" loading="lazy" decoding="async">
+          <img src="bank-fnb.png" alt="First National Bank" width="110" height="60" loading="lazy" decoding="async">
+          <img src="bank-standard-chartered.svg" alt="Standard Chartered" width="160" height="63" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
@@ -1836,7 +1992,7 @@ CONFERENCE_BODY = f"""
   <div class="container">
     <div class="split split--wide">
       <div class="split__media reveal">
-        <img src="photos/card-choir.webp" alt="Worship team leading the church in praise" width="1100" height="700" loading="lazy" decoding="async" style="min-height:400px">
+        <img src="photos/thumb-pastor.webp" srcset="photos/quick-pastor.webp 420w, photos/thumb-pastor.webp 640w, photos/card-pastor.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Worship team leading the church in praise" width="1100" height="700" loading="lazy" decoding="async" style="min-height:400px">
       </div>
       <div class="split__body reveal" data-delay="1">
         <p class="eyebrow">Online with RPAI</p>
@@ -1921,7 +2077,7 @@ CONFERENCE_BODY = f"""
         </div>
       </div>
       <div class="split__media reveal" data-delay="1">
-        <img src="photos/card-worship.webp" alt="Worship at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:370px">
+        <img src="photos/thumb-worship.webp" srcset="photos/quick-worship.webp 420w, photos/thumb-worship.webp 640w, photos/card-worship.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Worship at RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:370px">
       </div>
     </div>
   </div>
@@ -2086,7 +2242,7 @@ ATTEND_BODY = f"""
     "Tell people you’re coming.",
     "Make your own welcome card, then share it with family and friends. Add your name and a photo — everything stays on your device.",
     f'<div class="page-hero__actions">{button("Plan your visit", "branches-transport.html")}{button("Get directions", MAP_URL, "btn-outline")}</div>',
-    image="photos/hero-about.webp",
+    image="photos/hero-attend.webp",
 )}
 
 <section class="section">
@@ -2149,7 +2305,7 @@ ATTEND_BODY = f"""
         <div class="row mt-2">{button("Plan your visit", "branches-transport.html")}{button("Ask about transport", WHATSAPP + "?text=Hello%20RPAI%2C%20I%20am%20coming%20this%20Sunday%20and%20would%20like%20to%20ask%20about%20transport.", "btn-ghost")}</div>
       </div>
       <div class="split__media reveal" data-delay="1">
-        <img src="photos/card-welcome.webp" alt="Welcome to RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:380px">
+        <img src="photos/thumb-welcome.webp" srcset="photos/quick-welcome.webp 420w, photos/thumb-welcome.webp 640w, photos/card-welcome.webp 1000w" sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 520px" alt="Welcome to RPAI" width="900" height="700" loading="lazy" decoding="async" style="min-height:380px">
       </div>
     </div>
   </div>
@@ -2189,7 +2345,7 @@ PRIVACY_BODY = f"""
     "Your privacy matters to us.",
     "How Royal Priesthood Assemblies International handles personal information shared through this website.",
     "",
-    image="photos/hero-contact.webp",
+    image="photos/hero-library.webp",
 )}
 
 <section class="section">
@@ -2243,7 +2399,7 @@ TERMS_BODY = f"""
     "A few simple terms.",
     "Please read these terms before using the Royal Priesthood Assemblies International website.",
     "",
-    image="photos/hero-contact.webp",
+    image="photos/hero-conference.webp",
 )}
 
 <section class="section">
