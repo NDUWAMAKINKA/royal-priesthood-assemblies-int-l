@@ -3116,3 +3116,8 @@ html.js .reveal[data-delay="3"] { transition-delay: .24s; }
 .give-logo img { max-width: 100%; max-height: 80px; width: auto; height: auto; object-fit: contain; }
 .give-logo--wide img { max-height: 52px; }
 .rpai-bank-pending { color: var(--gold-light); font-weight: 600; }
+
+.media-single { position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--hair); background: var(--surface); }
+.media-single img { width: 100%; height: auto; object-fit: contain; display: block; }
+.media-single figcaption { position: absolute; inset-inline: 0; bottom: 0; padding: 26px 14px 12px; background: linear-gradient(to top, rgba(0,0,0,.7), transparent); color: #fff; font-size: 12.5px; }
+.media-single figcaption span { display: block; color: var(--gold-light); font-size: 10px; font-weight: 650; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 3px; }

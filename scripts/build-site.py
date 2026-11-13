@@ -864,16 +864,10 @@ HOME_BODY = f"""
         </div>
       </div>
       <div class="split__media reveal" data-delay="1">
-        <div class="media-stack">
-          <figure>
-            <img src="photos/card-family.webp" alt="A family at RPAI" width="600" height="750" loading="lazy" decoding="async">
-            <figcaption><span>Our shepherd</span>Apostle Dr. Mighty Zunga</figcaption>
-          </figure>
-          <figure>
-            <img src="photos/card-community.webp" alt="Love in action at RPAI" width="480" height="640" loading="lazy" decoding="async">
-            <figcaption><span>One family</span>Every generation</figcaption>
-          </figure>
-        </div>
+        <figure class="media-single">
+          <img src="photos/card-congregation.webp" alt="The RPAI church family gathered together" width="900" height="600" loading="lazy" decoding="async">
+          <figcaption><span>Our family</span>Everyone counts</figcaption>
+        </figure>
       </div>
     </div>
   </div>
