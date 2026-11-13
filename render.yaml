@@ -43,9 +43,9 @@ services:
       # static-site name. The GitHub Pages origin stays allowed during the
       # transition.
       - key: ALLOWED_ORIGIN
-        value: https://nduwamakinka.github.io,https://royal-priesthood-assemblies-int-l-1.onrender.com,https://rpai-church-site.onrender.com
+        value: https://nduwamakinka.github.io,https://royalpriesthoodassembliesinternational.org,https://rpai-church-site.onrender.com
       - key: PUBLIC_SITE_URL
-        value: https://royal-priesthood-assemblies-int-l-1.onrender.com
+        value: https://royalpriesthoodassembliesinternational.org
       # Online meeting admin. The pastor uses /admin on this same API host.
       - key: CONFERENCE_ADMIN_PASSWORD
         sync: false

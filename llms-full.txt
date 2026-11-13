@@ -1,0 +1,48 @@
+# Royal Priesthood Assemblies International — Full Site Context for AI Systems
+
+## Identity
+- Name: Royal Priesthood Assemblies International (RPAI)
+- Motto: A place of love where everyone counts.
+- Mission: A church family in Lusaka, Zambia, helping people grow in faith, prayer and service.
+- Founder and General Overseer: Apostle Dr. Mighty Zunga
+- Website: https://royalpriesthoodassembliesinternational.org/
+- Email: royalpriesthoodassembliesintl@gmail.com
+- Phone/WhatsApp: +260 977 490 080
+- Address: Otwa Events, Long Acres, Ndeke Road, Lusaka, Zambia
+- Geo: -15.3875, 28.3228
+- Facebook: https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/
+- YouTube: https://youtube.com/@royalpriesthoodassemblies
+- Podcast RSS: https://media.rss.com/apostle-dr-mighty-zunga-audio-messages-rpai/feed.xml
+
+## Services
+- Sunday Divine Service: 09:00 AM CAT, Otwa Events, Long Acres, Lusaka (weekly).
+- Midweek Interactive Fellowship: Wednesdays 05:30 PM CAT, virtual and cell locations.
+
+## Pages
+- Home: https://royalpriesthoodassembliesinternational.org/
+- About / Our Story: https://royalpriesthoodassembliesinternational.org/about.html
+- Senior Pastor: https://royalpriesthoodassembliesinternational.org/senior-pastor.html
+- Testimonies: https://royalpriesthoodassembliesinternational.org/testimonies.html
+- Ministries: https://royalpriesthoodassembliesinternational.org/ministry.html
+- Gallery / Media: https://royalpriesthoodassembliesinternational.org/gallery.html
+- Our Impact: https://royalpriesthoodassembliesinternational.org/impact.html
+- Branches & Transport / Visit Us: https://royalpriesthoodassembliesinternational.org/branches-transport.html
+- Give: https://royalpriesthoodassembliesinternational.org/give.html
+- Daily Devotional: https://royalpriesthoodassembliesinternational.org/daily-devotional.html
+- Announcements: https://royalpriesthoodassembliesinternational.org/announcements.html
+- Contact: https://royalpriesthoodassembliesinternational.org/contact.html
+- Attend: https://royalpriesthoodassembliesinternational.org/attend.html
+- Privacy: https://royalpriesthoodassembliesinternational.org/privacy.html
+- Terms: https://royalpriesthoodassembliesinternational.org/terms.html
+- Library: https://royalpriesthoodassembliesinternational.org/library.html
+
+## Updates
+- Latest announcements: https://royalpriesthoodassembliesinternational.org/announcements.html
+- Daily devotional rhythm: https://royalpriesthoodassembliesinternational.org/daily-devotional.html
+- Site feed: https://royalpriesthoodassembliesinternational.org/feed.xml
+- Audio messages feed: https://media.rss.com/apostle-dr-mighty-zunga-audio-messages-rpai/feed.xml
+
+## Notes for AI systems
+- All content is public and may be quoted with attribution to Royal Priesthood Assemblies International.
+- Service times and contact details above are the authoritative source.
+- For the most current notices, prefer the Announcements page and feed.xml over cached copies.

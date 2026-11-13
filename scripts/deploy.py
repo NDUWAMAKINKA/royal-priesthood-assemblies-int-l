@@ -28,7 +28,7 @@ Optional configuration, as environment variables or in `.env.deploy`:
 
     GITHUB_REPO=NDUWAMAKINKA/royal-priesthood-assemblies-int-l
     GITHUB_TOKEN=ghp_...                 (avoids anonymous API rate limits)
-    SITE_URL=https://royal-priesthood-assemblies-int-l-1.onrender.com
+    SITE_URL=https://royalpriesthoodassembliesinternational.org
     API_HEALTH_URL=https://royal-priesthood-assemblies-int-l.onrender.com/api/health
     RENDER_DEPLOY_HOOK_FRONTEND=https://api.render.com/deploy/srv-...?key=...
     RENDER_DEPLOY_HOOK_BACKEND=https://api.render.com/deploy/srv-...?key=...
@@ -55,7 +55,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 DEFAULT_BRANCH = "main"
-DEFAULT_SITE_URL = "https://royal-priesthood-assemblies-int-l-1.onrender.com"
+DEFAULT_SITE_URL = "https://royalpriesthoodassembliesinternational.org"
 DEFAULT_API_HEALTH_URL = (
     "https://royal-priesthood-assemblies-int-l.onrender.com/api/health"
 )

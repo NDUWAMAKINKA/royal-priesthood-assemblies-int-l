@@ -3,7 +3,7 @@
 
   var TOKEN_KEY = 'rpai-conference-admin-token';
   var FALLBACK_PUBLIC_PAGE =
-    'https://royal-priesthood-assemblies-int-l-1.onrender.com/video-conference.html';
+    'https://royalpriesthoodassembliesinternational.org/video-conference.html';
 
   var state = {
     token: '',

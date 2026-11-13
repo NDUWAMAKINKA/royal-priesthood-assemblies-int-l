@@ -48,7 +48,7 @@ python scripts/deploy.py -m "what changed"    # any platform
 ```
 
 - The church website is served by Render at
-  <https://royal-priesthood-assemblies-int-l-1.onrender.com> and mirrored on
+  <https://royalpriesthoodassembliesinternational.org> and mirrored on
   GitHub Pages.
 - The giving API runs on Render at
   <https://royal-priesthood-assemblies-int-l.onrender.com> and stores payments

@@ -166,7 +166,7 @@ until verified details are added.
    added.
 3. In Paystack, set the webhook URL to
    `https://royal-priesthood-assemblies-int-l.onrender.com/api/webhook`.
-4. Open `https://royal-priesthood-assemblies-int-l-1.onrender.com/` and
+4. Open `https://royalpriesthoodassembliesinternational.org/` and
    confirm the church pages load.
 5. The Give page still shows the verified static details. It does not silently
    start charging anyone. A payment form must be added and reviewed before the
@@ -188,7 +188,7 @@ optional backup.
 The public page is:
 
 ```text
-https://royal-priesthood-assemblies-int-l-1.onrender.com/video-conference.html
+https://royalpriesthoodassembliesinternational.org/video-conference.html
 ```
 
 The API stores meeting settings and registrations in the

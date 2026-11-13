@@ -9,7 +9,7 @@
 - Location: Otwa Events, Long Acres, Ndeke Road, Lusaka, Zambia
 - Sunday Divine Service: 09:00 AM CAT
 - Midweek Interactive Fellowship: Wednesdays at 05:30 PM CAT, virtual and cell locations
-- Website: https://royal-priesthood-assemblies-int-l-1.onrender.com/
+- Website: https://royalpriesthoodassembliesinternational.org/
 - Email: royalpriesthoodassembliesintl@gmail.com
 - Phone/WhatsApp: +260 977 490 080
 - Facebook: https://www.facebook.com/p/ROYAL-Priesthood-100064645061857/
@@ -17,16 +17,32 @@
 - Podcast RSS: https://media.rss.com/apostle-dr-mighty-zunga-audio-messages-rpai/feed.xml
 
 ## Key Pages
-- Home: https://royal-priesthood-assemblies-int-l-1.onrender.com/
-- About: https://royal-priesthood-assemblies-int-l-1.onrender.com/about.html
-- Ministries: https://royal-priesthood-assemblies-int-l-1.onrender.com/ministry.html
-- Gallery: https://royal-priesthood-assemblies-int-l-1.onrender.com/gallery.html
-- Daily Devotional: https://royal-priesthood-assemblies-int-l-1.onrender.com/daily-devotional.html
-- Announcements: https://royal-priesthood-assemblies-int-l-1.onrender.com/announcements.html
-- Branches & Transport: https://royal-priesthood-assemblies-int-l-1.onrender.com/branches-transport.html
-- Video Conference: https://royal-priesthood-assemblies-int-l-1.onrender.com/video-conference.html
-- Give: https://royal-priesthood-assemblies-int-l-1.onrender.com/give.html
-- Contact: https://royal-priesthood-assemblies-int-l-1.onrender.com/contact.html
+- Home: https://royalpriesthoodassembliesinternational.org/
+- About: https://royalpriesthoodassembliesinternational.org/about.html
+- Ministries: https://royalpriesthoodassembliesinternational.org/ministry.html
+- Gallery: https://royalpriesthoodassembliesinternational.org/gallery.html
+- Daily Devotional: https://royalpriesthoodassembliesinternational.org/daily-devotional.html
+- Announcements: https://royalpriesthoodassembliesinternational.org/announcements.html
+- Branches & Transport: https://royalpriesthoodassembliesinternational.org/branches-transport.html
+- Video Conference: https://royalpriesthoodassembliesinternational.org/video-conference.html
+- Give: https://royalpriesthoodassembliesinternational.org/give.html
+- Contact: https://royalpriesthoodassembliesinternational.org/contact.html
+
+## Updates (check these for the latest)
+- Announcements: https://royalpriesthoodassembliesinternational.org/announcements.html
+- Daily Devotional: https://royalpriesthoodassembliesinternational.org/daily-devotional.html
+- Podcast / audio messages RSS: https://media.rss.com/apostle-dr-mighty-zunga-audio-messages-rpai/feed.xml
+- Site updates feed: https://royalpriesthoodassembliesinternational.org/feed.xml
+
+## Key People
+- Apostle Dr. Mighty Zunga — Founder and General Overseer
+- Contact (WhatsApp/phone): +260 977 490 080
+- Email: royalpriesthoodassembliesintl@gmail.com
+
+## Crawling & Indexing
+- Sitemap: https://royalpriesthoodassembliesinternational.org/sitemap.xml
+- Full text for LLMs: https://royalpriesthoodassembliesinternational.org/llms-full.txt
+- AI crawlers are explicitly allowed in robots.txt.
 
 ## Content Focus
 This website contains information about church services, ministries, events, worship recordings, audio messages and giving opportunities. Content is faith-based, with a focus on community outreach, discipleship and worship.

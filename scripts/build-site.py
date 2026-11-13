@@ -18,7 +18,7 @@ framework.
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://royal-priesthood-assemblies-int-l-1.onrender.com"
+SITE = "https://royalpriesthoodassembliesinternational.org"
 
 CHURCH = "Royal Priesthood Assemblies International"
 SHORT = "RPAI"
@@ -387,7 +387,6 @@ BASE = """<!doctype html>
   {{footer}}
   <script src="js__rpa30.js?v=2" defer></script>
   <script src="js__rpai.js?v=64" defer></script>
-  <script src="js__i18n.js?v=1" defer></script>
   {{scripts_extra}}
 </body>
 </html>
@@ -1156,16 +1155,16 @@ HOME_HEAD = """
   "@graph": [
     {
       "@type": "Church",
-      "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church",
+      "@id": "https://royalpriesthoodassembliesinternational.org/#church",
       "name": "Royal Priesthood Assemblies International",
       "alternateName": "RPAI",
       "slogan": "A place of love where everyone counts.",
-      "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
+      "url": "https://royalpriesthoodassembliesinternational.org/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/logo-rpai.png"
+        "url": "https://royalpriesthoodassembliesinternational.org/logo-rpai.png"
       },
-      "image": "https://royal-priesthood-assemblies-int-l-1.onrender.com/og-rpai.jpg",
+      "image": "https://royalpriesthoodassembliesinternational.org/og-rpai.jpg",
       "description": "A church family in Lusaka, Zambia, gathered around the Word, prayer and one another. Sunday Divine Service at 09:00 AM.",
       "address": {
         "@type": "PostalAddress",
@@ -1202,10 +1201,10 @@ HOME_HEAD = """
     },
     {
       "@type": "WebSite",
-      "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#website",
-      "url": "https://royal-priesthood-assemblies-int-l-1.onrender.com/",
+      "@id": "https://royalpriesthoodassembliesinternational.org/#website",
+      "url": "https://royalpriesthoodassembliesinternational.org/",
       "name": "Royal Priesthood Assemblies International",
-      "publisher": { "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church" },
+      "publisher": { "@id": "https://royalpriesthoodassembliesinternational.org/#church" },
       "inLanguage": "en"
     },
     {
@@ -1214,7 +1213,7 @@ HOME_HEAD = """
       "startDate": "2026-11-15T09:00:00+02:00",
       "eventStatus": "https://schema.org/EventScheduled",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "organizer": { "@id": "https://royal-priesthood-assemblies-int-l-1.onrender.com/#church" },
+      "organizer": { "@id": "https://royalpriesthoodassembliesinternational.org/#church" },
       "eventSchedule": {
         "@type": "Schedule",
         "byDay": "Sunday",

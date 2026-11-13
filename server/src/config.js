@@ -53,7 +53,7 @@ function parseOrigins(value) {
 
 const publicSiteUrl =
   process.env.PUBLIC_SITE_URL ||
-  'https://royal-priesthood-assemblies-int-l-1.onrender.com';
+  'https://royalpriesthoodassembliesinternational.org';
 
 const allowedOrigins = parseOrigins(
   process.env.ALLOWED_ORIGIN ||
@@ -61,7 +61,7 @@ const allowedOrigins = parseOrigins(
       'http://127.0.0.1:8123',
       'http://localhost:8123',
       'https://nduwamakinka.github.io',
-      'https://royal-priesthood-assemblies-int-l-1.onrender.com',
+      'https://royalpriesthoodassembliesinternational.org',
       'https://rpai-church-site.onrender.com',
     ].join(',')
 );

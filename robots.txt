@@ -26,4 +26,8 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://royal-priesthood-assemblies-int-l-1.onrender.com/sitemap.xml
+# LLM context files
+# https://royalpriesthoodassembliesinternational.org/llms.txt
+# https://royalpriesthoodassembliesinternational.org/llms-full.txt
+
+Sitemap: https://royalpriesthoodassembliesinternational.org/sitemap.xml
