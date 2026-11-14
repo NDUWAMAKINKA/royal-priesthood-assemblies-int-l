@@ -36,31 +36,35 @@
 
 	var NAV_KEYS = {
 		'index.html': 'nav.home',
-		'about.html': 'nav.about',
+		'about.html': 'nav.story',
+		'senior-pastor.html': 'nav.pastor',
+		'testimonies.html': 'nav.testimonies',
 		'ministry.html': 'nav.ministries',
 		'gallery.html': 'nav.gallery',
-		'library.html': 'nav.library',
-		'video-conference.html': 'nav.conference',
+		'impact.html': 'nav.impact',
+		'branches-transport.html': 'nav.visit',
+		'give.html': 'nav.give',
 		'daily-devotional.html': 'nav.devotional',
 		'announcements.html': 'nav.announcements',
-		'branches-transport.html': 'nav.branches',
-		'give.html': 'nav.give',
-		'contact.html': 'nav.contact'
+		'contact.html': 'nav.contact',
+		'attend.html': 'nav.attend'
 	};
 
 var DICTIONARY = {
 		en: {
 			'nav.home': 'Home',
-			'nav.about': 'About',
+			'nav.story': 'Our Story',
+			'nav.pastor': 'Senior Pastor',
+			'nav.testimonies': 'Testimonies',
 			'nav.ministries': 'Ministries',
-			'nav.gallery': 'Gallery',
-			'nav.library': 'Library',
-			'nav.conference': 'Video Conference',
+			'nav.gallery': 'Media Gallery',
+			'nav.impact': 'Our Impact',
+			'nav.visit': 'Visit Us',
+			'nav.give': 'Give',
 			'nav.devotional': 'Daily Devotional',
 			'nav.announcements': 'Announcements',
-			'nav.branches': 'Branches & Transport',
-			'nav.give': 'Give',
-			'nav.contact': 'Contact',
+			'nav.contact': 'Contact Us',
+			'nav.attend': 'I am visiting church on Sunday',
 			'lang.zambian': 'Zambian languages',
 			'lang.world': 'World languages',
 			'lang.select': 'Select language',
@@ -605,7 +609,16 @@ var DICTIONARY = {
 	}
 
 	/* ------------------------------------------------------- Page translator */
-	var originalNodes = new Map();
+	/* Merge nav translations for the redesigned site. */
+var NAV_TRANSLATIONS = {"bem": {"nav.home": "Ing'anda", "nav.story": "Ilyashi lyesu", "nav.pastor": "Kacema Umukalamba", "nav.testimonies": "Ubushininkisho", "nav.ministries": "Imilimo", "nav.gallery": "Icikuulwa ca milabasa", "nav.impact": "Ukukuma Kwesu", "nav.visit": "Tutandalileni", "nav.give": "Ukupeela", "nav.devotional": "Ukupepa kwa cila bushiku", "nav.announcements": "Ifyakubilisha", "nav.contact": "Tulanshanyeni", "nav.attend": "Ndetandalila icalici pa Mulungu"}, "nya": {"nav.home": "Kunyumba", "nav.story": "Nkhani Yathu", "nav.pastor": "M'busa Wamkulu", "nav.testimonies": "Umboni", "nav.ministries": "Utumiki", "nav.gallery": "Media Gallery", "nav.impact": "Zotsatira Zathu", "nav.visit": "Tiyendereni", "nav.give": "Perekani", "nav.devotional": "Za tsiku ndi tsiku", "nav.announcements": "Zolengeza", "nav.contact": "Lumikizanani Nafe", "nav.attend": "Ndikupita kutchalitchi Lamlungu"}, "toi": {"nav.home": "Kumatalikilo", "nav.story": "Ko 'etau Talanoa .", "nav.pastor": "Faifekau Ma'olunga", "nav.testimonies": "Ngaahi Fakamoʻoní", "nav.ministries": "Milingo ya Leza", "nav.gallery": "Fale Faka'ali'ali 'o e Mītia", "nav.impact": "Ko 'etau Uesia .", "nav.visit": "'A'ahi mai", "nav.give": "Kupeela", "nav.devotional": "Cilongololo ca buzuba", "nav.announcements": "Makani", "nav.contact": "Fetu'utaki mai", "nav.attend": "'Oku ou 'a'ahi ki he lotu he Sapate ."}, "loz": {"nav.home": "Kwa Hae", "nav.story": "Our Story", "nav.pastor": "Senior Pastor", "nav.testimonies": "Testimonies", "nav.ministries": "Misebezi ya Mulimu", "nav.gallery": "Media Gallery", "nav.impact": "Our Impact", "nav.visit": "Visit Us", "nav.give": "Kufa", "nav.devotional": "Za lika ni lika", "nav.announcements": "Makande", "nav.contact": "Contact Us", "nav.attend": "I am visiting church on Sunday"}, "tum": {"nav.home": "Kunyumba", "nav.story": "Nkhani Yithu", "nav.pastor": "Muliska Mulara", "nav.testimonies": "Ukaboni", "nav.ministries": "Uteŵeti", "nav.gallery": "Vithuzithuzi vya vyakupharazgira", "nav.impact": "Kukhwaskika kwithu", "nav.visit": "Tiyendereni", "nav.give": "Kupereka", "nav.devotional": "Kusopa kwa Zuŵa na Zuŵa", "nav.announcements": "Vipharazgo", "nav.contact": "Lumikizanani nase", "nav.attend": "Nkhuluta ku tchalitchi pa Sabata"}, "hi": {"nav.home": "घर", "nav.story": "हमारी कहानी", "nav.pastor": "वरिष्ठ पादरी", "nav.testimonies": "गवाही", "nav.ministries": "मंत्रालय", "nav.gallery": "मीडिया गैलरी", "nav.impact": "हमारा प्रभाव", "nav.visit": "हमसे मिलें", "nav.give": "देना", "nav.devotional": "दैनिक भक्ति", "nav.announcements": "घोषणाएँ", "nav.contact": "हमसे संपर्क करें", "nav.attend": "मैं रविवार को चर्च जा रहा हूं"}, "fr": {"nav.home": "Accueil", "nav.story": "Notre histoire", "nav.pastor": "Pasteur principal", "nav.testimonies": "Témoignages", "nav.ministries": "Ministères", "nav.gallery": "Galerie Média", "nav.impact": "Notre impact", "nav.visit": "Visitez-nous", "nav.give": "Donner", "nav.devotional": "Dévotion quotidienne", "nav.announcements": "Annonces", "nav.contact": "Contactez-nous", "nav.attend": "Je vais à l'église dimanche"}, "de": {"nav.home": "Zuhause", "nav.story": "Unsere Geschichte", "nav.pastor": "Oberpastor", "nav.testimonies": "Zeugnisse", "nav.ministries": "Ministerien", "nav.gallery": "Mediengalerie", "nav.impact": "Unsere Wirkung", "nav.visit": "Besuchen Sie uns", "nav.give": "Gib", "nav.devotional": "Tägliche Andacht", "nav.announcements": "Ankündigungen", "nav.contact": "Kontaktieren Sie uns", "nav.attend": "Ich besuche am Sonntag die Kirche"}, "it": {"nav.home": "Casa", "nav.story": "La nostra storia", "nav.pastor": "Pastore anziano", "nav.testimonies": "Testimonianze", "nav.ministries": "Ministeri", "nav.gallery": "Galleria multimediale", "nav.impact": "Il nostro impatto", "nav.visit": "Visitaci", "nav.give": "Dai", "nav.devotional": "Devozionale quotidiano", "nav.announcements": "Annunci", "nav.contact": "Contattaci", "nav.attend": "Domenica vado in chiesa"}, "pt": {"nav.home": "Página inicial", "nav.story": "Nossa história", "nav.pastor": "Pastor Sênior", "nav.testimonies": "Testemunhos", "nav.ministries": "Ministérios", "nav.gallery": "Galeria de mídia", "nav.impact": "Nosso impacto", "nav.visit": "Visite-nos", "nav.give": "Dê", "nav.devotional": "Devocional Diário", "nav.announcements": "Anúncios", "nav.contact": "Contate-nos", "nav.attend": "Estou visitando a igreja no domingo"}, "ru": {"nav.home": "Главная", "nav.story": "Наша история", "nav.pastor": "Старший пастор", "nav.testimonies": "Свидетельства", "nav.ministries": "Министерства", "nav.gallery": "Медиа-галерея", "nav.impact": "Наше влияние", "nav.visit": "Посетите нас", "nav.give": "Дай", "nav.devotional": "Ежедневное благочестие", "nav.announcements": "Объявления", "nav.contact": "Свяжитесь с нами", "nav.attend": "Я посещаю церковь в воскресенье"}, "es": {"nav.home": "Inicio", "nav.story": "Nuestra historia", "nav.pastor": "pastor principal", "nav.testimonies": "Testimonios", "nav.ministries": "Ministerios", "nav.gallery": "Galería multimedia", "nav.impact": "Nuestro Impacto", "nav.visit": "Visítenos", "nav.give": "dar", "nav.devotional": "Devocional diario", "nav.announcements": "Anuncios", "nav.contact": "Contáctenos", "nav.attend": "Estoy visitando la iglesia el domingo."}, "zh": {"nav.home": "首页", "nav.story": "我们的故事", "nav.pastor": "主任牧师", "nav.testimonies": "见证", "nav.ministries": "部委", "nav.gallery": "媒体库", "nav.impact": "我们的影响", "nav.visit": "访问我们", "nav.give": "给予", "nav.devotional": "每日灵修", "nav.announcements": "公告", "nav.contact": "联系我们", "nav.attend": "我周日去教堂"}};
+Object.keys(NAV_TRANSLATIONS).forEach(function (lang) {
+  if (!DICTIONARY[lang]) DICTIONARY[lang] = {};
+  Object.keys(NAV_TRANSLATIONS[lang]).forEach(function (key) {
+    DICTIONARY[lang][key] = NAV_TRANSLATIONS[lang][key];
+  });
+});
+
+var originalNodes = new Map();
 	var originalAttrs = new Map();
 	var currentLanguage = 'en';
 
