@@ -3431,18 +3431,6 @@ html.js .reveal[data-delay="3"] { transition-delay: .24s; }
   font-weight: 700;
 }
 
-  .rpai-lang-switcher {
-    bottom: 20px;
-    right: 20px;
-  }
-
-  .rpai-lang-menu {
-    position: absolute;
-    bottom: auto;
-  top: calc(100% + 0.4rem);
-    right: 0;
-    left: auto;
-    width: min(20rem, calc(100vw - 1.5rem));
     max-height: calc(100vh - 6rem);
   }
 }
