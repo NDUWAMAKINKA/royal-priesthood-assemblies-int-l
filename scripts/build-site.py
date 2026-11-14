@@ -258,11 +258,11 @@ def footer(marquee: bool = True, page: str = "index") -> str:
         offset = [k for k, _, _ in ALL_NAV].index(page) * 2
     except ValueError:
         offset = 0
-    strip = FOOTER_STRIP[offset:] + FOOTER_STRIP[:offset]
+    strip = (FOOTER_STRIP[offset:] + FOOTER_STRIP[:offset])[:6]
     marquee_photos = strip
     group = "\n".join(
-        f'<img src="{src}" alt="{alt}" width="160" height="105" loading="lazy" decoding="async" '
-        f'srcset="{src} 640w" sizes="160px">'
+        f'<img src="{src}" alt="{alt}" width="80" height="53" loading="lazy" decoding="async" '
+        f'fetchpriority="low" srcset="{src} 640w" sizes="80px">'
         for src, alt in marquee_photos
     )
     explore = "\n".join(f'<a href="{href}">{label}</a>' for href, label, _ in NAV[:5])
