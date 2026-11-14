@@ -30,7 +30,8 @@
 		{ code: 'it', name: 'Italian', htmlLang: 'it', group: 'world' },
 		{ code: 'pt', name: 'Portuguese', htmlLang: 'pt', group: 'world' },
 		{ code: 'ru', name: 'Russian', htmlLang: 'ru', group: 'world' },
-		{ code: 'es', name: 'Spanish', htmlLang: 'es', group: 'world' }
+		{ code: 'es', name: 'Spanish', htmlLang: 'es', group: 'world' },
+		{ code: 'zh', name: 'Chinese', htmlLang: 'zh', group: 'world' }
 	];
 
 	var NAV_KEYS = {
@@ -494,7 +495,7 @@ var DICTIONARY = {
 
 		localTextPromise = new Promise(function (resolve, reject) {
 			var script = document.createElement('script');
-			script.src = 'js__local-text.js?v=17';
+			script.src = 'js__local-text.js?v=18';
 			script.async = true;
 			script.onload = function () {
 				LOCAL_TEXT = window.RPAI_LOCAL_TEXT || {};

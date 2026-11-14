@@ -187,6 +187,7 @@ def site_header(page: str) -> str:
       <button type="button" role="option" data-lang="ru" aria-selected="false"><img src="flag-ru.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Russian</button>
       
       <button type="button" role="option" data-lang="es" aria-selected="false"><img src="flag-es.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Spanish</button>
+      <button type="button" role="option" data-lang="zh" aria-selected="false"><img src="flag-cn.svg" alt="" aria-hidden="true" width="20" height="14" loading="lazy" decoding="async"> Chinese</button>
       
       </div>
       				</div>
