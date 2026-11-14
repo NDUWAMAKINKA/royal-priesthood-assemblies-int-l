@@ -499,7 +499,7 @@ var DICTIONARY = {
 
 		localTextPromise = new Promise(function (resolve, reject) {
 			var script = document.createElement('script');
-			script.src = 'js__local-text.js?v=18';
+			script.src = 'js__local-text.js?v=19';
 			script.async = true;
 			script.onload = function () {
 				LOCAL_TEXT = window.RPAI_LOCAL_TEXT || {};
